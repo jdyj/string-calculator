@@ -3,12 +3,41 @@
  */
 package string.calculator;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.List;
+import java.util.Stack;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
-    @Test void appHasAGreeting() {
-        App classUnderTest = new App();
-        assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
-    }
+
+  @Test
+  void addTest() {
+    assertEquals(App.add(1, 2), 3);
+  }
+
+  @Test
+  void runTest() {
+    String input = "1+2+3+4+5+6+7+80";
+    List<Character> chars = input.chars()
+        .mapToObj(c -> (char) c)
+        .toList();
+
+    assertEquals(App.run(chars), 108);
+  }
+
+  @Test
+  void calculateTest() {
+
+    Stack<Character> operatorStack = new Stack<>();
+    Stack<Integer> numberStack = new Stack<>();
+
+    operatorStack.push('+');
+
+    numberStack.push(10);
+    numberStack.push(20);
+
+    assertEquals(App.calculate(operatorStack, numberStack), 30);
+  }
+
 }

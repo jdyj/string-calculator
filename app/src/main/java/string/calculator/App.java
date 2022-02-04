@@ -3,12 +3,79 @@
  */
 package string.calculator;
 
+import java.util.List;
+import java.util.Scanner;
+import java.util.Stack;
+
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
+
+  public static void main(String[] args) {
+    Scanner scanner = new Scanner(System.in);
+    System.out.print("num : ");
+    String input = scanner.next();
+
+    List<Character> chars = input.chars()
+        .mapToObj(c -> (char) c)
+        .toList();
+
+    run(chars);
+  }
+
+  public static long run(List<Character> chars) {
+    StringBuilder sb = new StringBuilder();
+
+    Stack<Character> operatorStack = new Stack<>();
+    Stack<Integer> numberStack = new Stack<>();
+    Character sign;
+    int index = 0;
+    for (Character c : chars) {
+      if (c == ' ') {
+        index++;
+        continue;
+      }
+      if (index == chars.size() - 1) {
+        sb.append(c);
+        numberStack.add(Integer.parseInt(sb.toString()));
+      }
+      if (c.equals('+')) {
+        sign = '+';
+        stackAdd(sb, operatorStack, numberStack, sign);
+        sb.setLength(0);
+      } else if (c >= '0' && c <= '9') {
+        sb.append(c);
+      }
+      index++;
     }
 
-    public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+    return calculate(operatorStack, numberStack);
+  }
+
+  public static long calculate(Stack<Character> operatorStack, Stack<Integer> numberStack) {
+    while (!numberStack.isEmpty()) {
+      if (numberStack.size() == 1) {
+        break;
+      }
+      Integer leftValue = numberStack.pop();
+      Integer rightValue = numberStack.pop();
+
+      Character operator = operatorStack.pop();
+      if (operator.equals('+')) {
+        int result = add(leftValue, rightValue);
+        numberStack.push(result);
+      }
+
     }
+    return numberStack.pop();
+  }
+
+  public static void stackAdd(StringBuilder sb, Stack<Character> operatorStack,
+      Stack<Integer> numberStack, Character sign) {
+    numberStack.add(Integer.parseInt(sb.toString()));
+    operatorStack.add(sign);
+  }
+
+  public static int add(int leftValue, int rightValue) {
+    return leftValue + rightValue;
+  }
+
 }
