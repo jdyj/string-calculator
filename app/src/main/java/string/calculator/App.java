@@ -4,7 +4,6 @@
 package string.calculator;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
@@ -35,25 +34,60 @@ public class App {
         index++;
         continue;
       }
+
       if (index == chars.size() - 1) {
         sb.append(c);
         numberStack.add(Integer.parseInt(sb.toString()));
+        checkLastStack(operatorStack, numberStack);
       }
+
+      if (c.equals('*')) {
+        sign = '*';
+        stackAdd(sb, operatorStack, numberStack, sign);
+        sb.setLength(0);
+      }
+
       if (c.equals('+')) {
         sign = '+';
         stackAdd(sb, operatorStack, numberStack, sign);
         sb.setLength(0);
-      } else if (c.equals('-')) {
+      }
+
+      if (c.equals('-')) {
         sign = '-';
         stackAdd(sb, operatorStack, numberStack, sign);
         sb.setLength(0);
-      } else if (c >= '0' && c <= '9') {
+      }
+
+      if (c >= '0' && c <= '9') {
         sb.append(c);
       }
+
       index++;
     }
 
     return calculate(operatorStack, numberStack);
+  }
+
+  public static void checkLastStack(Stack<Character> operatorStack, Stack<Integer> numberStack) {
+
+    if (!operatorStack.isEmpty()) {
+      Character peek = operatorStack.peek();
+      if (peek.equals('*')) {
+        calculateOne(operatorStack, numberStack);
+      }
+    }
+
+  }
+
+  public static void calculateOne(Stack<Character> operatorStack, Stack<Integer> numberStack) {
+
+    Integer rightValue = numberStack.pop();
+    Integer leftValue = numberStack.pop();
+
+    Character operator = operatorStack.pop();
+    operatorSelect(numberStack, leftValue, rightValue, operator);
+
   }
 
   public static long calculate(Stack<Character> operatorStack, Stack<Integer> numberStack) {
@@ -94,15 +128,37 @@ public class App {
     if (operator.equals('+')) {
       result = add(leftValue, rightValue);
       numberStack.push(result);
-    } else if (operator.equals('-')) {
+    }
+    if (operator.equals('-')) {
       result = subtract(leftValue, rightValue);
+      numberStack.push(result);
+    }
+    if (operator.equals('*')) {
+      result = multiply(leftValue, rightValue);
       numberStack.push(result);
     }
   }
 
   public static void stackAdd(StringBuilder sb, Stack<Character> operatorStack,
       Stack<Integer> numberStack, Character sign) {
+
     numberStack.add(Integer.parseInt(sb.toString()));
+    if (sign.equals('+')) {
+      if (!operatorStack.isEmpty()) {
+        Character peek = operatorStack.peek();
+        if (peek.equals('*')) {
+          calculateOne(operatorStack, numberStack);
+        }
+      }
+    }
+    if (sign.equals('-')) {
+      if (!operatorStack.isEmpty()) {
+        Character peek = operatorStack.peek();
+        if (peek.equals('*')) {
+          calculateOne(operatorStack, numberStack);
+        }
+      }
+    }
     operatorStack.add(sign);
   }
 
@@ -112,6 +168,10 @@ public class App {
 
   public static int subtract(int leftValue, int rightValue) {
     return leftValue - rightValue;
+  }
+
+  public static int multiply(int leftValue, int rightValue) {
+    return leftValue * rightValue;
   }
 
 }

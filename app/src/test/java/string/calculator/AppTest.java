@@ -18,10 +18,16 @@ class AppTest {
 
   @Test
   void runTest() {
-    String input = "1+2-3+4+5-6+7";
+    String input = "1+2-3+4+5-6-7";
     List<Character> chars = input.chars().mapToObj(c -> (char) c).toList();
 
-    assertEquals(App.run(chars), 10);
+    assertEquals(App.run(chars), -4);
+
+    input = "1+2-3*4+5-6*7";
+    chars = input.chars().mapToObj(c -> (char) c).toList();
+
+    assertEquals(App.run(chars), -46);
+
   }
 
   @Test
@@ -54,24 +60,75 @@ class AppTest {
   void operatorSelectTest() {
 
     Stack<Integer> numberStack = new Stack<>();
+
+    // 덧셈
     int leftValue = 10;
     int rightValue = 20;
-    char operator = '-';
+    char operator = '+';
 
     App.operatorSelect(numberStack, leftValue, rightValue, operator);
 
     Integer result1 = numberStack.pop();
-    assertEquals(result1, -10);
+    assertEquals(result1, 30);
 
+    // 뺄셈
     leftValue = 10;
     rightValue = 20;
-    operator = '+';
+    operator = '-';
 
     App.operatorSelect(numberStack, leftValue, rightValue, operator);
     Integer result2 = numberStack.pop();
-    assertEquals(result2, 30);
+    assertEquals(result2, -10);
+
+    // 곱셈
+    leftValue = 10;
+    rightValue = 20;
+    operator = '*';
+
+    App.operatorSelect(numberStack, leftValue, rightValue, operator);
+    Integer result3 = numberStack.pop();
+    assertEquals(result3, 200);
 
   }
 
+  @Test
+  void calculateOneTest() {
+
+    Stack<Integer> numberStack = new Stack<>();
+    Stack<Character> operatorStack = new Stack<>();
+
+    numberStack.push(5);
+    numberStack.push(7);
+
+    operatorStack.push('*');
+
+    App.calculateOne(operatorStack, numberStack);
+
+    Integer result = numberStack.pop();
+
+    assertEquals(result, 35);
+
+  }
+
+  @Test
+  void stackAddTest() {
+
+    StringBuilder sb = new StringBuilder();
+    sb.append(1);
+    sb.append(3);
+
+    Stack<Character> operatorStack = new Stack<>();
+    Stack<Integer> numberStack = new Stack<>();
+
+    numberStack.push(30);
+    numberStack.push(2);
+    operatorStack.push('+');
+    operatorStack.push('*');
+
+    App.stackAdd(sb, operatorStack, numberStack, '-');
+
+    Integer result = numberStack.peek();
+    assertEquals(result, 26);
+  }
 
 }
