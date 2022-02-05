@@ -18,12 +18,10 @@ class AppTest {
 
   @Test
   void runTest() {
-    String input = "1+2+3+4+5+6+7+80";
-    List<Character> chars = input.chars()
-        .mapToObj(c -> (char) c)
-        .toList();
+    String input = "1+2-3+4+5-6+7";
+    List<Character> chars = input.chars().mapToObj(c -> (char) c).toList();
 
-    assertEquals(App.run(chars), 108);
+    assertEquals(App.run(chars), 10);
   }
 
   @Test
@@ -39,5 +37,41 @@ class AppTest {
 
     assertEquals(App.calculate(operatorStack, numberStack), 30);
   }
+
+  @Test
+  void reverseStackTest() {
+    Stack<Integer> numberStack = new Stack<>();
+    numberStack.push(1);
+    numberStack.push(2);
+
+    App.reverseStack(numberStack);
+
+    assertEquals(numberStack.peek(), 1);
+
+  }
+
+  @Test
+  void operatorSelectTest() {
+
+    Stack<Integer> numberStack = new Stack<>();
+    int leftValue = 10;
+    int rightValue = 20;
+    char operator = '-';
+
+    App.operatorSelect(numberStack, leftValue, rightValue, operator);
+
+    Integer result1 = numberStack.pop();
+    assertEquals(result1, -10);
+
+    leftValue = 10;
+    rightValue = 20;
+    operator = '+';
+
+    App.operatorSelect(numberStack, leftValue, rightValue, operator);
+    Integer result2 = numberStack.pop();
+    assertEquals(result2, 30);
+
+  }
+
 
 }

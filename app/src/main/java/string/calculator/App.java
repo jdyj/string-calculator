@@ -3,6 +3,8 @@
  */
 package string.calculator;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
@@ -26,7 +28,7 @@ public class App {
 
     Stack<Character> operatorStack = new Stack<>();
     Stack<Integer> numberStack = new Stack<>();
-    Character sign;
+    char sign;
     int index = 0;
     for (Character c : chars) {
       if (c == ' ') {
@@ -41,6 +43,10 @@ public class App {
         sign = '+';
         stackAdd(sb, operatorStack, numberStack, sign);
         sb.setLength(0);
+      } else if (c.equals('-')) {
+        sign = '-';
+        stackAdd(sb, operatorStack, numberStack, sign);
+        sb.setLength(0);
       } else if (c >= '0' && c <= '9') {
         sb.append(c);
       }
@@ -51,6 +57,10 @@ public class App {
   }
 
   public static long calculate(Stack<Character> operatorStack, Stack<Integer> numberStack) {
+
+    reverseStack(operatorStack);
+    reverseStack(numberStack);
+
     while (!numberStack.isEmpty()) {
       if (numberStack.size() == 1) {
         break;
@@ -59,13 +69,35 @@ public class App {
       Integer rightValue = numberStack.pop();
 
       Character operator = operatorStack.pop();
-      if (operator.equals('+')) {
-        int result = add(leftValue, rightValue);
-        numberStack.push(result);
-      }
+      operatorSelect(numberStack, leftValue, rightValue, operator);
 
     }
     return numberStack.pop();
+  }
+
+  public static <T> void reverseStack(Stack<T> stack) {
+
+    List<T> tempList = new ArrayList<>(stack);
+    stack.clear();
+
+    for (int i = tempList.size() - 1; i >= 0; i--) {
+      stack.push(tempList.get(i));
+    }
+
+  }
+
+  public static void operatorSelect(Stack<Integer> numberStack, Integer leftValue,
+      Integer rightValue,
+      Character operator) {
+
+    int result;
+    if (operator.equals('+')) {
+      result = add(leftValue, rightValue);
+      numberStack.push(result);
+    } else if (operator.equals('-')) {
+      result = subtract(leftValue, rightValue);
+      numberStack.push(result);
+    }
   }
 
   public static void stackAdd(StringBuilder sb, Stack<Character> operatorStack,
@@ -76,6 +108,10 @@ public class App {
 
   public static int add(int leftValue, int rightValue) {
     return leftValue + rightValue;
+  }
+
+  public static int subtract(int leftValue, int rightValue) {
+    return leftValue - rightValue;
   }
 
 }
