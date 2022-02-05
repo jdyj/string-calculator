@@ -22,11 +22,11 @@ public class App {
     run(chars);
   }
 
-  public static long run(List<Character> chars) {
+  public static double run(List<Character> chars) {
     StringBuilder sb = new StringBuilder();
 
     Stack<Character> operatorStack = new Stack<>();
-    Stack<Integer> numberStack = new Stack<>();
+    Stack<Double> numberStack = new Stack<>();
     char sign;
     int index = 0;
     for (Character c : chars) {
@@ -37,7 +37,7 @@ public class App {
 
       if (index == chars.size() - 1) {
         sb.append(c);
-        numberStack.add(Integer.parseInt(sb.toString()));
+        numberStack.add(Double.parseDouble(sb.toString()));
         checkLastStack(operatorStack, numberStack);
       }
 
@@ -59,6 +59,12 @@ public class App {
         sb.setLength(0);
       }
 
+      if (c.equals('/')) {
+        sign = '/';
+        stackAdd(sb, operatorStack, numberStack, sign);
+        sb.setLength(0);
+      }
+
       if (c >= '0' && c <= '9') {
         sb.append(c);
       }
@@ -69,28 +75,28 @@ public class App {
     return calculate(operatorStack, numberStack);
   }
 
-  public static void checkLastStack(Stack<Character> operatorStack, Stack<Integer> numberStack) {
+  public static void checkLastStack(Stack<Character> operatorStack, Stack<Double> numberStack) {
 
     if (!operatorStack.isEmpty()) {
       Character peek = operatorStack.peek();
-      if (peek.equals('*')) {
+      if (peek.equals('*') || peek.equals('/')) {
         calculateOne(operatorStack, numberStack);
       }
     }
 
   }
 
-  public static void calculateOne(Stack<Character> operatorStack, Stack<Integer> numberStack) {
+  public static void calculateOne(Stack<Character> operatorStack, Stack<Double> numberStack) {
 
-    Integer rightValue = numberStack.pop();
-    Integer leftValue = numberStack.pop();
+    Double rightValue = numberStack.pop();
+    Double leftValue = numberStack.pop();
 
     Character operator = operatorStack.pop();
     operatorSelect(numberStack, leftValue, rightValue, operator);
 
   }
 
-  public static long calculate(Stack<Character> operatorStack, Stack<Integer> numberStack) {
+  public static double calculate(Stack<Character> operatorStack, Stack<Double> numberStack) {
 
     reverseStack(operatorStack);
     reverseStack(numberStack);
@@ -99,8 +105,8 @@ public class App {
       if (numberStack.size() == 1) {
         break;
       }
-      Integer leftValue = numberStack.pop();
-      Integer rightValue = numberStack.pop();
+      Double leftValue = numberStack.pop();
+      Double rightValue = numberStack.pop();
 
       Character operator = operatorStack.pop();
       operatorSelect(numberStack, leftValue, rightValue, operator);
@@ -120,11 +126,11 @@ public class App {
 
   }
 
-  public static void operatorSelect(Stack<Integer> numberStack, Integer leftValue,
-      Integer rightValue,
+  public static void operatorSelect(Stack<Double> numberStack, Double leftValue,
+      Double rightValue,
       Character operator) {
 
-    int result;
+    double result;
     if (operator.equals('+')) {
       result = add(leftValue, rightValue);
       numberStack.push(result);
@@ -137,16 +143,20 @@ public class App {
       result = multiply(leftValue, rightValue);
       numberStack.push(result);
     }
+    if (operator.equals('/')) {
+      result = divide(leftValue, rightValue);
+      numberStack.push(result);
+    }
   }
 
   public static void stackAdd(StringBuilder sb, Stack<Character> operatorStack,
-      Stack<Integer> numberStack, Character sign) {
+      Stack<Double> numberStack, Character sign) {
 
-    numberStack.add(Integer.parseInt(sb.toString()));
+    numberStack.add(Double.parseDouble(sb.toString()));
     if (sign.equals('+')) {
       if (!operatorStack.isEmpty()) {
         Character peek = operatorStack.peek();
-        if (peek.equals('*')) {
+        if (peek.equals('*') || peek.equals('/')) {
           calculateOne(operatorStack, numberStack);
         }
       }
@@ -154,24 +164,50 @@ public class App {
     if (sign.equals('-')) {
       if (!operatorStack.isEmpty()) {
         Character peek = operatorStack.peek();
+        if (peek.equals('*') || peek.equals('/')) {
+          calculateOne(operatorStack, numberStack);
+        }
+      }
+    }
+
+    if (sign.equals('*')) {
+      if (!operatorStack.isEmpty()) {
+        Character peek = operatorStack.peek();
+        if (peek.equals('/')) {
+          calculateOne(operatorStack, numberStack);
+        }
+      }
+    }
+
+    if (sign.equals('/')) {
+      if (!operatorStack.isEmpty()) {
+        Character peek = operatorStack.peek();
         if (peek.equals('*')) {
           calculateOne(operatorStack, numberStack);
         }
       }
     }
+
     operatorStack.add(sign);
   }
 
-  public static int add(int leftValue, int rightValue) {
+  public static double add(double leftValue, double rightValue) {
     return leftValue + rightValue;
   }
 
-  public static int subtract(int leftValue, int rightValue) {
+  public static double subtract(double leftValue, double rightValue) {
     return leftValue - rightValue;
   }
 
-  public static int multiply(int leftValue, int rightValue) {
+  public static double multiply(double leftValue, double rightValue) {
     return leftValue * rightValue;
+  }
+
+  public static double divide(double leftValue, double rightValue) {
+    if (rightValue == 0) {
+      throw new IllegalStateException("0으로 나눌 수 없습니다");
+    }
+    return leftValue / rightValue;
   }
 
 }
