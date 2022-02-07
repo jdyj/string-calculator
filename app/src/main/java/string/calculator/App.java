@@ -10,6 +10,7 @@ import java.util.Stack;
 
 public class App {
 
+  // 필드로 상태를 가지면서 해봐라 그 중에 스태틱으로 할때와 안할때의 차이점
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
     System.out.print("num : ");
@@ -27,7 +28,7 @@ public class App {
 
     Stack<Character> operatorStack = new Stack<>();
     Stack<Double> numberStack = new Stack<>();
-    char sign;
+
     int index = 0;
     for (Character c : chars) {
       if (c == ' ') {
@@ -36,33 +37,38 @@ public class App {
       }
 
       if (index == chars.size() - 1) {
-        sb.append(c);
-        numberStack.add(Double.parseDouble(sb.toString()));
-        checkLastStack(operatorStack, numberStack);
+        if (c >= '0' && c <= '9') {
+          sb.append(c);
+          numberStack.add(Double.parseDouble(sb.toString()));
+          checkLastStack(operatorStack, numberStack);
+        }
+        if (c.equals(')')) {
+          stackAdd(sb, operatorStack, numberStack, ')');
+        }
       }
 
       if (c.equals('*')) {
-        sign = '*';
-        stackAdd(sb, operatorStack, numberStack, sign);
-        sb.setLength(0);
+        stackAdd(sb, operatorStack, numberStack, '*');
       }
 
       if (c.equals('+')) {
-        sign = '+';
-        stackAdd(sb, operatorStack, numberStack, sign);
-        sb.setLength(0);
+        stackAdd(sb, operatorStack, numberStack, '+');
       }
 
       if (c.equals('-')) {
-        sign = '-';
-        stackAdd(sb, operatorStack, numberStack, sign);
-        sb.setLength(0);
+        stackAdd(sb, operatorStack, numberStack, '-');
       }
 
       if (c.equals('/')) {
-        sign = '/';
-        stackAdd(sb, operatorStack, numberStack, sign);
-        sb.setLength(0);
+        stackAdd(sb, operatorStack, numberStack, '/');
+      }
+
+      if (c.equals('(')) {
+        stackAdd(sb, operatorStack, numberStack, '(');
+      }
+
+      if (c.equals(')')) {
+        stackAdd(sb, operatorStack, numberStack, ')');
       }
 
       if (c >= '0' && c <= '9') {
@@ -152,7 +158,9 @@ public class App {
   public static void stackAdd(StringBuilder sb, Stack<Character> operatorStack,
       Stack<Double> numberStack, Character sign) {
 
-    numberStack.add(Double.parseDouble(sb.toString()));
+    if (!sb.isEmpty()) {
+      numberStack.add(Double.parseDouble(sb.toString()));
+    }
     if (sign.equals('+')) {
       if (!operatorStack.isEmpty()) {
         Character peek = operatorStack.peek();
@@ -160,6 +168,7 @@ public class App {
           calculateOne(operatorStack, numberStack);
         }
       }
+      operatorStack.add(sign);
     }
     if (sign.equals('-')) {
       if (!operatorStack.isEmpty()) {
@@ -168,6 +177,7 @@ public class App {
           calculateOne(operatorStack, numberStack);
         }
       }
+      operatorStack.add(sign);
     }
 
     if (sign.equals('*')) {
@@ -177,6 +187,7 @@ public class App {
           calculateOne(operatorStack, numberStack);
         }
       }
+      operatorStack.add(sign);
     }
 
     if (sign.equals('/')) {
@@ -186,9 +197,25 @@ public class App {
           calculateOne(operatorStack, numberStack);
         }
       }
+      operatorStack.add(sign);
     }
 
-    operatorStack.add(sign);
+    if (sign.equals('(')) {
+      operatorStack.add(sign);
+    }
+
+    if (sign.equals(')')) {
+      while (!operatorStack.isEmpty()) {
+        Character peek = operatorStack.peek();
+        if (peek.equals('(')) {
+          operatorStack.pop();
+          break;
+        }
+        calculateOne(operatorStack, numberStack);
+      }
+    }
+
+    sb.setLength(0);
   }
 
   public static double add(double leftValue, double rightValue) {
