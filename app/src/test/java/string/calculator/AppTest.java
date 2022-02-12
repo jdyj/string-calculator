@@ -6,10 +6,43 @@ package string.calculator;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Stack;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class AppTest {
+
+  @Test
+  @DisplayName("과학적 표기 방법 테스트")
+  void scientificNotationTest1() {
+    String result = "11029350124960";
+    assertEquals(App.scientificNotation(result), "1.1029350124960 * 10^13");
+  }
+
+  @Test
+  @DisplayName("0일때 과학적 표기 방법 테스트")
+  void scientificNotationTest2() {
+    String result = "0";
+    assertEquals(App.scientificNotation(result), "0");
+  }
+
+  @Test
+  @DisplayName("Scanner Test")
+  void scannerTest() {
+    String input1 = "1435-35";
+
+    InputStream in1 = new ByteArrayInputStream(input1.getBytes());
+
+    System.setIn(in1);
+
+    Scanner scanner = new Scanner(System.in);
+    assertEquals(scanner.nextLine(), "1435-35");
+
+  }
 
 }
