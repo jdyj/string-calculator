@@ -11,7 +11,7 @@ public class Calculate {
   private final StringBuilder sb = new StringBuilder();
   private final char[] operators = {'+', '-', '(', ')', '/', '*'};
 
-  public void addNumber(char c) {
+  private void addNumber(char c) {
     if ((c >= '0' && c <= '9') || c == '-') {
       sb.append(c);
     }
@@ -75,7 +75,9 @@ public class Calculate {
           calculateOne();
         }
       }
-      operatorStack.add('+');
+      if (!operatorStack.isEmpty()) {
+        operatorStack.add('+');
+      }
     }
 
     if (sign.equals('*')) {
