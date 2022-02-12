@@ -1,6 +1,5 @@
 package string.calculator;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
@@ -23,28 +22,14 @@ public class Calculate {
         .mapToObj(c -> (char) c)
         .toList();
 
-    int index = 0;
-
     for (Character c : chars) {
-      if (index == chars.size() - 1) {
-        ifLastCharNumber(c);
-        addOperatorToStack(c);
-        break;
-      }
       addOperatorToStack(c);
       addNumber(c);
-      index++;
     }
+
+    checkLastStack();
 
     return getResult();
-  }
-
-  public void ifLastCharNumber(char c) {
-    if (c >= '0' && c <= '9') {
-      sb.append(c);
-      numberStack.add(sb.toString());
-      checkLastStack();
-    }
   }
 
   private void addOperatorToStack(char c) {
@@ -60,43 +45,23 @@ public class Calculate {
       numberStack.add(sb.toString());
     }
     if (sign.equals('+')) {
-      if (!operatorStack.isEmpty()) {
-        Character peek = operatorStack.peek();
-        if (peek.equals('*') || peek.equals('/')) {
-          calculateOne();
-        }
-      }
+      checkPriorityOperatorStack('+');
       operatorStack.add(sign);
     }
     if (sign.equals('-')) {
-      if (!operatorStack.isEmpty()) {
-        Character peek = operatorStack.peek();
-        if (peek.equals('*') || peek.equals('/')) {
-          calculateOne();
-        }
-      }
+      checkPriorityOperatorStack('-');
       if (!operatorStack.isEmpty()) {
         operatorStack.add('+');
       }
     }
 
     if (sign.equals('*')) {
-      if (!operatorStack.isEmpty()) {
-        Character peek = operatorStack.peek();
-        if (peek.equals('/')) {
-          calculateOne();
-        }
-      }
+      checkPriorityOperatorStack('*');
       operatorStack.add(sign);
     }
 
     if (sign.equals('/')) {
-      if (!operatorStack.isEmpty()) {
-        Character peek = operatorStack.peek();
-        if (peek.equals('*')) {
-          calculateOne();
-        }
-      }
+      checkPriorityOperatorStack('/');
       operatorStack.add(sign);
     }
 
@@ -105,20 +70,51 @@ public class Calculate {
     }
 
     if (sign.equals(')')) {
-      while (!operatorStack.isEmpty()) {
-        Character peek = operatorStack.peek();
-        if (peek.equals('(')) {
-          operatorStack.pop();
-          break;
-        }
-        calculateOne();
-      }
+      checkPriorityOperatorStack(')');
     }
 
     sb.setLength(0);
   }
 
-  public void calculateOne() {
+  private void checkPriorityOperatorStack(char sign) {
+
+    if (!operatorStack.isEmpty()) {
+      Character peek;
+      switch (sign) {
+        case '+', '-' -> {
+          peek = operatorStack.peek();
+          if (peek.equals('*') || peek.equals('/')) {
+            calculateOne();
+          }
+        }
+        case '*' -> {
+          peek = operatorStack.peek();
+          if (peek.equals('/')) {
+            calculateOne();
+          }
+        }
+        case '/' -> {
+          peek = operatorStack.peek();
+          if (peek.equals('*')) {
+            calculateOne();
+          }
+        }
+        case ')' -> {
+          while (!operatorStack.isEmpty()) {
+            peek = operatorStack.peek();
+            if (peek.equals('(')) {
+              operatorStack.pop();
+              break;
+            }
+            calculateOne();
+          }
+        }
+      }
+    }
+
+  }
+
+  private void calculateOne() {
 
     String rightValue = numberStack.pop();
     String leftValue = numberStack.pop();
@@ -129,6 +125,10 @@ public class Calculate {
   }
 
   public void checkLastStack() {
+
+    if (sb.length() != 0) {
+      numberStack.add(sb.toString());
+    }
 
     if (!operatorStack.isEmpty()) {
       Character peek = operatorStack.peek();
@@ -249,18 +249,19 @@ public class Calculate {
   private void checkZero(StringBuilder stringBuilder) {
 
     boolean isValid = false;
+    int index = 0;
     while (!isValid) {
-      if (stringBuilder.charAt(0) == '0') {
+      if (stringBuilder.charAt(index) == '0') {
         if (stringBuilder.length() == 1) {
           break;
         }
-        stringBuilder.deleteCharAt(0);
+        stringBuilder.deleteCharAt(index);
       }
-      if (stringBuilder.charAt(0) > '0' && stringBuilder.charAt(0) <= '9') {
+      if (stringBuilder.charAt(index) > '0' && stringBuilder.charAt(index) <= '9') {
         isValid = true;
       }
-      if (stringBuilder.charAt(0) == '-') {
-        isValid = true;
+      if (stringBuilder.charAt(index) == '-') {
+        index++;
       }
     }
 
