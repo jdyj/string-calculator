@@ -1,6 +1,10 @@
 package string.calculator;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Stack;
 
 public class Calculate {
@@ -50,9 +54,7 @@ public class Calculate {
     }
     if (sign.equals('-')) {
       checkPriorityOperatorStack('-');
-      if (!operatorStack.isEmpty()) {
-        operatorStack.add('+');
-      }
+      operatorStack.add('+');
     }
 
     if (sign.equals('*')) {
@@ -158,14 +160,14 @@ public class Calculate {
     }
   }
 
-  public String getResult() {
+  private String getResult() {
 
     while (!numberStack.isEmpty()) {
       if (numberStack.size() == 1) {
         break;
       }
-      String leftValue = numberStack.pop();
       String rightValue = numberStack.pop();
+      String leftValue = numberStack.pop();
 
       Character operator = operatorStack.pop();
       operatorSelect(leftValue, rightValue, operator);
@@ -181,24 +183,30 @@ public class Calculate {
 
     int size = Math.max(leftSize, rightSize);
 
-    int[] left = new int[size + 1];
-    int[] right = new int[size + 1];
+    ArrayList<Integer> left = new ArrayList<>();
+    ArrayList<Integer> right = new ArrayList<>();
 
     // true 음수, false 양수
     boolean leftSign = leftValue.charAt(0) == '-';
     boolean rightSign = rightValue.charAt(0) == '-';
 
-    reverseInput(leftValue, leftSize, left);
-    reverseInput(rightValue, rightSize, right);
+    reverseInput(leftValue, left);
+    reverseInput(rightValue, right);
 
     boolean minus = false;
 
+    ArrayList<Integer> result = new ArrayList<>();
     // 부호가 같을 때
     if (leftSign == rightSign) {
-      for (int i = 0; i < size; i++) {
-        int temp = left[i] + right[i];
-        left[i] = temp % 10;
-        left[i + 1] += temp / 10;
+
+      Iterator<Integer> leftIter = left.iterator();
+      Iterator<Integer> rightIter = right.iterator();
+
+      int prev = 0;
+      while (leftIter.hasNext() && rightIter.hasNext()) {
+        int temp = leftIter.next() + rightIter.next() + prev;
+        result.add(temp % 10);
+        prev = temp / 10;
       }
 
       if (leftSign) {
@@ -209,17 +217,17 @@ public class Calculate {
     // 부호가 다를 때
     if (leftSign != rightSign) {
       //true left, false right
-      boolean sign = signDecision(size, left, right);
+      boolean sign = signDecision(left, right);
 
       if (sign) {
-        subtract(size, left, right);
+        subtract(left, right, result);
         if (leftSign) {
           minus = true;
         }
       }
 
       if (!sign) {
-        subtract(size, right, left);
+        subtract(right, left, result);
         left = right;
         if (rightSign) {
           minus = true;
@@ -228,22 +236,34 @@ public class Calculate {
 
     }
 
-    StringBuilder stringBuilder = new StringBuilder();
-
-    if (left[size] != 0) {
-      stringBuilder.append(left[size + 1]);
-    }
-
-    for (int i = size - 1; i >= 0; i--) {
-      if (i == size - 1 && minus) {
-        stringBuilder.append('-');
-        continue;
-      }
-      stringBuilder.append(left[i]);
-    }
+    StringBuilder stringBuilder = getStringBuilder(result, minus);
 
     checkZero(stringBuilder);
     return stringBuilder.toString();
+  }
+
+
+  private StringBuilder getStringBuilder(ArrayList<Integer> result, boolean minus) {
+    StringBuilder stringBuilder = new StringBuilder();
+
+//    if (result.get(size) != 0) {
+//      stringBuilder.append(result.get(size + 1));
+//      result.remove(size + 1);
+//    }
+
+    ListIterator<Integer> resultIter = result.listIterator(result.size());
+
+    boolean first = true;
+    while (resultIter.hasPrevious()) {
+      if (first && minus) {
+        stringBuilder.append('-');
+        first = false;
+        continue;
+      }
+      stringBuilder.append(resultIter.previous());
+    }
+
+    return stringBuilder;
   }
 
   private void checkZero(StringBuilder stringBuilder) {
@@ -267,32 +287,72 @@ public class Calculate {
 
   }
 
-  private void reverseInput(String value, int size, int[] array) {
-    for (int i = size - 1; i >= 0; i--) {
-      if (value.charAt(i) == '-') {
+  private void reverseInput(String value, ArrayList<Integer> array) {
+
+    List<Character> chars = value.chars()
+        .mapToObj(c -> (char) c)
+        .toList();
+
+    ListIterator<Character> li = chars.listIterator(chars.size());
+
+    while (li.hasPrevious()) {
+      Character previous = li.previous();
+      if (previous == '-') {
         continue;
       }
-      array[size - i - 1] = value.charAt(i) - '0';
+      array.add(previous - '0');
     }
   }
 
-  private void subtract(int size, int[] left, int[] right) {
-    for (int i = 0; i < size; i++) {
-      int temp = left[i] - right[i];
+  private void subtract(ArrayList<Integer> left, ArrayList<Integer> right,
+      ArrayList<Integer> result) {
+
+    Iterator<Integer> leftIter = left.iterator();
+    Iterator<Integer> rightIter = right.iterator();
+
+    boolean minus = false;
+    while (leftIter.hasNext()) {
+      int temp = 0;
+      if (!rightIter.hasNext()) {
+        temp = leftIter.next();
+      }
+      if (rightIter.hasNext()) {
+        temp = leftIter.next() - rightIter.next();
+      }
+      if (minus) {
+        temp--;
+        minus = false;
+      }
       if (temp < 0) {
         temp += 10;
-        left[i + 1]--;
+        minus = true;
       }
-      left[i] = temp;
+      result.add(temp);
     }
+//
+//    for (int i = 0; i < size; i++) {
+//      int temp = left[i] - right[i];
+//      if (temp < 0) {
+//        temp += 10;
+//        left[i + 1]--;
+//      }
+//      left[i] = temp;
+//    }
   }
 
-  private boolean signDecision(int size, int[] left, int[] right) {
-    for (int i = size - 1; i >= 0; i--) {
-      if (left[i] > right[i]) {
+  private boolean signDecision(ArrayList<Integer> left, ArrayList<Integer> right) {
+
+    ListIterator<Integer> leftIter = left.listIterator();
+    ListIterator<Integer> rightIter = right.listIterator();
+
+    while (leftIter.hasPrevious() && rightIter.hasPrevious()) {
+
+      Integer leftValue = leftIter.previous();
+      Integer rightValue = rightIter.previous();
+      if (leftValue > rightValue) {
         return true;
       }
-      if (left[i] < right[i]) {
+      if (leftValue < rightValue) {
         return false;
       }
     }
