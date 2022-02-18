@@ -1,4 +1,4 @@
-package com.string.calculator;
+package com.string.calculator.operator;
 
 import java.util.HashMap;
 import java.util.Map;

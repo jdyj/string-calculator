@@ -13,7 +13,7 @@ public class App {
     System.out.print("num : ");
     String input = scanner.next();
 
-    Calculate calculate = new Calculate();
+    Run calculate = new Run();
 
     String result = calculate.run(input);
 

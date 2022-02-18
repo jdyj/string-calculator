@@ -3,12 +3,12 @@ package com.string.calculator;
 import com.string.calculator.operator.Operator;
 import java.util.List;
 
-public class Calculate {
+public class Run {
 
   private final Operator operator;
   private final Number number = new Number();
 
-  public Calculate() {
+  public Run() {
     operator = new Operator(number);
   }
 
@@ -19,6 +19,11 @@ public class Calculate {
         .toList();
 
     for (Character c : chars) {
+
+      // 이거 물어보기!
+      if (c == ' ') {
+        continue;
+      }
       operator.addOperatorToStack(c);
       number.add(c);
     }

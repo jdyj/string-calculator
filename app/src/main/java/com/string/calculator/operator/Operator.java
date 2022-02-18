@@ -1,13 +1,13 @@
 package com.string.calculator.operator;
 
 import com.string.calculator.Number;
-import com.string.calculator.Oper;
 import java.util.Stack;
 
 public class Operator {
 
   private final Stack<Character> operatorStack = new Stack<>();
   private final Number number;
+  private final Calculate calculate = new Calculate();
 
   public Operator(Number number) {
     this.number = number;
@@ -70,11 +70,10 @@ public class Operator {
 
     String result = null;
     if (operator.equals('+')) {
-      Plus plus = new Plus(leftValue, rightValue);
-      result = plus.add();
+      result = calculate.add(leftValue, rightValue);
     }
     if (operator.equals('*')) {
-//      result = multiply(leftValue, rightValue);
+      result = calculate.multiply(leftValue, rightValue);
     }
     if (operator.equals('/')) {
 //      result = divide(leftValue, rightValue);
