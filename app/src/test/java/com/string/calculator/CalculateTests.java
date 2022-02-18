@@ -1,4 +1,4 @@
-package string.calculator;
+package com.string.calculator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -33,11 +33,9 @@ class CalculateTests {
   @Test
   @DisplayName("큰수 계산")
   void runTest3() {
-    String input =
-//        "1321251246137618883461347886755746357687757654324321234545678976543567765434" +
-        "2158796543256789734567876876534676743245678765432173-12487346987236928345982349523459732457982347985789";
+    String input = "-123121231+1231+1231-1231";
     assertEquals(calculate.run(input),
-        "2146309196269552806221894527011217010787696417446384");
+        "-123120000");
   }
 
 }
