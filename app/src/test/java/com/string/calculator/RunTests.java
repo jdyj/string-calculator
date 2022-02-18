@@ -33,9 +33,16 @@ class RunTests {
   @Test
   @DisplayName("큰수 계산")
   void runTest3() {
-    String input = "-123121231+1231+1231-1231";
+    String input = "-12312123345678646578908765431+167543245678231+1246578908787654654331-9876545678912378654325678981";
     assertEquals(run.run(input),
-        "-123120000");
+        "-22188667778011948902334111850");
+  }
+
+  @Test
+  @DisplayName("제곱 기호가 들어간 계산")
+  void runTest4() {
+    String input = "10*2^2^2";
+    assertEquals(run.run(input), "160");
   }
 
 }

@@ -154,4 +154,19 @@ class CalculateTests {
 
   }
 
+  @Test
+  @DisplayName("제곱")
+  void powTest1() {
+
+    String leftValue = "2";
+    String rightValue = "100";
+
+    Calculate calculate = new Calculate();
+    String result = calculate.pow(leftValue, rightValue);
+
+    assertEquals(result,
+        "1267650600228229401496703205376");
+
+  }
+
 }

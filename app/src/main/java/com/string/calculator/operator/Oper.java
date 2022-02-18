@@ -10,7 +10,8 @@ public enum Oper {
   open('('),
   close(')'),
   divide('/'),
-  multiply('*');
+  multiply('*'),
+  pow('^');
 
   private final char sign;
 

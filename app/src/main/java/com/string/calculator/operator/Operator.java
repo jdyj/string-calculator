@@ -30,6 +30,12 @@ public class Operator {
       Character peek;
       switch (sign) {
         case '+', '-', '*', '/' -> popLastOperator();
+        case '^' -> {
+          peek = operatorStack.peek();
+          if (peek.equals('^')) {
+            calculateOne();
+          }
+        }
         case ')' -> {
           while (!operatorStack.isEmpty()) {
             peek = operatorStack.peek();
@@ -77,6 +83,9 @@ public class Operator {
     }
     if (operator.equals('/')) {
 //      result = divide(leftValue, rightValue);
+    }
+    if (operator.equals('^')) {
+      result = calculate.pow(leftValue, rightValue);
     }
     number.setNumber(result);
   }

@@ -9,7 +9,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.stream.Collectors;
 
 public class Calculate {
 
@@ -75,13 +74,22 @@ public class Calculate {
         .boxed()
         .collect(toList());
 
-    boolean minus = false;
-    if (leftSign != rightSign) {
-      minus = true;
-    }
+    boolean minus = leftSign != rightSign;
 
     return getStringBuilder(result, minus);
 
+  }
+
+  public String pow(String leftValue, String rightValue) {
+
+    int right = Integer.parseInt(rightValue);
+
+    String value = "1";
+    for (int i = 0; i < right; i++) {
+      value = multiply(value, leftValue);
+    }
+
+    return value;
   }
 
   private int[] multiplyCalculate(final List<Integer> left, final List<Integer> right) {
