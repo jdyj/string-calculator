@@ -45,4 +45,11 @@ class RunTests {
     assertEquals(run.run(input), "160");
   }
 
+  @Test
+  @DisplayName("곱셈 뒤에 음수가 나올 때")
+  void runTest5() {
+    String input = "123498*(-1234536589)";
+    assertEquals(run.run(input), "-152462799668322");
+  }
+
 }

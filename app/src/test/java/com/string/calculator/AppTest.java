@@ -15,30 +15,41 @@ import org.junit.jupiter.api.Test;
 class AppTest {
 
   @Test
-  @DisplayName("과학적 표기 방법 테스트")
-  void scientificNotationTest1() {
-    String result = "11029350124960";
-    assertEquals(App.scientificNotation(result), "1.1029350124960 * 10^13");
+  @DisplayName("일반 정수 방법")
+  void mainTest1() {
+    String[] args = null;
+    String input = "1435546534-35\n1";
+
+    InputStream in = new ByteArrayInputStream(input.getBytes());
+    System.setIn(in);
+
+    App.main(args);
+
   }
 
   @Test
-  @DisplayName("0일때 과학적 표기 방법 테스트")
-  void scientificNotationTest2() {
-    String result = "0";
-    assertEquals(App.scientificNotation(result), "0");
+  @DisplayName("과학적 표기 방법")
+  void mainTest2() {
+    String[] args = null;
+    String input = "1435546534-35\n2";
+
+    InputStream in = new ByteArrayInputStream(input.getBytes());
+    System.setIn(in);
+
+    App.main(args);
+
   }
 
   @Test
-  @DisplayName("Scanner Test")
-  void scannerTest() {
-    String input1 = "1435-35";
+  @DisplayName("과학적 표기 방법 - 음수")
+  void mainTest3() {
+    String[] args = null;
+    String input = "-14532623+1246657\n2";
 
-    InputStream in1 = new ByteArrayInputStream(input1.getBytes());
+    InputStream in = new ByteArrayInputStream(input.getBytes());
+    System.setIn(in);
 
-    System.setIn(in1);
-
-    Scanner scanner = new Scanner(System.in);
-    assertEquals(scanner.nextLine(), "1435-35");
+    App.main(args);
 
   }
 
