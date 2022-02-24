@@ -3,54 +3,24 @@
  */
 package com.string.calculator;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.Scanner;
+import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class AppTest {
 
   @Test
-  @DisplayName("일반 정수 방법")
-  void mainTest1() {
+  @DisplayName("main 테스트")
+  void main() {
     String[] args = null;
-    String input = "1435546534-35\n1";
+    String input = "34253678543 - 657788900008887 * 657878921312121";
 
     InputStream in = new ByteArrayInputStream(input.getBytes());
     System.setIn(in);
 
     App.main(args);
-
-  }
-
-  @Test
-  @DisplayName("과학적 표기 방법")
-  void mainTest2() {
-    String[] args = null;
-    String input = "1435546534-35\n2";
-
-    InputStream in = new ByteArrayInputStream(input.getBytes());
-    System.setIn(in);
-
-    App.main(args);
-
-  }
-
-  @Test
-  @DisplayName("과학적 표기 방법 - 음수")
-  void mainTest3() {
-    String[] args = null;
-    String input = "-14532623+1246657\n2";
-
-    InputStream in = new ByteArrayInputStream(input.getBytes());
-    System.setIn(in);
-
-    App.main(args);
-
   }
 
 }

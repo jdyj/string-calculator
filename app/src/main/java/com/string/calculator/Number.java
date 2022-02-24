@@ -4,35 +4,54 @@ import java.util.Stack;
 
 public class Number {
 
-  private final Stack<String> numberStack = new Stack<>();
-  private final StringBuilder sb = new StringBuilder();
+  private Stack<String> numberStack = new Stack<>();
+  private final StringBuilder stringBuilder = new StringBuilder();
 
-  public void add(char c) {
-    if ((c >= '0' && c <= '9') || c == '-') {
-      sb.append(c);
+  public void addNumberToStringBuilder(Character c) {
+    if ((c >= '0' && c <= '9')) {
+      stringBuilder.append(c);
     }
+  }
+
+  public void ifBlankCheckNumberInStringBuilder(char c) {
+    if (c != ' ') {
+      return;
+    }
+
+    if (stringBuilder.length() > 0) {
+      numberStack.add(stringBuilder.toString());
+    }
+
+    stringBuilder.setLength(0);
   }
 
   public String getNumber() {
     return numberStack.pop();
   }
 
-  public void setNumber(String number) {
-    numberStack.push(number);
+  public int size() {
+    return numberStack.size();
   }
 
-  public void checkNumberStack() {
-    if (sb.length() != 0) {
-      numberStack.add(sb.toString());
+  public void addNumberToStackWithStringBuilder() {
+    if (!stringBuilder.isEmpty()) {
+      numberStack.add(stringBuilder.toString());
+      stringBuilder.setLength(0);
     }
   }
 
-  public void clear() {
-    sb.setLength(0);
+  public void addNumberToStack(String number) {
+    numberStack.add(number);
   }
 
-  public int size() {
-    return numberStack.size();
+  public void reverseNumberStack() {
+    Stack<String> temp = new Stack<>();
+
+    while (!numberStack.isEmpty()) {
+      String pop = numberStack.pop();
+      temp.add(pop);
+    }
+    numberStack = temp;
   }
 
 }

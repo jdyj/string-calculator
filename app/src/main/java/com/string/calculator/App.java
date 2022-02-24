@@ -11,45 +11,12 @@ public class App {
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
     System.out.print("num : ");
-    String input = scanner.next();
-
+    String input = scanner.nextLine();
     Run calculate = new Run();
 
     String result = calculate.run(input);
 
-    System.out.println("출력 방법을 지정하세요 : 1. 정수 2. 과학적 표기 방법");
-    System.out.print("output : ");
-    int output = scanner.nextInt();
-    switch (output) {
-      case 1 -> System.out.println(result);
-      case 2 -> System.out.println(scientificNotation(result));
-      default -> {
-      }
-    }
-
-  }
-
-  public static String scientificNotation(String result) {
-
-    if (result.equals("0")) {
-      return "0";
-    }
-    int cnt = -1;
-    StringBuilder sb = new StringBuilder();
-    boolean minus = result.charAt(0) == '-';
-    for (int i = 0; i < result.length(); i++) {
-      char temp = result.charAt(i);
-      if (temp >= '0' && temp <= '9') {
-        sb.append(temp);
-        cnt++;
-      }
-    }
-    sb.insert(1, '.');
-    sb.append(" * 10^").append(cnt);
-    if (minus) {
-      return '-' + sb.toString();
-    }
-    return sb.toString();
+    System.out.println(result);
   }
 
 }

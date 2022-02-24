@@ -1,18 +1,17 @@
 package com.string.calculator;
 
-import com.string.calculator.operator.Operator;
+
+import static java.util.stream.Collectors.toList;
+
 import java.util.List;
 
 public class Run {
 
-  private final Operator operator;
   private final Number number = new Number();
 
-  public Run() {
-    operator = new Operator(number);
-  }
-
   public String run(String input) {
+
+    Operator operator = new Operator(number);
 
     List<Character> chars = input.chars()
         .mapToObj(c -> (char) c)
@@ -20,24 +19,19 @@ public class Run {
 
     for (Character c : chars) {
 
-      // 이거 물어보기!
-      if (c == ' ') {
-        continue;
-      }
-      operator.addOperatorToStack(c);
-      number.add(c);
+      number.ifBlankCheckNumberInStringBuilder(c);
+      operator.ifExistHighOperatorCalculate();
+
+      number.addNumberToStringBuilder(c);
+      operator.addOperatorSignToStack(c);
+
     }
 
-    operator.checkLastStack();
+    number.addNumberToStackWithStringBuilder();
+    operator.ifExistHighOperatorCalculate();
 
-    return getResult();
-  }
 
-  public String getResult() {
-    while (number.size() > 1) {
-      operator.calculateOne();
-    }
-    return number.getNumber();
+    return operator.calculateLeftover();
   }
 
 }
