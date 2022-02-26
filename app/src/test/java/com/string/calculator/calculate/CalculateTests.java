@@ -1,4 +1,4 @@
-package com.string.calculator;
+package com.string.calculator.calculate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -12,11 +12,6 @@ import org.junit.jupiter.api.Test;
 class CalculateTests {
 
   Calculate calculate;
-
-  @BeforeEach
-  void init() {
-
-  }
 
   @Test
   @DisplayName("input 값이 long 범위 안일때")
