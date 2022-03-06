@@ -1,6 +1,6 @@
 package com.string.calculator.calculate;
 
-public class PrimitiveCalculate extends Calculate {
+public class PrimitiveCalculate implements Calculate {
 
   private final long left;
   private final long right;
@@ -21,7 +21,6 @@ public class PrimitiveCalculate extends Calculate {
   }
 
   public PrimitiveCalculate(String leftValue, String rightValue) {
-    super(leftValue, rightValue);
     left = Long.parseLong(leftValue);
     right = Long.parseLong(rightValue);
   }

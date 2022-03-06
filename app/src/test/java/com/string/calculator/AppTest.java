@@ -5,7 +5,6 @@ package com.string.calculator;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -15,11 +14,10 @@ class AppTest {
   @DisplayName("main 테스트")
   void main() {
     String[] args = null;
-    String input = "34253678543 - 657788900008887 * 657878921312121";
-
+    String input =
+        "32435456436754325674356756762221212798 - 342283024803781287013 * 235465789800876543223456543454 + 12341251246 - 3453476564534 + 13476857565743 * 1234567";
     InputStream in = new ByteArrayInputStream(input.getBytes());
     System.setIn(in);
-
     App.main(args);
   }
 

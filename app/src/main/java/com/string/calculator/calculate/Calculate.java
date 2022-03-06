@@ -1,30 +1,23 @@
 package com.string.calculator.calculate;
 
-import java.math.BigInteger;
+import com.string.calculator.OperatorSign;
 
-public abstract class Calculate {
+public interface Calculate {
 
-  private final String leftValue;
-  private final String rightValue;
+  String add();
 
-  public abstract String add();
+  String subtract();
 
-  public abstract String subtract();
+  String multiply();
 
-  public abstract String multiply();
-
-  public Calculate(String leftValue, String rightValue) {
-    this.leftValue = leftValue;
-    this.rightValue = rightValue;
-  }
-
-  public static boolean checkValueInLongType(String value) {
-    try {
-      Long.valueOf(value);
-    } catch (NumberFormatException e) {
-      return false;
+  default String calculateOne(OperatorSign operator) {
+    String result = null;
+    switch (operator) {
+      case plus -> result = add();
+      case subtract -> result = subtract();
+      case multiply -> result = multiply();
     }
-    return true;
+    return result;
   }
 
 }

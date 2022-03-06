@@ -1,5 +1,6 @@
 package com.string.calculator.calculate;
 
+import com.string.calculator.OperatorSign;
 import java.math.BigInteger;
 
 public class BigIntegerCalculate extends Calculate {
@@ -23,7 +24,6 @@ public class BigIntegerCalculate extends Calculate {
   }
 
   public BigIntegerCalculate(String leftValue, String rightValue) {
-    super(leftValue, rightValue);
     left = new BigInteger(leftValue);
     right = new BigInteger(rightValue);
   }

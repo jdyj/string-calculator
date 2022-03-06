@@ -12,9 +12,9 @@ public class App {
     Scanner scanner = new Scanner(System.in);
     System.out.print("num : ");
     String input = scanner.nextLine();
-    Run calculate = new Run();
 
-    String result = calculate.run(input);
+    Number number = new Number();
+    String result = number.calculate(input);
 
     System.out.println(result);
   }
