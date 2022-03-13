@@ -28,7 +28,7 @@ public enum OperatorSign {
     }
   }
 
-  public static boolean findOperator(char c) {
+  public static boolean isSupportedOperator(char c) {
     return map.containsKey(c);
   }
 
