@@ -95,7 +95,7 @@ public class Number {
     if (isNotHighOperator()) {
       return;
     }
-
+    
     String leftValue = getNumber();
     String rightValue = getNumber();
     OperatorSign operatorSign = getOperatorSign();
