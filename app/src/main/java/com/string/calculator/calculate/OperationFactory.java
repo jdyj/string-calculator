@@ -2,13 +2,13 @@ package com.string.calculator.calculate;
 
 import static java.lang.Math.multiplyExact;
 
-public class CalculateFactory {
+public class OperationFactory {
 
-  public Calculate create(String leftValue, String rightValue) {
+  public ArithmeticOperation create(String leftValue, String rightValue) {
     if (isPrimitive(leftValue, rightValue)) {
-      return new PrimitiveCalculate(leftValue, rightValue);
+      return new PrimitiveOperation(leftValue, rightValue);
     }
-    return new BigIntegerCalculate(leftValue, rightValue);
+    return new BigIntegerOperation(leftValue, rightValue);
   }
 
   private boolean isPrimitive(String leftValue, String rightValue) {

@@ -9,11 +9,11 @@ import org.junit.jupiter.api.Test;
 @DisplayName("long 타입 내의 정수")
 class PrimitiveCalculateTests {
 
-  Calculate calculate;
+  ArithmeticOperation calculate;
 
   @BeforeEach
   void init() {
-    calculate = new PrimitiveCalculate("48937",
+    calculate = new PrimitiveOperation("48937",
         "487394573");
   }
 

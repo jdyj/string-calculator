@@ -2,7 +2,7 @@ package com.string.calculator.calculate;
 
 import com.string.calculator.OperatorSign;
 
-public interface Calculate {
+public interface ArithmeticOperation {
 
   String add();
 
