@@ -9,11 +9,11 @@ import org.junit.jupiter.api.Test;
 @DisplayName("큰 수 (long 타입 범위 밖)")
 class BigIntegerCalculateTests {
 
-  Calculate calculate;
+  ArithmeticOperation calculate;
 
   @BeforeEach
   void init() {
-    calculate = new BigIntegerCalculate("489376583975638392234277384",
+    calculate = new BigIntegerOperation("489376583975638392234277384",
         "487394572398457329457489537129380123");
   }
 

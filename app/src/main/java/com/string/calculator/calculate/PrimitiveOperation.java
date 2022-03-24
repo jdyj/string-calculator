@@ -1,6 +1,6 @@
 package com.string.calculator.calculate;
 
-public class PrimitiveCalculate implements Calculate {
+public class PrimitiveOperation implements ArithmeticOperation {
 
   private final long left;
   private final long right;
@@ -20,7 +20,7 @@ public class PrimitiveCalculate implements Calculate {
     return Long.toString(left * right);
   }
 
-  public PrimitiveCalculate(String leftValue, String rightValue) {
+  public PrimitiveOperation(String leftValue, String rightValue) {
     left = Long.parseLong(leftValue);
     right = Long.parseLong(rightValue);
   }

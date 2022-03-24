@@ -13,8 +13,8 @@ public class App {
     System.out.print("num : ");
     String input = scanner.nextLine();
 
-    Number number = new Number();
-    String result = number.calculate(input);
+    Run run = new Run();
+    String result = run.calculate(input);
 
     System.out.println(result);
   }

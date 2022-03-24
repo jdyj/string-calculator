@@ -1,9 +1,8 @@
 package com.string.calculator.calculate;
 
-import com.string.calculator.OperatorSign;
 import java.math.BigInteger;
 
-public class BigIntegerCalculate implements Calculate {
+public class BigIntegerOperation implements ArithmeticOperation {
 
   private final BigInteger left;
   private final BigInteger right;
@@ -23,7 +22,7 @@ public class BigIntegerCalculate implements Calculate {
     return left.multiply(right).toString();
   }
 
-  public BigIntegerCalculate(String leftValue, String rightValue) {
+  public BigIntegerOperation(String leftValue, String rightValue) {
     left = new BigInteger(leftValue);
     right = new BigInteger(rightValue);
   }
