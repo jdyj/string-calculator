@@ -4,6 +4,7 @@
 package com.string.calculator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -16,7 +17,7 @@ import org.junit.jupiter.api.Test;
 class AppTest {
 
   @Test
-  @DisplayName("main 테스트 - 사칙 연산 테스트")
+  @DisplayName("main 테스트 - 다양한 사칙 연산 테스트")
   void main1() {
     String[] args = null;
     String input =
@@ -29,6 +30,54 @@ class AppTest {
     App.main(args);
 
     assertEquals("num : -80595942770822941182435736008003954206997027825111\n", out.toString());
+  }
+
+  @Test
+  @DisplayName("main 테스트 - 덧셈 테스트")
+  void main2() {
+    String[] args = null;
+    String input =
+        "32435456436754325674356756762221212798 + 342283024803781287013";
+    InputStream in = new ByteArrayInputStream(input.getBytes());
+    OutputStream out = new ByteArrayOutputStream();
+    PrintStream printStream = new PrintStream(out);
+    System.setIn(in);
+    System.setOut(printStream);
+    App.main(args);
+
+    assertEquals("num : 32435456436754326016639781566002499811\n", out.toString());
+  }
+
+  @Test
+  @DisplayName("main 테스트 - 뺄셈 테스트")
+  void main3() {
+    String[] args = null;
+    String input =
+        "32435456436754325674356756762221212798 - 342283024803781287013";
+    InputStream in = new ByteArrayInputStream(input.getBytes());
+    OutputStream out = new ByteArrayOutputStream();
+    PrintStream printStream = new PrintStream(out);
+    System.setIn(in);
+    System.setOut(printStream);
+    App.main(args);
+
+    assertEquals("num : 32435456436754325332073731958439925785\n", out.toString());
+  }
+
+  @Test
+  @DisplayName("main 테스트 - 곱셈 테스트")
+  void main4() {
+    String[] args = null;
+    String input =
+        "32435456436754325674356756762221212798 * 342283024803781287013";
+    InputStream in = new ByteArrayInputStream(input.getBytes());
+    OutputStream out = new ByteArrayOutputStream();
+    PrintStream printStream = new PrintStream(out);
+    System.setIn(in);
+    System.setOut(printStream);
+    App.main(args);
+
+    assertEquals("num : 11102106140063548256488156886434948754697698391386186792374\n", out.toString());
   }
 
 }
