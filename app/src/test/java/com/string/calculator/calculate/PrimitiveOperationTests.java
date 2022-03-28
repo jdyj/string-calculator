@@ -6,34 +6,35 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-@DisplayName("큰 수 (long 타입 범위 밖)")
-class BigIntegerCalculateTests {
+@DisplayName("long 타입 내의 정수")
+class PrimitiveOperationTests {
 
   ArithmeticOperation calculate;
 
   @BeforeEach
   void init() {
-    calculate = new BigIntegerOperation("489376583975638392234277384",
-        "487394572398457329457489537129380123");
+    calculate = new PrimitiveOperation("48937",
+        "487394573");
   }
 
   @Test
   @DisplayName("덧셈")
   void addTest() {
-    assertEquals(calculate.add(), "487394572887833913433127929363657507");
+    assertEquals(calculate.add(), "487443510");
   }
 
   @Test
   @DisplayName("뺄셈")
   void subtractTest() {
-    assertEquals(calculate.subtract(), "-487394571909080745481851144895102739");
+    assertEquals(calculate.subtract(), "-487345636");
   }
 
   @Test
   @DisplayName("곱셈")
   void multiplyTest() {
     assertEquals(calculate.multiply(),
-        "238519490888624019359755491028456186644519216126524260758038232");
+        "23851628218901");
   }
+
 
 }
