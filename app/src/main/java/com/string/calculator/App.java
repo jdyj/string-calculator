@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 public class App {
 
-  // 필드로 상태를 가지면서 해봐라 그 중에 스태틱으로 할때와 안할때의 차이점
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
     System.out.print("num : ");
