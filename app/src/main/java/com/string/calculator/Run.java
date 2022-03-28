@@ -22,7 +22,11 @@ public class Run {
         .toList();
 
     for (Character c : chars) {
-      execute(c);
+      // 높은 우선순위 연산자 확인
+      if (existHighOperatorSign()) {
+        addNumber();
+      }
+      parse(c);
     }
     checkLast();
     return getResult();
@@ -33,6 +37,7 @@ public class Run {
       numberCollection.add(numberPiece.getNumber());
     }
 
+    // 높은 우선순위 연산자 확인
     if (existHighOperatorSign()) {
       addNumber();
     }
@@ -49,12 +54,7 @@ public class Run {
     return numberCollection.getOne();
   }
 
-  private void execute(Character c) {
-
-    // 높은 우선순위 연산자 확인
-    if (existHighOperatorSign()) {
-      addNumber();
-    }
+  private void parse(Character c) {
 
     // 파싱 - 연산자
     if (OperatorSign.isSupportedOperator(c)) {
