@@ -55,22 +55,18 @@ public class Run {
       Consumer<Character> operationCollectionAdd,
       Runnable numberCollectionAdd) {
 
-    // 파싱 - 연산자
     if (OperatorSign.isSupportedOperator(c)) {
       operationCollectionAdd.accept(c);
     }
 
-    // 파싱 - 피연산자
     if (canAddNumberToCollection(c)) {
       numberCollectionAdd.run();
     }
 
-    // 파싱 - 피연산자
     if (isNumberPiece(c)) {
       numberPiece.add(c);
     }
 
-    // 파싱 - 마지막 피연산자
     if (last) {
       if (numberPiece.hasNumber()) {
         numberCollection.add(numberPiece.getNumber());
