@@ -4,6 +4,7 @@ import com.string.calculator.calculate.OperationFactory;
 import com.string.calculator.collection.NumberCollection;
 import com.string.calculator.collection.OperatorCollection;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class Run {
 
@@ -21,22 +22,25 @@ public class Run {
         .mapToObj(c -> (char) c)
         .toList();
 
-    for (Character c : chars) {
+    for (int i = 0; i < chars.size(); i++) {
+      Character c = chars.get(i);
+      boolean last = i == chars.size() - 1;
+
       // 높은 우선순위 연산자 확인
       if (existHighOperatorSign()) {
         addNumber();
       }
-      parse(c);
+      parse(c, last,
+          (ch) -> operatorCollection.add(OperatorSign.valueOf(ch)),
+          () -> numberCollection.add(numberPiece.getNumber())
+      );
     }
+
     checkLast();
     return getResult();
   }
 
   private void checkLast() {
-    if (numberPiece.hasNumber()) {
-      numberCollection.add(numberPiece.getNumber());
-    }
-
     // 높은 우선순위 연산자 확인
     if (existHighOperatorSign()) {
       addNumber();
@@ -54,21 +58,30 @@ public class Run {
     return numberCollection.getOne();
   }
 
-  private void parse(Character c) {
+  private void parse(Character c, boolean last,
+      Consumer<Character> operationCollectionAdd,
+      Runnable numberCollectionAdd) {
 
     // 파싱 - 연산자
     if (OperatorSign.isSupportedOperator(c)) {
-      operatorCollection.add(OperatorSign.valueOf(c));
+      operationCollectionAdd.accept(c);
     }
 
     // 파싱 - 피연산자
     if (canAddNumberToCollection(c)) {
-      numberCollection.add(numberPiece.getNumber());
+      numberCollectionAdd.run();
     }
 
     // 파싱 - 피연산자
     if (isNumberPiece(c)) {
       numberPiece.add(c);
+    }
+
+    // 파싱 - 마지막 피연산자
+    if (last) {
+      if (numberPiece.hasNumber()) {
+        numberCollection.add(numberPiece.getNumber());
+      }
     }
   }
 
