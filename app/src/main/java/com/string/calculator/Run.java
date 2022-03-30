@@ -26,25 +26,18 @@ public class Run {
       Character c = chars.get(i);
       boolean last = i == chars.size() - 1;
 
-      // 높은 우선순위 연산자 확인
-      if (existHighOperatorSign()) {
-        addNumber();
-      }
       parse(c, last,
           (ch) -> operatorCollection.add(OperatorSign.valueOf(ch)),
           () -> numberCollection.add(numberPiece.getNumber())
       );
+
+      // 높은 우선순위 연산자 확인
+      if (existHighOperatorSign()) {
+        addNumber();
+      }
     }
 
-    checkLast();
     return getResult();
-  }
-
-  private void checkLast() {
-    // 높은 우선순위 연산자 확인
-    if (existHighOperatorSign()) {
-      addNumber();
-    }
   }
 
   private String getResult() {
