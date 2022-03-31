@@ -26,12 +26,12 @@ public class Run {
         .toList();
 
     for (Character c : chars) {
+      parse(c);
+
       // 우선순위 연산자 탐색
       if (existHighOperatorSign()) {
         addNumber();
       }
-
-      parse(c);
     }
     checkLast();
     return getResult();
@@ -44,10 +44,6 @@ public class Run {
       numberCollection.add(numberPiece.getNumber());
     }
 
-    // 우선순위 연산자 탐색
-    if (existHighOperatorSign()) {
-      addNumber();
-    }
   }
 
   private String getResult() {
