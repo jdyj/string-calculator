@@ -26,7 +26,12 @@ public class Run {
         .toList();
 
     for (Character c : chars) {
-      execute(c);
+      // 우선순위 연산자 탐색
+      if (existHighOperatorSign()) {
+        addNumber();
+      }
+
+      parse(c);
     }
     checkLast();
     return getResult();
@@ -56,13 +61,7 @@ public class Run {
     return numberCollection.getOne();
   }
 
-  private void execute(Character c) {
-
-    // 우선순위 연산자 탐색
-    if (existHighOperatorSign()) {
-      addNumber();
-    }
-
+  private void parse(Character c) {
     // 파싱 - 연산자
     if (OperatorSign.isSupportedOperator(c)) {
       operatorCollection.add(OperatorSign.valueOf(c));
