@@ -33,10 +33,13 @@ public class Run {
   }
 
   private void checkLast() {
+
+    // 파싱 - 피연산자
     if (numberPiece.hasNumber()) {
       numberCollection.add(numberPiece.getNumber());
     }
 
+    // 우선순위 연산자 탐색
     if (existHighOperatorSign()) {
       addNumber();
     }
@@ -54,18 +57,23 @@ public class Run {
   }
 
   private void execute(Character c) {
+
+    // 우선순위 연산자 탐색
     if (existHighOperatorSign()) {
       addNumber();
     }
 
+    // 파싱 - 연산자
     if (OperatorSign.isSupportedOperator(c)) {
       operatorCollection.add(OperatorSign.valueOf(c));
     }
 
+    // 파싱 - 피연산자
     if (canAddNumberToCollection(c)) {
       numberCollection.add(numberPiece.getNumber());
     }
 
+    // 파싱 - 피연산자
     if (isNumberPiece(c)) {
       numberPiece.add(c);
     }
