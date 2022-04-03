@@ -3,8 +3,13 @@
  */
 package com.string.calculator;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -17,10 +22,14 @@ class AppTest {
     String input =
         "32435456436754325674356756762221212798 - 342283024803781287013 * 235465789800876543223456543454 + 12341251246 - 3453476564534 + 13476857565743 * 1234567";
     InputStream in = new ByteArrayInputStream(input.getBytes());
+    OutputStream out = new ByteArrayOutputStream();
+    PrintStream printStream = new PrintStream(out);
+    System.setOut(printStream);
     System.setIn(in);
     App.main(args);
-//    -80595942770822941182435736008003954206997027825111
-//    -80595942770822941182435736008003954206997027825111
+
+    assertEquals("num : -80595942770822941182435736008003954206997027825111\n", out.toString());
+
   }
 
 }
