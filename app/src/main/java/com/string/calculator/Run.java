@@ -3,7 +3,9 @@ package com.string.calculator;
 import com.string.calculator.calculate.OperationFactory;
 import com.string.calculator.collection.NumberCollection;
 import com.string.calculator.collection.OperatorCollection;
+import java.math.BigInteger;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * 얘는 딱 인풋을 받으면 숫자들은 숫자 스택에, 연산자는 연산자스택에 넣어주는 역할만 하고싶은데 <-- 이것도 책임이 많은편인건가 내가 설계한 계산기 특성상 높은 우선순위의
@@ -25,25 +27,19 @@ public class Run {
         .mapToObj(c -> (char) c)
         .toList();
 
-    for (Character c : chars) {
-      parse(c);
-
+    for (int i = 0; i < chars.size(); i++) {
+      Character c = chars.get(i);
+      boolean last = i == chars.size() - 1;
+      parse(c, last
+          , (ch) -> operatorCollection.add(OperatorSign.valueOf(ch))
+          , () -> numberCollection.add(numberPiece.getNumber()));
       // 우선순위 연산자 탐색
       if (existHighOperatorSign()) {
         addNumber();
       }
     }
-    checkLast();
+
     return getResult();
-  }
-
-  private void checkLast() {
-
-    // 파싱 - 피연산자
-    if (numberPiece.hasNumber()) {
-      numberCollection.add(numberPiece.getNumber());
-    }
-
   }
 
   private String getResult() {
@@ -57,20 +53,27 @@ public class Run {
     return numberCollection.getOne();
   }
 
-  private void parse(Character c) {
+  private void parse(Character c, boolean last, Consumer<Character> operationCollectionAdd,
+      Runnable numberCollectionAdd) {
     // 파싱 - 연산자
     if (OperatorSign.isSupportedOperator(c)) {
-      operatorCollection.add(OperatorSign.valueOf(c));
+      operationCollectionAdd.accept(c);
     }
 
     // 파싱 - 피연산자
     if (canAddNumberToCollection(c)) {
-      numberCollection.add(numberPiece.getNumber());
+      numberCollectionAdd.run();
     }
 
     // 파싱 - 피연산자
     if (isNumberPiece(c)) {
       numberPiece.add(c);
+    }
+
+    if (last) {
+      if (numberPiece.hasNumber()) {
+        numberCollectionAdd.run();
+      }
     }
   }
 
