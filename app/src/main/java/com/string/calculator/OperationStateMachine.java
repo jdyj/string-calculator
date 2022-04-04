@@ -10,8 +10,8 @@ public class OperationStateMachine {
   private final OperatorCollection operatorCollection = new OperatorCollection();
   private final Calculate calculate = new Calculate(new OperationFactory());
 
-  public void addOperationSign(Character character) {
-    operatorCollection.add(OperatorSign.valueOf(character));
+  public void addOperationSign(OperatorSign operatorSign) {
+    operatorCollection.add(operatorSign);
   }
 
   public void addNumber(String number) {
@@ -52,6 +52,5 @@ public class OperationStateMachine {
 
     return numberCollection.getOne();
   }
-
 
 }

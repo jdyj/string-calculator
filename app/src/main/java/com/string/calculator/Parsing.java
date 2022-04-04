@@ -1,17 +1,14 @@
 package com.string.calculator;
 
 import java.util.List;
-import java.util.function.Consumer;
 
 public class Parsing {
 
-  private final Consumer<Character> operationCollectionAdd;
-  private final Consumer<String> numberCollectionAdd;
   private final NumberPiece numberPiece = new NumberPiece();
+  private final Xxx xxx;
 
-  public Parsing(Consumer<Character> operationCollectionAdd, Consumer<String> numberCollectionAdd) {
-    this.operationCollectionAdd = operationCollectionAdd;
-    this.numberCollectionAdd = numberCollectionAdd;
+  public Parsing(Xxx xxx) {
+    this.xxx = xxx;
   }
 
   public void parse(String input) {
@@ -23,10 +20,6 @@ public class Parsing {
       Character c = chars.get(i);
       boolean last = i == chars.size() - 1;
       execute(c, last);
-      // 우선순위 연산자 탐색
-      if (machine.existHighOperatorSign()) {
-        machine.addStack();
-      }
     }
 
   }
@@ -35,12 +28,16 @@ public class Parsing {
   private void execute(Character c, boolean last) {
     // 파싱 - 연산자
     if (OperatorSign.isSupportedOperator(c)) {
-      operationCollectionAdd.accept(c);
+//      operationCollectionAdd.accept(c);
+//      machine.operatorParsed(OperatorSign.valueOf(c));
+      xxx.operatorParsed(OperatorSign.valueOf(c));
+      //
     }
 
     // 파싱 - 피연산자
     if (canAddNumberToCollection(c)) {
-      numberCollectionAdd.accept(numberPiece.getNumber());
+//      numberCollectionAdd.accept(numberPiece.getNumber());
+      xxx.numberParsed(numberPiece.getNumber());
     }
 
     // 파싱 - 피연산자
@@ -49,7 +46,7 @@ public class Parsing {
 
       if (last) {
         if (numberPiece.hasNumber()) {
-          numberCollectionAdd.accept(numberPiece.getNumber());
+          xxx.numberParsed(numberPiece.getNumber());
         }
       }
     }
