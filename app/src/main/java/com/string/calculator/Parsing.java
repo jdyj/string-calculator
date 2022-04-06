@@ -28,15 +28,11 @@ public class Parsing {
   private void execute(Character c, boolean last) {
     // 파싱 - 연산자
     if (OperatorSign.isSupportedOperator(c)) {
-//      operationCollectionAdd.accept(c);
-//      machine.operatorParsed(OperatorSign.valueOf(c));
       xxx.operatorParsed(OperatorSign.valueOf(c));
-      //
     }
 
     // 파싱 - 피연산자
     if (canAddNumberToCollection(c)) {
-//      numberCollectionAdd.accept(numberPiece.getNumber());
       xxx.numberParsed(numberPiece.getNumber());
     }
 
