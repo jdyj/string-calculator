@@ -26,17 +26,14 @@ public class Parsing {
 
 
   private void execute(Character c, boolean last) {
-    // 파싱 - 연산자
     if (OperatorSign.isSupportedOperator(c)) {
       xxx.operatorParsed(OperatorSign.valueOf(c));
     }
 
-    // 파싱 - 피연산자
     if (canAddNumberToCollection(c)) {
       xxx.numberParsed(numberPiece.getNumber());
     }
 
-    // 파싱 - 피연산자
     if (isNumberPiece(c)) {
       numberPiece.add(c);
 
