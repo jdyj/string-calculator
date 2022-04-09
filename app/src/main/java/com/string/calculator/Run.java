@@ -7,7 +7,7 @@ public class Run {
 
   public String calculate(String input) {
     parsing = new Parsing(
-        new Xxx() {
+        new Machine() {
           @Override
           public void operatorParsed(OperatorSign operatorSign) {
             machine.addOperationSign(operatorSign);
