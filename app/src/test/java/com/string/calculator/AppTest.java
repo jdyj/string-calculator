@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 class AppTest {
 
   @Test
-  @DisplayName("main 테스트")
+  @DisplayName("main 테스트 - 여러가지 연산자")
   void main() {
     String[] args = null;
     String input =
@@ -31,5 +31,70 @@ class AppTest {
     assertEquals("num : -80595942770822941182435736008003954206997027825111\n", out.toString());
 
   }
+
+  @Test
+  @DisplayName("main 테스트 - 처음과 끝에 공백이 들어간 경우")
+  void main2() {
+    String[] args = null;
+    String input =
+        " 32435456436754325674356756762221212798 - 342283024803781287013 * 235465789800876543223456543454 + 12341251246 - 3453476564534 + 13476857565743 * 1234567 ";
+    InputStream in = new ByteArrayInputStream(input.getBytes());
+    OutputStream out = new ByteArrayOutputStream();
+    PrintStream printStream = new PrintStream(out);
+    System.setOut(printStream);
+    System.setIn(in);
+    App.main(args);
+
+    assertEquals("num : -80595942770822941182435736008003954206997027825111\n", out.toString());
+  }
+
+  @Test
+  @DisplayName("main 테스트 - 곱셈만 있는 경우")
+  void main3() {
+    String[] args = null;
+    String input =
+        "32435456436754325674356756762221212798 * 23452342345 * 233263464646 * 46565656565623423412312312134 * 2111235235";
+    InputStream in = new ByteArrayInputStream(input.getBytes());
+    OutputStream out = new ByteArrayOutputStream();
+    PrintStream printStream = new PrintStream(out);
+    System.setOut(printStream);
+    System.setIn(in);
+    App.main(args);
+
+    assertEquals("num : 17444371097925106196697244640519041351612312748277072066098638108923528793486072764437728559127400\n", out.toString());
+  }
+
+  @Test
+  @DisplayName("main 테스트 - 덧셈만 있는 경우")
+  void main4() {
+    String[] args = null;
+    String input =
+        "32435456436754325674356756762221212798 + 2134134 + 23635465786564 + 2364543654748654566787 + 876863213223123 + 437";
+    InputStream in = new ByteArrayInputStream(input.getBytes());
+    OutputStream out = new ByteArrayOutputStream();
+    PrintStream printStream = new PrintStream(out);
+    System.setOut(printStream);
+    System.setIn(in);
+    App.main(args);
+
+    assertEquals("num : 32435456436754328038901312009556923843\n", out.toString());
+  }
+
+  @Test
+  @DisplayName("main 테스트 - 뺄셈만 있는 경우")
+  void main5() {
+    String[] args = null;
+    String input =
+        "32435456436754325674356756762221212798 - 3422830248037812870134434343434343434434343 - 0 - 234134 - 415657645 - 23452342345 - 233263464646 - 46565656565623423412312312134 - 2111235235";
+    InputStream in = new ByteArrayInputStream(input.getBytes());
+    OutputStream out = new ByteArrayOutputStream();
+    PrintStream printStream = new PrintStream(out);
+    System.setOut(printStream);
+    System.setIn(in);
+    App.main(args);
+
+    assertEquals("num : -3422797812581422681465325610101252768467684\n", out.toString());
+  }
+
 
 }
