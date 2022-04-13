@@ -2,7 +2,7 @@ package com.string.calculator;
 
 // 이름 짓는것
 // 구현체
-public interface MachineHandler {
+public interface ParsingHandler {
 
   void operatorParsed(OperatorSign operatorSign);
 
