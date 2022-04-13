@@ -6,7 +6,7 @@ public class NumberCollection {
 
   private Stack<String> stack = new Stack<>();
 
-  public String getOne() {
+  public String getLastElementAndRemove() {
     return stack.pop();
   }
 

@@ -7,8 +7,8 @@ public class OperatorCollection {
 
   private Stack<OperatorSign> stack = new Stack<>();
 
-  public OperatorSign getOne() {
-    return stack.pop();
+  public OperatorSign getLastElement() {
+    return stack.peek();
   }
 
   public boolean isEmpty() {
@@ -23,8 +23,8 @@ public class OperatorCollection {
     stack.add(operatorSign);
   }
 
-  public OperatorSign peek() {
-    return stack.peek();
+  public void removeLast() {
+    stack.pop();
   }
 
   public void reverse() {

@@ -27,15 +27,16 @@ public class OperationStateMachine {
       return false;
     }
 
-    OperatorSign lastOperator = operatorCollection.peek();
+    OperatorSign lastOperator = operatorCollection.getLastElement();
     return lastOperator == OperatorSign.divide || lastOperator == OperatorSign.multiply;
   }
 
 
   public void addStack() {
-    String leftValue = numberCollection.getOne();
-    String rightValue = numberCollection.getOne();
-    OperatorSign operatorSign = operatorCollection.getOne();
+    String leftValue = numberCollection.getLastElementAndRemove();
+    String rightValue = numberCollection.getLastElementAndRemove();
+    OperatorSign operatorSign = operatorCollection.getLastElement();
+    operatorCollection.removeLast();
     String result = calculate.one(leftValue, rightValue, operatorSign);
     numberCollection.add(result);
   }
@@ -49,7 +50,7 @@ public class OperationStateMachine {
       addStack();
     }
 
-    return numberCollection.getOne();
+    return numberCollection.getLastElementAndRemove();
   }
 
 }
