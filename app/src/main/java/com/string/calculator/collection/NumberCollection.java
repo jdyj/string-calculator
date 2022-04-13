@@ -2,7 +2,7 @@ package com.string.calculator.collection;
 
 import java.util.Stack;
 
-public class NumberCollection {
+final class NumberCollection {
 
   private Stack<String> stack = new Stack<>();
 

@@ -1,8 +1,8 @@
-package com.string.calculator;
+package com.string.calculator.collection;
 
+import com.string.calculator.Calculate;
+import com.string.calculator.OperatorSign;
 import com.string.calculator.calculate.OperationFactory;
-import com.string.calculator.collection.NumberCollection;
-import com.string.calculator.collection.OperatorCollection;
 
 public class OperationStateMachine {
 

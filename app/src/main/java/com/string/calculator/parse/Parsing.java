@@ -1,4 +1,7 @@
-package com.string.calculator;
+package com.string.calculator.parse;
+
+import com.string.calculator.NumberPiece;
+import com.string.calculator.OperatorSign;
 
 public class Parsing {
 

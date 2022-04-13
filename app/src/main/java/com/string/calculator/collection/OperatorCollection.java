@@ -3,7 +3,7 @@ package com.string.calculator.collection;
 import com.string.calculator.OperatorSign;
 import java.util.Stack;
 
-public class OperatorCollection {
+final class OperatorCollection {
 
   private Stack<OperatorSign> stack = new Stack<>();
 

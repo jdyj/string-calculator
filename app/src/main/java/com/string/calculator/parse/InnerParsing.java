@@ -1,9 +1,9 @@
-package com.string.calculator;
+package com.string.calculator.parse;
 
 import java.util.List;
 import java.util.function.BiConsumer;
 
-public class InnerParsing {
+final class InnerParsing {
 
   public void iterate(String input, BiConsumer<Character, Boolean> forloop) {
     List<Character> chars = input.chars()
