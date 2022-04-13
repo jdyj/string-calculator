@@ -5,9 +5,9 @@ import java.util.List;
 public class Parsing {
 
   private final NumberPiece numberPiece = new NumberPiece();
-  private final Machine machine;
+  private final MachineHandler machine;
 
-  public Parsing(Machine machine) {
+  public Parsing(MachineHandler machine) {
     this.machine = machine;
   }
 
