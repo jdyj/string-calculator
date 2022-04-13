@@ -23,7 +23,6 @@ public class OperationStateMachine {
       return false;
     }
 
-    // 빠져야 하는 코드인데 현재 코드를 고치면 안됨...
     if (operatorCollection.size() >= numberCollection.size()) {
       return false;
     }
