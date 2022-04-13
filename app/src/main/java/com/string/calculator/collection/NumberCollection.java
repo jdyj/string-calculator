@@ -6,12 +6,20 @@ final class NumberCollection {
 
   private Stack<String> stack = new Stack<>();
 
+  public String getLastElement() {
+    return stack.peek();
+  }
+
   public String getLastElementAndRemove() {
     return stack.pop();
   }
 
   public void add(String number) {
     stack.add(number);
+  }
+
+  public boolean hasNext() {
+    return stack.size() > 1;
   }
 
   public int size() {

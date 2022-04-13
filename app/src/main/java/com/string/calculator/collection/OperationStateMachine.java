@@ -42,15 +42,15 @@ public class OperationStateMachine {
   }
 
 
-  public String getResult() {
+  public String getFinalResult() {
     numberCollection.reverse();
     operatorCollection.reverse();
 
-    while (numberCollection.size() > 1) {
+    while (numberCollection.hasNext()) {
       addStack();
     }
 
-    return numberCollection.getLastElementAndRemove();
+    return numberCollection.getLastElement();
   }
 
 }
