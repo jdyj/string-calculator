@@ -5,10 +5,10 @@ import java.util.List;
 public class Parsing {
 
   private final NumberPiece numberPiece = new NumberPiece();
-  private final MachineHandler machine;
+  private final MachineHandler machineHandler;
 
-  public Parsing(MachineHandler machine) {
-    this.machine = machine;
+  public Parsing(MachineHandler machineHandler) {
+    this.machineHandler = machineHandler;
   }
 
   public void parse(String input) {
@@ -27,14 +27,14 @@ public class Parsing {
 
   private void execute(Character c, boolean last) {
     if (OperatorSign.isSupportedOperator(c)) {
-      machine.operatorParsed(OperatorSign.valueOf(c));
+      machineHandler.operatorParsed(OperatorSign.valueOf(c));
     } else if (canAddNumberToCollection(c)) {
-      machine.numberParsed(numberPiece.getNumber());
+      machineHandler.numberParsed(numberPiece.getNumber());
     } else if (isNumberPiece(c)) {
       numberPiece.add(c);
       if (last) {
         if (numberPiece.hasNumber()) {
-          machine.numberParsed(numberPiece.getNumber());
+          machineHandler.numberParsed(numberPiece.getNumber());
         }
       }
     }
