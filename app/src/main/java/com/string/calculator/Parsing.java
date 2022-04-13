@@ -28,15 +28,10 @@ public class Parsing {
   private void execute(Character c, boolean last) {
     if (OperatorSign.isSupportedOperator(c)) {
       machine.operatorParsed(OperatorSign.valueOf(c));
-    }
-
-    if (canAddNumberToCollection(c)) {
+    } else if (canAddNumberToCollection(c)) {
       machine.numberParsed(numberPiece.getNumber());
-    }
-
-    if (isNumberPiece(c)) {
+    } else if (isNumberPiece(c)) {
       numberPiece.add(c);
-
       if (last) {
         if (numberPiece.hasNumber()) {
           machine.numberParsed(numberPiece.getNumber());
