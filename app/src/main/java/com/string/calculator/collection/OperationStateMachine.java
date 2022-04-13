@@ -14,8 +14,8 @@ public class OperationStateMachine {
     operatorCollection.add(operatorSign);
   }
 
-  public void addNumber(String number) {
-    numberCollection.add(number);
+  public void addNumber(String element) {
+    numberCollection.add(element);
   }
 
   public boolean existHighOperatorSign() {
