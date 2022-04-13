@@ -3,9 +3,9 @@ package com.string.calculator.parse;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-final class InnerParsing {
+final class InternalParsing {
 
-  public void iterate(String input, BiConsumer<Character, Boolean> forloop) {
+  public void iterate(String input, BiConsumer<Character, Boolean> elementParsed) {
     List<Character> chars = input.chars()
         .mapToObj(c -> (char) c)
         .toList();
@@ -13,7 +13,7 @@ final class InnerParsing {
     for (int i = 0; i < chars.size(); i++) {
       Character c = chars.get(i);
       boolean last = i == chars.size() - 1;
-      forloop.accept(c, last);
+      elementParsed.accept(c, last);
     }
   }
 }

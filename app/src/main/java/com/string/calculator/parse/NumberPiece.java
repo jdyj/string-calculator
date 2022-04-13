@@ -1,6 +1,6 @@
-package com.string.calculator;
+package com.string.calculator.parse;
 
-public class NumberPiece {
+final class NumberPiece {
 
   private final StringBuilder stringBuilder = new StringBuilder();
 
@@ -9,9 +9,11 @@ public class NumberPiece {
   }
 
   public String getNumber() {
-    String number = stringBuilder.toString();
+    return stringBuilder.toString();
+  }
+
+  public void makeEmpty() {
     stringBuilder.setLength(0);
-    return number;
   }
 
   public boolean hasNumber() {

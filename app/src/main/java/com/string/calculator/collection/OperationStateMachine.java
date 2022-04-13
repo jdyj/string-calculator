@@ -10,8 +10,8 @@ public class OperationStateMachine {
   private final OperatorCollection operatorCollection = new OperatorCollection();
   private final Calculate calculate = new Calculate(new OperationFactory());
 
-  public void addOperationSign(OperatorSign operatorSign) {
-    operatorCollection.add(operatorSign);
+  public void addOperationSign(OperatorSign element) {
+    operatorCollection.add(element);
   }
 
   public void addNumber(String element) {
