@@ -2,6 +2,7 @@ package com.string.calculator.parse;
 
 import com.string.calculator.MachineHandler;
 import com.string.calculator.OperatorSign;
+import java.util.List;
 
 public class Parsing {
 
@@ -14,7 +15,11 @@ public class Parsing {
   }
 
   public void parse(String input) {
-    internalParsing.iterate(input, this::execute);
+    List<Character> chars = input.chars()
+        .mapToObj(c -> (char) c)
+        .toList();
+
+    internalParsing.iterate(chars, this::execute);
   }
 
 

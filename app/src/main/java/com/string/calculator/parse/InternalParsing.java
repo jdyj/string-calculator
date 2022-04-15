@@ -5,11 +5,7 @@ import java.util.function.BiConsumer;
 
 final class InternalParsing {
 
-  public void iterate(String input, BiConsumer<Character, Boolean> elementParsed) {
-    List<Character> chars = input.chars()
-        .mapToObj(c -> (char) c)
-        .toList();
-
+  public void iterate(List<Character> chars, BiConsumer<Character, Boolean> elementParsed) {
     for (int i = 0; i < chars.size(); i++) {
       Character c = chars.get(i);
       boolean last = i == chars.size() - 1;
