@@ -2,7 +2,6 @@ package com.string.calculator;
 
 import com.string.calculator.collection.OperationStateMachine;
 import com.string.calculator.parse.Parsing;
-import com.string.calculator.parse.ParsingHandler;
 
 public class Run {
 
@@ -11,7 +10,7 @@ public class Run {
 
   public String calculate(String input) {
     parsing = new Parsing(
-        new ParsingHandler() {
+        new MachineHandler() {
           @Override
           public void operatorParsed(OperatorSign operatorSign) {
             machine.addOperationSign(operatorSign);

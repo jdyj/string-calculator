@@ -1,10 +1,8 @@
-package com.string.calculator.parse;
-
-import com.string.calculator.OperatorSign;
+package com.string.calculator;
 
 // 이름 짓는것
 // 구현체
-public interface ParsingHandler {
+public interface MachineHandler {
 
   void operatorParsed(OperatorSign operatorSign);
 
