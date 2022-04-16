@@ -8,7 +8,6 @@ public class Parsing {
 
   private final NumberPiece numberPiece = new NumberPiece();
   private final MachineHandler machineHandler;
-  private final InternalParsing internalParsing = new InternalParsing();
 
   public Parsing(MachineHandler machineHandler) {
     this.machineHandler = machineHandler;
@@ -18,8 +17,8 @@ public class Parsing {
     List<Character> chars = input.chars()
         .mapToObj(c -> (char) c)
         .toList();
-
-    internalParsing.iterate(chars, this::execute);
+    InternalParsing internalParsing = new InternalParsing(chars);
+    internalParsing.iterate(this::execute);
   }
 
 
