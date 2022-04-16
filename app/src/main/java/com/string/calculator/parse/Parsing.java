@@ -18,7 +18,7 @@ public class Parsing {
         .mapToObj(c -> (char) c)
         .toList();
     InternalParsing internalParsing = new InternalParsing(chars);
-    internalParsing.iterate(this::execute);
+    internalParsing.methodIterated(this::execute);
   }
 
 

@@ -11,7 +11,7 @@ final class InternalParsing {
     this.chars = chars;
   }
 
-  public void iterate(BiConsumer<Character, Boolean> elementParsed) {
+  public void methodIterated(BiConsumer<Character, Boolean> elementParsed) {
     for (int i = 0; i < chars.size(); i++) {
       Character c = chars.get(i);
       boolean last = i == chars.size() - 1;
