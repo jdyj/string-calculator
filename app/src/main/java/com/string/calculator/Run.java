@@ -13,12 +13,12 @@ public class Run {
         new MachineHandler() {
           @Override
           public void operatorParsed(OperatorSign operatorSign) {
-            machine.addOperationSign(operatorSign);
+            machine.add(operatorSign);
           }
 
           @Override
           public void numberParsed(String number) {
-            machine.addNumber(number);
+            machine.add(number);
             if (machine.existHighOperatorSign()) {
               machine.addStack();
             }

@@ -10,12 +10,12 @@ public class OperationStateMachine {
   private final OperatorCollection operatorCollection = new OperatorCollection();
   private final Calculate calculate = new Calculate(new OperationFactory());
 
-  public void addOperationSign(OperatorSign element) {
-    operatorCollection.add(element);
+  public void add(OperatorSign operatorSign) {
+    operatorCollection.add(operatorSign);
   }
 
-  public void addNumber(String element) {
-    numberCollection.add(element);
+  public void add(String number) {
+    numberCollection.add(number);
   }
 
   public boolean existHighOperatorSign() {
