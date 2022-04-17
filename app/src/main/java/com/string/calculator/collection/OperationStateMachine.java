@@ -42,7 +42,7 @@ public class OperationStateMachine {
   }
 
 
-  public String getFinalResult() {
+  public String getCalculatedValue() {
     numberCollection.reverse();
     operatorCollection.reverse();
 

@@ -28,7 +28,7 @@ public class Run {
 
     parsing.parse(input);
 
-    return machine.getFinalResult();
+    return machine.getCalculatedValue();
   }
 
 }
