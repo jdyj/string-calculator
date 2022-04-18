@@ -20,8 +20,8 @@ public class Parsing {
         .toList();
 
     // 얘가 뭘 하고 있는지.. (책임이 무엇인가)
-    InternalParsing internalParsing = new InternalParsing(chars);
-    internalParsing.methodIterated(this::execute);
+    Iterator iterator = new Iterator(chars);
+    iterator.forEachWithCheckLast(this::execute);
   }
 
 
