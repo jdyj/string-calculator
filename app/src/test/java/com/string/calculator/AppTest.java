@@ -13,6 +13,7 @@ import java.io.PrintStream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+// 여러가지 경우의 테스트 작성하기 연산자가 없거나 등,,
 class AppTest {
 
   @Test

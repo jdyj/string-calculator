@@ -1,24 +1,49 @@
 package com.string.calculator.collection;
 
 import com.string.calculator.Calculate;
+import com.string.calculator.ParsingHandler;
 import com.string.calculator.OperatorSign;
 import com.string.calculator.calculate.OperationFactory;
 
-public class OperationStateMachine {
+public class OperationStateMachine implements ParsingHandler {
 
   private final NumberCollection numberCollection = new NumberCollection();
   private final OperatorCollection operatorCollection = new OperatorCollection();
   private final Calculate calculate = new Calculate(new OperationFactory());
 
-  public void add(OperatorSign operatorSign) {
+  public String getCalculatedValue() {
+    numberCollection.reverse();
+    operatorCollection.reverse();
+
+    while (numberCollection.hasNext()) {
+      addStack();
+    }
+
+    return numberCollection.getLastElement();
+  }
+
+  @Override
+  public void operatorParsed(OperatorSign operatorSign) {
+    add(operatorSign);
+  }
+
+  @Override
+  public void numberParsed(String number) {
+    add(number);
+    if (existHighOperatorSign()) {
+      addStack();
+    }
+  }
+
+  private void add(OperatorSign operatorSign) {
     operatorCollection.add(operatorSign);
   }
 
-  public void add(String number) {
+  private void add(String number) {
     numberCollection.add(number);
   }
 
-  public boolean existHighOperatorSign() {
+  private boolean existHighOperatorSign() {
     if (operatorCollection.isEmpty()) {
       return false;
     }
@@ -32,7 +57,7 @@ public class OperationStateMachine {
   }
 
 
-  public void addStack() {
+  private void addStack() {
     String leftValue = numberCollection.getLastElementAndRemove();
     String rightValue = numberCollection.getLastElementAndRemove();
     OperatorSign operatorSign = operatorCollection.getLastElement();
@@ -41,16 +66,5 @@ public class OperationStateMachine {
     numberCollection.add(result);
   }
 
-
-  public String getCalculatedValue() {
-    numberCollection.reverse();
-    operatorCollection.reverse();
-
-    while (numberCollection.hasNext()) {
-      addStack();
-    }
-
-    return numberCollection.getLastElement();
-  }
 
 }

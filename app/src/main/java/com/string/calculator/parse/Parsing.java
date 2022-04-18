@@ -1,15 +1,16 @@
 package com.string.calculator.parse;
 
-import com.string.calculator.MachineHandler;
+import com.string.calculator.ParsingHandler;
 import com.string.calculator.OperatorSign;
 import java.util.List;
 
+// 하는 일 : 파싱..
 public class Parsing {
 
   private final NumberPiece numberPiece = new NumberPiece();
-  private final MachineHandler machineHandler;
+  private final ParsingHandler machineHandler;
 
-  public Parsing(MachineHandler machineHandler) {
+  public Parsing(ParsingHandler machineHandler) {
     this.machineHandler = machineHandler;
   }
 
@@ -17,6 +18,8 @@ public class Parsing {
     List<Character> chars = input.chars()
         .mapToObj(c -> (char) c)
         .toList();
+
+    // 얘가 뭘 하고 있는지.. (책임이 무엇인가)
     InternalParsing internalParsing = new InternalParsing(chars);
     internalParsing.methodIterated(this::execute);
   }
