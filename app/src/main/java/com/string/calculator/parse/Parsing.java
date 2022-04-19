@@ -28,10 +28,16 @@ public class Parsing {
   private void execute(Character c, boolean last) {
     if (OperatorSign.isSupportedOperator(c)) {
       parsingHandler.operatorParsed(OperatorSign.valueOf(c));
-    } else if (canNumberParsed(c)) {
+      return;
+    }
+
+    if (canNumberParsed(c)) {
       parsingHandler.numberParsed(numberPiece.getNumber());
       numberPiece.makeEmpty();
-    } else if (isNumberPiece(c)) {
+      return;
+    }
+
+    if (isNumberPiece(c)) {
       numberPiece.add(c);
       if (last) {
         if (numberPiece.hasNumber()) {
