@@ -36,7 +36,6 @@ class AppTest {
   void main3() {
     String input =
         "32435456436754325674356756762221212798 * 23452342345 * 233263464646 * 46565656565623423412312312134 * 2111235235";
-
     assertEquals(
         "num : 17444371097925106196697244640519041351612312748277072066098638108923528793486072764437728559127400\n",
         getOutputStream(input, args).toString());
@@ -46,9 +45,8 @@ class AppTest {
   @DisplayName("main 테스트 - 덧셈만 있는 경우")
   void main4() {
     String input =
-        "32435456436754325674356756762221212798 + 2134134 + 23635465786564 + 2364543654748654566787 + 876863213223123 + 437";
-
-    assertEquals("num : 32435456436754328038901312009556923843\n",
+        "324354564367543256 + 2134134 + 23635465786564 + 2364543654748654566787 + 876863213223123 + 437";
+    assertEquals("num : 2364868909811703254301\n",
         getOutputStream(input, args).toString());
   }
 
@@ -56,9 +54,8 @@ class AppTest {
   @DisplayName("main 테스트 - 뺄셈만 있는 경우")
   void main5() {
     String input =
-        "32435456436754325674356756762221212798 - 3422830248037812870134434343434343434434343 - 0 - 234134 - 415657645 - 23452342345 - 233263464646 - 46565656565623423412312312134 - 2111235235";
-
-    assertEquals("num : -3422797812581422681465325610101252768467684\n",
+        "3243545643675438 - 34228302480";
+    assertEquals("num : 3243511415372958\n",
         getOutputStream(input, args).toString());
   }
 
@@ -66,23 +63,20 @@ class AppTest {
   @DisplayName("main 테스트 - 비어있는 경우")
   void main6() {
     String input = "";
-
-    assertEquals("num : \n", getOutputStream(input, args).toString());
+    assertThrows(IllegalStateException.class, () -> getOutputStream(input, args));
   }
 
   @Test
   @DisplayName("main 테스트 - 공백만 있는 경우")
   void main7() {
     String input = "  ";
-
-    assertEquals("num : \n", getOutputStream(input, args).toString());
+    assertThrows(IllegalStateException.class, () -> getOutputStream(input, args));
   }
 
   @Test
   @DisplayName("main 테스트 - 숫자만 있는 경우")
   void main8() {
     String input = "1234";
-
     assertEquals("num : 1234\n", getOutputStream(input, args).toString());
   }
 
@@ -90,7 +84,6 @@ class AppTest {
   @DisplayName("main 테스트 - 숫자와 공백만 있는 경우")
   void main9() {
     String input = "    1234   ";
-
     assertEquals("num : 1234\n", getOutputStream(input, args).toString());
   }
 
@@ -98,7 +91,6 @@ class AppTest {
   @DisplayName("main 테스트 - 연산자가 없는 경우")
   void main10() {
     String input = "12 34";
-
     assertThrows(IllegalStateException.class, () -> getOutputStream(input, args));
   }
 
@@ -106,7 +98,6 @@ class AppTest {
   @DisplayName("main 테스트 - 연산자만 있는 경우")
   void main11() {
     String input = "+";
-
     assertThrows(IllegalStateException.class, () -> getOutputStream(input, args));
   }
 
