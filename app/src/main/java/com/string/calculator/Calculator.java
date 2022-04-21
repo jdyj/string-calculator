@@ -3,7 +3,7 @@ package com.string.calculator;
 import com.string.calculator.collection.OperationStateMachine;
 import com.string.calculator.parse.Parsing;
 
-public class Run {
+public class Calculator {
 
   public String calculate(String input) {
     // 스레드 safe
