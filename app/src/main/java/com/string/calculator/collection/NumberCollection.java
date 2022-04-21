@@ -18,6 +18,10 @@ final class NumberCollection {
     stack.add(number);
   }
 
+  public boolean isEmpty() {
+    return stack.isEmpty();
+  }
+
   public boolean hasNext() {
     return stack.size() > 1;
   }
@@ -29,7 +33,7 @@ final class NumberCollection {
   public void reverse() {
     Stack<String> temp = new Stack<>();
 
-    while (!stack.isEmpty()) {
+    while (!isEmpty()) {
       String pop = stack.pop();
       temp.add(pop);
     }

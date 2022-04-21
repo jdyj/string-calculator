@@ -12,6 +12,10 @@ public class OperationStateMachine implements ParsingHandler {
   private final Calculate calculate = new Calculate(new OperationFactory());
 
   public String getCalculatedValue() {
+    if (numberCollection.isEmpty()) {
+      return "";
+    }
+
     numberCollection.reverse();
     operatorCollection.reverse();
 
