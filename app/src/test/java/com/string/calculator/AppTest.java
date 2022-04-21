@@ -4,6 +4,7 @@
 package com.string.calculator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -28,16 +29,6 @@ class AppTest {
     assertEquals("num : -80595942770822941182435736008003954206997027825111\n",
         getOutputStream(input, args).toString());
 
-  }
-
-  @Test
-  @DisplayName("main 테스트 - 처음과 끝에 공백이 들어간 경우")
-  void main2() {
-    String input =
-        " 32435456436754325674356756762221212798 - 342283024803781287013 * 235465789800876543223456543454 + 12341251246 - 3453476564534 + 13476857565743 * 1234567 ";
-
-    assertEquals("num : -80595942770822941182435736008003954206997027825111\n",
-        getOutputStream(input, args).toString());
   }
 
   @Test
@@ -72,7 +63,7 @@ class AppTest {
   }
 
   @Test
-  @DisplayName("main 테스트 - 빈 문자열")
+  @DisplayName("main 테스트 - 비어있는 경우")
   void main6() {
     String input = "";
 
@@ -80,11 +71,43 @@ class AppTest {
   }
 
   @Test
-  @DisplayName("main 테스트 - 공백만 있는 문자열")
+  @DisplayName("main 테스트 - 공백만 있는 경우")
   void main7() {
     String input = "  ";
 
     assertEquals("num : \n", getOutputStream(input, args).toString());
+  }
+
+  @Test
+  @DisplayName("main 테스트 - 숫자만 있는 경우")
+  void main8() {
+    String input = "1234";
+
+    assertEquals("num : 1234\n", getOutputStream(input, args).toString());
+  }
+
+  @Test
+  @DisplayName("main 테스트 - 숫자와 공백만 있는 경우")
+  void main9() {
+    String input = "    1234   ";
+
+    assertEquals("num : 1234\n", getOutputStream(input, args).toString());
+  }
+
+  @Test
+  @DisplayName("main 테스트 - 연산자가 없는 경우")
+  void main10() {
+    String input = "12 34";
+
+    assertThrows(IllegalStateException.class, () -> getOutputStream(input, args));
+  }
+
+  @Test
+  @DisplayName("main 테스트 - 연산자만 있는 경우")
+  void main11() {
+    String input = "+";
+
+    assertThrows(IllegalStateException.class, () -> getOutputStream(input, args));
   }
 
   private OutputStream getOutputStream(String input, String[] args) {
