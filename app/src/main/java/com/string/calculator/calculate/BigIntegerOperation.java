@@ -8,7 +8,7 @@ public class BigIntegerOperation implements ArithmeticOperation {
   private final BigInteger right;
 
   @Override
-  public String add() {
+  public String plus() {
     return left.add(right).toString();
   }
 

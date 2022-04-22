@@ -20,7 +20,7 @@ class BigIntegerCalculateTests {
   @Test
   @DisplayName("덧셈")
   void addTest() {
-    assertEquals(calculate.add(), "487394572887833913433127929363657507");
+    assertEquals(calculate.plus(), "487394572887833913433127929363657507");
   }
 
   @Test

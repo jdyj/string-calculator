@@ -4,7 +4,7 @@ import com.string.calculator.OperatorSign;
 
 public interface ArithmeticOperation {
 
-  String add();
+  String plus();
 
   String subtract();
 
@@ -13,7 +13,7 @@ public interface ArithmeticOperation {
   default String calculateOne(OperatorSign operator) {
     String result = null;
     switch (operator) {
-      case plus -> result = add();
+      case plus -> result = plus();
       case subtract -> result = subtract();
       case multiply -> result = multiply();
     }
