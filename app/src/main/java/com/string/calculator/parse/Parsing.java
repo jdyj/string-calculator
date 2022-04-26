@@ -20,8 +20,13 @@ public class Parsing {
         .toList();
 
     // 얘가 뭘 하고 있는지.. (책임이 무엇인가)
-    Iterator iterator = new Iterator(chars);
-    iterator.forEachWithCheckLast(this::execute);
+    // LastAwareStream
+    CharacterStream characterStream = new CharacterStream(chars);
+
+    // forEachLastIndexed
+    // forEachWithLast
+    // forEachLastAware
+    characterStream.forEachLastAware(this::execute);
   }
 
 
