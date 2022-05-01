@@ -15,8 +15,8 @@ public class App {
       input = scanner.nextLine();
     }
 
-    Calculator run = new Calculator();
-    String result = run.calculate(input);
+    Calculator calculator = new Calculator();
+    String result = calculator.calculate(input);
 
     System.out.println(result);
   }
