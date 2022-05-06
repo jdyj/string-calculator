@@ -128,6 +128,13 @@ class AppTest {
     assertThrows(IllegalStateException.class, () -> runApplication(input, args));
   }
 
+  @Test
+  @DisplayName("main 테스트 - 입력 실수 : 영어가 들어간 경우")
+  void main15() {
+    String input = "1 + dff + 10";
+    assertThrows(IllegalStateException.class, () -> runApplication(input, args));
+  }
+
   private String runApplication(String input, String[] args) {
     InputStream in = new ByteArrayInputStream(input.getBytes());
     OutputStream out = new ByteArrayOutputStream();
