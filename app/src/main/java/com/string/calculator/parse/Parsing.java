@@ -3,7 +3,6 @@ package com.string.calculator.parse;
 import com.string.calculator.OperatorSign;
 import java.util.List;
 
-// 하는 일 : 파싱..
 public class Parsing {
 
   private final NumberPiece numberPiece = new NumberPiece();
@@ -18,13 +17,8 @@ public class Parsing {
         .mapToObj(c -> (char) c)
         .toList();
 
-    // 얘가 뭘 하고 있는지.. (책임이 무엇인가)
-    // LastAwareStream
     CharacterStream characterStream = new CharacterStream(chars);
 
-    // forEachLastIndexed
-    // forEachWithLast
-    // forEachLastAware
     characterStream.forEachLastAware(this::execute);
   }
 
