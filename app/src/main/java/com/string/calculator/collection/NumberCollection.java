@@ -1,32 +1,43 @@
 package com.string.calculator.collection;
 
-import com.string.calculator.OperatorSign;
 import java.util.Stack;
 
-public class NumberCollection {
+final class NumberCollection {
 
-  private Stack<String> numberStack = new Stack<>();
+  private Stack<String> stack = new Stack<>();
 
-  public String getOne() {
-    return numberStack.pop();
+  public String getLastElement() {
+    return stack.peek();
+  }
+
+  public String getLastElementAndRemove() {
+    return stack.pop();
   }
 
   public void add(String number) {
-    numberStack.add(number);
+    stack.add(number);
+  }
+
+  public boolean isEmpty() {
+    return stack.isEmpty();
+  }
+
+  public boolean hasNext() {
+    return stack.size() > 1;
   }
 
   public int size() {
-    return numberStack.size();
+    return stack.size();
   }
 
   public void reverse() {
     Stack<String> temp = new Stack<>();
 
-    while (!numberStack.isEmpty()) {
-      String pop = numberStack.pop();
+    while (!isEmpty()) {
+      String pop = stack.pop();
       temp.add(pop);
     }
-    numberStack = temp;
+    stack = temp;
   }
 
 }

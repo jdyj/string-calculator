@@ -1,5 +1,6 @@
-package com.string.calculator;
+package com.string.calculator.collection;
 
+import com.string.calculator.OperatorSign;
 import com.string.calculator.calculate.ArithmeticOperation;
 import com.string.calculator.calculate.OperationFactory;
 

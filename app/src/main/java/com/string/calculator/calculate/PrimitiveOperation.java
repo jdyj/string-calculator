@@ -6,7 +6,7 @@ public class PrimitiveOperation implements ArithmeticOperation {
   private final long right;
 
   @Override
-  public String add() {
+  public String plus() {
     return Long.toString(left + right);
   }
 

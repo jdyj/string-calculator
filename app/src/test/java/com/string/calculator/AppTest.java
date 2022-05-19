@@ -3,24 +3,140 @@
  */
 package com.string.calculator;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+// 여러가지 경우의 테스트 작성하기 연산자가 없거나 등,,
 class AppTest {
 
+  String[] args = null;
+
   @Test
-  @DisplayName("main 테스트")
-  void main() {
-    String[] args = null;
+  @DisplayName("main 테스트 - 여러가지 연산자")
+  void main1() {
     String input =
         "32435456436754325674356756762221212798 - 342283024803781287013 * 235465789800876543223456543454 + 12341251246 - 3453476564534 + 13476857565743 * 1234567";
+
+    assertEquals("num : -80595942770822941182435736008003954206997027825111\n",
+        runApplication(input, args));
+
+  }
+
+  @Test
+  @DisplayName("main 테스트 - 연산자와 피연산자 순서를 잘못 작성한 경우 1")
+  void main2() {
+    String input = "1 + * 10 30";
+    assertThrows(IllegalStateException.class, () -> runApplication(input, args));
+  }
+
+  @Test
+  @DisplayName("main 테스트 - 곱셈만 있는 경우")
+  void main3() {
+    String input =
+        "32435456436754325674356756762221212798 * 23452342345 * 233263464646 * 46565656565623423412312312134 * 2111235235";
+    assertEquals(
+        "num : 17444371097925106196697244640519041351612312748277072066098638108923528793486072764437728559127400\n",
+        runApplication(input, args));
+  }
+
+  @Test
+  @DisplayName("main 테스트 - 덧셈만 있는 경우")
+  void main4() {
+    String input =
+        "324354564367543256 + 2134134 + 23635465786564 + 2364543654748654566787 + 876863213223123 + 437";
+    assertEquals("num : 2364868909811703254301\n",
+        runApplication(input, args));
+  }
+
+  @Test
+  @DisplayName("main 테스트 - 뺄셈만 있는 경우")
+  void main5() {
+    String input =
+        "3243545643675438 - 34228302480";
+    assertEquals("num : 3243511415372958\n",
+        runApplication(input, args));
+  }
+
+  @Test
+  @DisplayName("main 테스트 - 비어있는 경우")
+  void main6() {
+    String input = "";
+    assertThrows(IllegalStateException.class, () -> runApplication(input, args));
+  }
+
+  @Test
+  @DisplayName("main 테스트 - 공백만 있는 경우")
+  void main7() {
+    String input = "  ";
+    assertThrows(IllegalStateException.class, () -> runApplication(input, args));
+  }
+
+  @Test
+  @DisplayName("main 테스트 - 숫자만 있는 경우")
+  void main8() {
+    String input = "1234";
+    assertEquals("num : 1234\n", runApplication(input, args));
+  }
+
+  @Test
+  @DisplayName("main 테스트 - 숫자와 공백만 있는 경우")
+  void main9() {
+    String input = "    1234   ";
+    assertEquals("num : 1234\n", runApplication(input, args));
+  }
+
+  @Test
+  @DisplayName("main 테스트 - 연산자가 없는 경우")
+  void main10() {
+    String input = "12 34";
+    assertThrows(IllegalStateException.class, () -> runApplication(input, args));
+  }
+
+  @Test
+  @DisplayName("main 테스트 - 연산자만 있는 경우")
+  void main11() {
+    String input = "+";
+    assertThrows(IllegalStateException.class, () -> runApplication(input, args));
+  }
+
+  @Test
+  @DisplayName("main 테스트 - 계산식을 작성하다 다 못쓴 경우")
+  void main12() {
+    String input = "1 +";
+    assertThrows(IllegalStateException.class, () -> runApplication(input, args));
+  }
+
+  @Test
+  @DisplayName("main 테스트 - 지원하지 않는 연산자를 사용한 경우")
+  void main13() {
+    String input = "1 # 10";
+    assertThrows(IllegalStateException.class, () -> runApplication(input, args));
+  }
+
+  @Test
+  @DisplayName("main 테스트 - 연산자와 피연산자 순서를 잘못 작성한 경우 2")
+  void main14() {
+    String input = " + 1 10 * 30 ";
+    assertThrows(IllegalStateException.class, () -> runApplication(input, args));
+  }
+
+  private String runApplication(String input, String[] args) {
     InputStream in = new ByteArrayInputStream(input.getBytes());
+    OutputStream out = new ByteArrayOutputStream();
+    PrintStream printStream = new PrintStream(out);
+    System.setOut(printStream);
     System.setIn(in);
     App.main(args);
-//    -80595942770822941182435736008003954206997027825111
-//    -80595942770822941182435736008003954206997027825111
+    return out.toString();
   }
+
 
 }

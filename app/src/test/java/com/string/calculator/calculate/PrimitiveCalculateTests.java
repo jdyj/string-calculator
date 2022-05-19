@@ -20,7 +20,7 @@ class PrimitiveCalculateTests {
   @Test
   @DisplayName("덧셈")
   void addTest() {
-    assertEquals(calculate.add(), "487443510");
+    assertEquals(calculate.plus(), "487443510");
   }
 
   @Test
