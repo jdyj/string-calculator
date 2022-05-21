@@ -18,7 +18,6 @@ public class Parsing {
         .toList();
 
     CharacterStream characterStream = new CharacterStream(chars);
-
     characterStream.forEachLastAware(this::execute);
   }
 

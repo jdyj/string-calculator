@@ -23,23 +23,15 @@ public class OperationStateMachine implements ParsingHandler {
 
   @Override
   public void operatorParsed(OperatorSign operatorSign) {
-    add(operatorSign);
+    operatorCollection.add(operatorSign);
   }
 
   @Override
   public void numberParsed(String number) {
-    add(number);
+    numberCollection.add(number);
     if (existHighOperatorSign()) {
       addStack();
     }
-  }
-
-  private void add(OperatorSign operatorSign) {
-    operatorCollection.add(operatorSign);
-  }
-
-  private void add(String number) {
-    numberCollection.add(number);
   }
 
   private boolean existHighOperatorSign() {
