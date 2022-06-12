@@ -19,6 +19,11 @@ public class ParsingHandlerGetter implements ParsingHandler {
     numbers.add(number);
   }
 
+  @Override
+  public void closeBracketFound(OperatorSign operatorSign) {
+    return;
+  }
+
   public OperatorSign getOperatorSign() {
     return this.operatorSign;
   }
