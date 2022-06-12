@@ -1,7 +1,6 @@
 package com.string.calculator.parse;
 
 import com.string.calculator.OperatorSign;
-import com.string.calculator.PriorityOperatorSign;
 import java.util.List;
 
 public class Parsing {
@@ -28,6 +27,11 @@ public class Parsing {
 
   private void execute(Character c, boolean last) {
     if (OperatorSign.isSupportedOperator(c)) {
+      if (c == OperatorSign.closeBracket.getSign()) {
+        parsingHandler.closeBracketFound(OperatorSign.valueOf(c));
+        return;
+      }
+
       parsingHandler.operatorParsed(OperatorSign.valueOf(c));
       return;
     }

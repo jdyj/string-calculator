@@ -11,8 +11,6 @@ public class OperationStateMachine implements ParsingHandler {
   private final Calculate calculate = new Calculate(new OperationFactory());
 
   public String getCalculatedValue() {
-    numberCollection.reverse();
-    operatorCollection.reverse();
 
     while (numberCollection.hasNext()) {
       addStack();
@@ -28,10 +26,33 @@ public class OperationStateMachine implements ParsingHandler {
 
   @Override
   public void numberParsed(String number) {
-    numberCollection.add(number);
+
+    String tempNumber = number;
+    if (operatorCollection.getLastElement() == OperatorSign.subtract) {
+      tempNumber = '-' + number;
+      operatorCollection.removeLast();
+      operatorCollection.add(OperatorSign.plus);
+    }
+    numberCollection.add(tempNumber);
     if (existHighOperatorSign()) {
       addStack();
     }
+  }
+
+  @Override
+  public void closeBracketFound(OperatorSign operatorSign) {
+    while (isNotOpenBracket()) {
+      addStack();
+    }
+    operatorCollection.removeLast();
+
+    if (existHighOperatorSign()) {
+      addStack();
+    }
+  }
+
+  private boolean isNotOpenBracket() {
+    return !(operatorCollection.getLastElement() == OperatorSign.openBracket);
   }
 
   private boolean existHighOperatorSign() {
@@ -39,7 +60,7 @@ public class OperationStateMachine implements ParsingHandler {
       return false;
     }
 
-    if (operatorCollection.size() >= numberCollection.size()) {
+    if (operatorCollection.size() > numberCollection.size()) {
       return false;
     }
 
