@@ -18,14 +18,13 @@ public class Parsing {
         .toList();
 
     CharacterStream characterStream = new CharacterStream(chars);
-
     characterStream.forEachLastAware(this::execute);
   }
 
   private void execute(Character c, boolean last) {
     if (OperatorSign.isSupportedOperator(c)) {
       if (c == OperatorSign.closeBracket.getSign()) {
-        parsingHandler.closeBracketFound(OperatorSign.valueOf(c));
+        parsingHandler.closeBracketFound();
         return;
       }
 

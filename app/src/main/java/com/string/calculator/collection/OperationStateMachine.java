@@ -40,7 +40,7 @@ public class OperationStateMachine implements ParsingHandler {
   }
 
   @Override
-  public void closeBracketFound(OperatorSign operatorSign) {
+  public void closeBracketFound() {
     while (isNotOpenBracket()) {
       addStack();
     }

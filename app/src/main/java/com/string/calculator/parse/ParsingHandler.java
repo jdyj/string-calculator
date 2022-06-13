@@ -8,6 +8,6 @@ public interface ParsingHandler {
 
   void numberParsed(String number);
 
-  void closeBracketFound(OperatorSign operatorSign);
+  void closeBracketFound();
 
 }
