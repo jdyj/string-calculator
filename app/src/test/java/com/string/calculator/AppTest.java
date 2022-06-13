@@ -149,6 +149,19 @@ class AppTest {
     assertEquals("num : 935532828\n", runApplication(input, args));
   }
 
+  @Test
+  @DisplayName("main 테스트 - 나눗셈이 들어간 경우")
+  void main18() {
+    String input = "1 / 10 / 10 / 10 / 10";
+    assertEquals("num : 0.0001\n", runApplication(input, args));
+  }
+
+  @Test
+  @DisplayName("main 테스트 - 여러가지 연산자, 나눗셈이 들어간 경우")
+  void main19() {
+    String input = "1 / 10 * 1298190 + 2938594 / 2 * 4399509 + 2348901 - 2349238";
+    assertEquals("num : 6464185504655\n", runApplication(input, args));
+  }
 
   private String runApplication(String input, String[] args) {
     InputStream in = new ByteArrayInputStream(input.getBytes());

@@ -13,7 +13,7 @@ class BigIntegerCalculateTests {
 
   @BeforeEach
   void init() {
-    calculate = new BigIntegerOperation("489376583975638392234277384",
+    calculate = new BigDecimalOperation("489376583975638392234277384",
         "487394572398457329457489537129380123");
   }
 

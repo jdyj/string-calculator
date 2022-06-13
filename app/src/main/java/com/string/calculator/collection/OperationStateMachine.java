@@ -70,8 +70,8 @@ public class OperationStateMachine implements ParsingHandler {
 
 
   private void addStack() {
-    String leftValue = numberCollection.getLastElementAndRemove();
     String rightValue = numberCollection.getLastElementAndRemove();
+    String leftValue = numberCollection.getLastElementAndRemove();
     OperatorSign operatorSign = operatorCollection.getLastElement();
     operatorCollection.removeLast();
     String result = calculate.one(leftValue, rightValue, operatorSign);
