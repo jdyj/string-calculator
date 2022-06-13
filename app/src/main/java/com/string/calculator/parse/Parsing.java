@@ -33,8 +33,7 @@ public class Parsing {
     }
 
     if (canNumberParsed(c)) {
-      parsingHandler.numberParsed(numberPiece.getNumber());
-      numberPiece.makeEmpty();
+      numberParsed(parsingHandler, numberPiece);
       return;
     }
 
@@ -42,10 +41,19 @@ public class Parsing {
       numberPiece.add(c);
       if (last) {
         if (numberPiece.hasNumber()) {
-          parsingHandler.numberParsed(numberPiece.getNumber());
-          numberPiece.makeEmpty();
+          numberParsed(parsingHandler, numberPiece);
         }
       }
+    }
+  }
+
+  private void numberParsed(ParsingHandler parsingHandler, NumberPiece numberPiece) {
+    try {
+      parsingHandler.numberParsed(numberPiece.getNumber());
+    } catch (Exception e) {
+
+    } finally {
+      numberPiece.makeEmpty();
     }
   }
 
