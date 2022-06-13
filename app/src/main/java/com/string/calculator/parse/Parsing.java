@@ -19,9 +19,6 @@ public class Parsing {
 
     CharacterStream characterStream = new CharacterStream(chars);
 
-//    // 어떻게 해야 올바르게 인터페이스를 뽑아냈다고 할 수 있을까? 고민
-//    ParsingCharacterWithLast parsingCharacterWithLast = new ParsingCharacterWithLast(
-//        parsingHandler);
     characterStream.forEachLastAware(this::execute);
   }
 
