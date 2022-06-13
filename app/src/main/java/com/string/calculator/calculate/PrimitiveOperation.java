@@ -1,6 +1,9 @@
 package com.string.calculator.calculate;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
+import java.util.Locale;
 
 public class PrimitiveOperation implements ArithmeticOperation {
 
@@ -25,7 +28,10 @@ public class PrimitiveOperation implements ArithmeticOperation {
 
   @Override
   public String divide() {
-    return numberFormat.format(left / right);
+    DecimalFormat decimalFormat = new DecimalFormat("0",
+        DecimalFormatSymbols.getInstance(Locale.ENGLISH));
+    decimalFormat.setMaximumFractionDigits(340);
+    return decimalFormat.format(left / right);
   }
 
   public PrimitiveOperation(String leftValue, String rightValue) {

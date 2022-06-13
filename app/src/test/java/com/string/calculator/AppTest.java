@@ -159,8 +159,8 @@ class AppTest {
   @Test
   @DisplayName("main 테스트 - 여러가지 연산자, 나눗셈이 들어간 경우")
   void main19() {
-    String input = "1 / 10 * 1298190 + 2938594 / 2 * 4399509 + 2348901 - 2349238";
-    assertEquals("num : 6464185504655\n", runApplication(input, args));
+    String input = "1 / 1000000 * 12394128034912093412 + 3249583493459 - 2348101125 / 5 * 23 + 23491084 - 2349";
+    assertEquals("num : 15632933751931.093412\n", runApplication(input, args));
   }
 
   private String runApplication(String input, String[] args) {
