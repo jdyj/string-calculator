@@ -30,13 +30,6 @@ class AppTest {
 
   }
 
-//  @Test
-//  @DisplayName("main 테스트 - 연산자와 피연산자 순서를 잘못 작성한 경우 1")
-//  void main2() {
-//    String input = "1 + * 10 30";
-//    assertThrows(IllegalStateException.class, () -> runApplication(input, args));
-//  }
-
   @Test
   @DisplayName("main 테스트 - 곱셈만 있는 경우")
   void main3() {
@@ -65,20 +58,6 @@ class AppTest {
         runApplication(input, args));
   }
 
-//  @Test
-//  @DisplayName("main 테스트 - 비어있는 경우")
-//  void main6() {
-//    String input = "";
-//    assertThrows(IllegalStateException.class, () -> runApplication(input, args));
-//  }
-//
-//  @Test
-//  @DisplayName("main 테스트 - 공백만 있는 경우")
-//  void main7() {
-//    String input = "  ";
-//    assertThrows(IllegalStateException.class, () -> runApplication(input, args));
-//  }
-
   @Test
   @DisplayName("main 테스트 - 숫자만 있는 경우")
   void main8() {
@@ -92,48 +71,6 @@ class AppTest {
     String input = "    1234   ";
     assertEquals("num : 1234\n", runApplication(input, args));
   }
-
-//  @Test
-//  @DisplayName("main 테스트 - 연산자가 없는 경우")
-//  void main10() {
-//    String input = "12 34";
-//    assertThrows(IllegalStateException.class, () -> runApplication(input, args));
-//  }
-//
-//  @Test
-//  @DisplayName("main 테스트 - 연산자만 있는 경우")
-//  void main11() {
-//    String input = "+";
-//    assertThrows(IllegalStateException.class, () -> runApplication(input, args));
-//  }
-
-//  @Test
-//  @DisplayName("main 테스트 - 계산식을 작성하다 다 못쓴 경우")
-//  void main12() {
-//    String input = "1 +";
-//    assertThrows(IllegalStateException.class, () -> runApplication(input, args));
-//  }
-//
-//  @Test
-//  @DisplayName("main 테스트 - 지원하지 않는 연산자를 사용한 경우")
-//  void main13() {
-//    String input = "1 # 10";
-//    assertThrows(IllegalStateException.class, () -> runApplication(input, args));
-//  }
-
-//  @Test
-//  @DisplayName("main 테스트 - 연산자와 피연산자 순서를 잘못 작성한 경우 2")
-//  void main14() {
-//    String input = " + 1 10 * 30 ";
-//    assertThrows(IllegalStateException.class, () -> runApplication(input, args));
-//  }
-//
-//  @Test
-//  @DisplayName("main 테스트 - 입력 실수 : 영어가 들어간 경우")
-//  void main15() {
-//    String input = "1 + dff + 10";
-//    assertThrows(IllegalStateException.class, () -> runApplication(input, args));
-//  }
 
   @Test
   @DisplayName("main 테스트 - 괄호가 한번 들어간 경우")
