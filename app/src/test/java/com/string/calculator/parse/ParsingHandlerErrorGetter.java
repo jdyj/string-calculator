@@ -6,7 +6,6 @@ import java.util.List;
 
 public class ParsingHandlerErrorGetter implements ParsingHandler {
 
-  private List<String> numbers = new ArrayList<>();
   private int count;
 
   @Override
@@ -16,16 +15,10 @@ public class ParsingHandlerErrorGetter implements ParsingHandler {
 
   @Override
   public void numberParsed(String number) {
-    System.out.println("before : " + number);
     count++;
     if (this.count == 1) {
       throw new IllegalStateException();
     }
-//    if (this.number != null) {
-//      throw new IllegalStateException();
-//    }
-    numbers.add(number);
-    System.out.println("after : " + number);
   }
 
   @Override
@@ -33,7 +26,4 @@ public class ParsingHandlerErrorGetter implements ParsingHandler {
 
   }
 
-  public List<String> getNumbers() {
-    return numbers;
-  }
 }
