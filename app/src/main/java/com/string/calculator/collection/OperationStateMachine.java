@@ -28,11 +28,10 @@ public class OperationStateMachine implements ParsingHandler {
   public void numberParsed(String number) {
 
     String tempNumber = number;
-    if (operatorCollection.getLastElement() == OperatorSign.subtract) {
-      tempNumber = '-' + number;
-      operatorCollection.removeLast();
-      operatorCollection.add(OperatorSign.plus);
+    if (isNegative()) {
+      tempNumber = makeNegative(number);
     }
+
     numberCollection.add(tempNumber);
     if (existHighOperatorSign()) {
       addStack();
@@ -49,6 +48,18 @@ public class OperationStateMachine implements ParsingHandler {
     if (existHighOperatorSign()) {
       addStack();
     }
+  }
+
+  private String makeNegative(String number) {
+    String tempNumber;
+    tempNumber = '-' + number;
+    operatorCollection.removeLast();
+    operatorCollection.add(OperatorSign.plus);
+    return tempNumber;
+  }
+
+  private boolean isNegative() {
+    return operatorCollection.getLastElement() == OperatorSign.subtract;
   }
 
   private boolean isNotOpenBracket() {
