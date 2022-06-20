@@ -8,7 +8,9 @@ public enum OperatorSign {
   plus('+'),
   subtract('-'),
   divide('/'),
-  multiply('*');
+  multiply('*'),
+  openBracket('('),
+  closeBracket(')');
 
   private final char sign;
 

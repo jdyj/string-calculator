@@ -11,8 +11,6 @@ public class OperationStateMachine implements ParsingHandler {
   private final Calculate calculate = new Calculate(new OperationFactory());
 
   public String getCalculatedValue() {
-    numberCollection.reverse();
-    operatorCollection.reverse();
 
     while (numberCollection.hasNext()) {
       addStack();
@@ -23,23 +21,49 @@ public class OperationStateMachine implements ParsingHandler {
 
   @Override
   public void operatorParsed(OperatorSign operatorSign) {
-    add(operatorSign);
+    operatorCollection.add(operatorSign);
   }
 
   @Override
   public void numberParsed(String number) {
-    add(number);
+
+    String tempNumber = number;
+    if (isNegative()) {
+      tempNumber = makeNegative(number);
+    }
+
+    numberCollection.add(tempNumber);
     if (existHighOperatorSign()) {
       addStack();
     }
   }
 
-  private void add(OperatorSign operatorSign) {
-    operatorCollection.add(operatorSign);
+  @Override
+  public void closeBracketFound() {
+    while (isNotOpenBracket()) {
+      addStack();
+    }
+    operatorCollection.removeLast();
+
+    if (existHighOperatorSign()) {
+      addStack();
+    }
   }
 
-  private void add(String number) {
-    numberCollection.add(number);
+  private String makeNegative(String number) {
+    String tempNumber;
+    tempNumber = '-' + number;
+    operatorCollection.removeLast();
+    operatorCollection.add(OperatorSign.plus);
+    return tempNumber;
+  }
+
+  private boolean isNegative() {
+    return operatorCollection.getLastElement() == OperatorSign.subtract;
+  }
+
+  private boolean isNotOpenBracket() {
+    return !(operatorCollection.getLastElement() == OperatorSign.openBracket);
   }
 
   private boolean existHighOperatorSign() {
@@ -47,7 +71,7 @@ public class OperationStateMachine implements ParsingHandler {
       return false;
     }
 
-    if (operatorCollection.size() >= numberCollection.size()) {
+    if (operatorCollection.size() > numberCollection.size()) {
       return false;
     }
 
@@ -57,8 +81,8 @@ public class OperationStateMachine implements ParsingHandler {
 
 
   private void addStack() {
-    String leftValue = numberCollection.getLastElementAndRemove();
     String rightValue = numberCollection.getLastElementAndRemove();
+    String leftValue = numberCollection.getLastElementAndRemove();
     OperatorSign operatorSign = operatorCollection.getLastElement();
     operatorCollection.removeLast();
     String result = calculate.one(leftValue, rightValue, operatorSign);

@@ -8,6 +8,9 @@ final class OperatorCollection {
   private Stack<OperatorSign> stack = new Stack<>();
 
   public OperatorSign getLastElement() {
+    if (isEmpty()) {
+      return null;
+    }
     return stack.peek();
   }
 

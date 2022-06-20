@@ -8,7 +8,7 @@ public class OperationFactory {
     if (isPrimitive(leftValue, rightValue)) {
       return new PrimitiveOperation(leftValue, rightValue);
     }
-    return new BigIntegerOperation(leftValue, rightValue);
+    return new BigDecimalOperation(leftValue, rightValue);
   }
 
   private boolean isPrimitive(String leftValue, String rightValue) {
