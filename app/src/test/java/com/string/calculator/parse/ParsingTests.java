@@ -3,18 +3,16 @@ package com.string.calculator.parse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import com.string.calculator.App;
 import com.string.calculator.OperatorSign;
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.util.List;
-import java.util.function.DoubleUnaryOperator;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -40,20 +38,18 @@ class ParsingTests {
   // mocking 사전적 의미
   // netty, blocking call
 
+  @BeforeEach
+  void init() {
+    MockitoAnnotations.openMocks(this);
+  }
+
   @Test
   void parseTest() {
-    MockitoAnnotations.openMocks(this);
 
     doNothing().when(parsingHandler).numberParsed(any());
     doNothing().when(parsingHandler).operatorParsed(any());
 
     parsing.parse("123 + 23492");
-
-    // mockito 테스트 변경
-    // 몇번 받았는지
-//    assertEquals(OperatorSign.plus, parsingHandlerGetter.getOperatorSign());
-//    assertEquals("123", parsingHandlerGetter.getNumbers().get(0));
-//    assertEquals("23492", parsingHandlerGetter.getNumbers().get(1));
 
     verify(parsingHandler, times(1)).numberParsed("123");
     verify(parsingHandler, times(1)).numberParsed("23492");
@@ -63,22 +59,29 @@ class ParsingTests {
 
   // 1. 테스트 자동화
   // 2. 버그 고치기
+
+  /**
+   * 파싱 객체와 파싱핸들러 인터페이스가 서로 메시지를 주고 받을 때 어떤 약속 위에서 서로 이야기하고 있는지? 약속
+   * <p>
+   * mockito 명세 기능 구현 예 : 메소드를 두 번 던졌을 때 예외를 던져라
+   * <p>
+   * Matcher 구현
+   */
   @Test
   void parseTest2() {
-    ParsingHandlerErrorGetter parsingHandlerErrorGetter = new ParsingHandlerErrorGetter();
-    Parsing parsing1 = new Parsing(parsingHandlerErrorGetter);
+    doCallRealMethod().when(parsingHandler).numberParsed(any());
+    doCallRealMethod().when(parsingHandler).operatorParsed(any());
 
-    try {
-      parsing1.parse("1 + 2");
-    } catch (IllegalStateException e) {
-    }
-    parsing1.parse("3 + 4");
+    parsing.parse("1 + 2");
+    parsing.parse("3 + 4");
 
-    List<String> numbers = parsingHandlerErrorGetter.getNumbers();
-    assertEquals(3, numbers.size());
-    assertEquals("2", numbers.get(0));
-    assertEquals("3", numbers.get(1));
-    assertEquals("4", numbers.get(2));
+    verify(parsingHandler, times(1)).numberParsed("1");
+    verify(parsingHandler, times(1)).numberParsed("2");
+    verify(parsingHandler, times(1)).numberParsed("3");
+    verify(parsingHandler, times(1)).numberParsed("4");
+    verify(parsingHandler, times(2)).operatorParsed(any());
+
+    verifyNoMoreInteractions(parsingHandler);
   }
 
 }
