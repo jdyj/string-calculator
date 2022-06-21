@@ -10,7 +10,8 @@ public enum OperatorSign {
   divide('/'),
   multiply('*'),
   openBracket('('),
-  closeBracket(')');
+  closeBracket(')'),
+  modular('%');
 
   private final char sign;
 
