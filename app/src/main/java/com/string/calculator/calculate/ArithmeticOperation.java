@@ -12,6 +12,8 @@ public interface ArithmeticOperation {
 
   String divide();
 
+  String modular();
+
   default String calculateOne(OperatorSign operator) {
     String result = null;
     switch (operator) {
@@ -19,6 +21,7 @@ public interface ArithmeticOperation {
       case subtract -> result = subtract();
       case multiply -> result = multiply();
       case divide -> result = divide();
+      case modular -> result = modular();
     }
     return result;
   }
