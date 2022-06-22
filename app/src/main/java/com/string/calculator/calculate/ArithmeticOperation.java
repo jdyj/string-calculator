@@ -6,8 +6,6 @@ public interface ArithmeticOperation {
 
   String plus();
 
-  String subtract();
-
   String multiply();
 
   String divide();
@@ -18,7 +16,6 @@ public interface ArithmeticOperation {
     String result = null;
     switch (operator) {
       case plus -> result = plus();
-      case subtract -> result = subtract();
       case multiply -> result = multiply();
       case divide -> result = divide();
       case modular -> result = modular();

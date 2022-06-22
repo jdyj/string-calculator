@@ -14,11 +14,6 @@ public class BigIntegerOperation implements ArithmeticOperation {
   }
 
   @Override
-  public String subtract() {
-    return left.subtract(right).toString();
-  }
-
-  @Override
   public String multiply() {
     return left.multiply(right).toString();
   }

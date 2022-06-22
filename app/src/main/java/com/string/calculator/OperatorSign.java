@@ -6,7 +6,6 @@ import java.util.Map;
 public enum OperatorSign {
 
   plus('+'),
-  subtract('-'),
   divide('/'),
   multiply('*'),
   openBracket('('),
