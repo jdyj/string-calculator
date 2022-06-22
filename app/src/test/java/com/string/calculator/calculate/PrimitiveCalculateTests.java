@@ -24,12 +24,6 @@ class PrimitiveCalculateTests {
   }
 
   @Test
-  @DisplayName("뺄셈")
-  void subtractTest() {
-    assertEquals(calculate.subtract(), "-487345636");
-  }
-
-  @Test
   @DisplayName("곱셈")
   void multiplyTest() {
     assertEquals(calculate.multiply(),

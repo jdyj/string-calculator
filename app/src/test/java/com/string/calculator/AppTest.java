@@ -90,14 +90,50 @@ class AppTest {
   @DisplayName("main 테스트 - 나눗셈이 들어간 경우")
   void main18() {
     String input = "1 / 10 / 10 / 10 / 10";
-    assertEquals("num : 0.0001\n", runApplication(input, args));
+    assertEquals("num : 1/10000\n", runApplication(input, args));
   }
 
   @Test
-  @DisplayName("main 테스트 - 여러가지 연산자, 나눗셈이 들어간 경우")
-  void main19() {
+  @DisplayName("main 테스트 - 나눗셈이 들어간 경우 분수 표현")
+  void main20() {
     String input = "1 / 1000000 * 12394128034912093412 + 3249583493459 - 2348101125 / 5 * 23 + 23491084 - 2349";
-    assertEquals("num : 15632933751931.093412\n", runApplication(input, args));
+    assertEquals("num : 3908233437982773353/250000\n", runApplication(input, args));
+  }
+
+  @Test
+  @DisplayName("main 테스트 - 나눗셈이 들어간 경우 분수 표현")
+  void main21() {
+    String input = "1675816609256 / 12341259849 + 54968679658075 * 45984569 + 546456834964386934869345684359683495846 / 23453409980394580439 + 093490954034990345059409854 - 4305898943089849";
+    assertEquals(
+        "num : 304058344781057697392000136650086691053099057512053462/3252186819249208008416084199\n",
+        runApplication(input, args));
+  }
+
+  @Test
+  @DisplayName("main 테스트 - 나눗셈이 들어간 경우 분수 표현")
+  void main22() {
+    String input = "1675816609256 / 12341259849 - 546456834964386934869345684359683495846 / 23453409980394580439";
+    assertEquals(
+        "num : -75774896590534918931456404117459707566162630830/3252186819249208008416084199\n",
+        runApplication(input, args));
+  }
+
+  @Test
+  @DisplayName("main 테스트 - 음수 곱셈")
+  void main23() {
+    String input = "8 * -8";
+    assertEquals(
+        "num : -64\n",
+        runApplication(input, args));
+  }
+
+  @Test
+  @DisplayName("main 테스트 - 음수 나눗셈")
+  void main24() {
+    String input = "-8 / -8";
+    assertEquals(
+        "num : 1\n",
+        runApplication(input, args));
   }
 
   private String runApplication(String input, String[] args) {
