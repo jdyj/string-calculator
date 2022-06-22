@@ -63,7 +63,7 @@ public class OutputFormat {
   }
 
   public void plainText() {
-    System.out.println(result);
+    System.out.println("num : " + result);
   }
 
 }
