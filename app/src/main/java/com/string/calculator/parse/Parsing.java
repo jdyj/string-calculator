@@ -58,7 +58,7 @@ public class Parsing {
   }
 
   private boolean isNumberPiece(Character c) {
-    return c >= '0' && c <= '9';
+    return (c >= '0' && c <= '9');
   }
 
   private boolean canNumberParsed(Character c) {
