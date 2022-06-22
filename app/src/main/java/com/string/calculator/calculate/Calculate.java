@@ -15,7 +15,7 @@ public class Calculate {
   }
 
   public String one(String leftValue, String rightValue, OperatorSign operatorSign) {
-    if (App.fraction.equals("1") && hasDivide(leftValue, rightValue)) {
+    if (App.fraction && hasDivide(leftValue, rightValue)) {
       return fraction.calculate(leftValue, rightValue, operatorSign);
     }
 

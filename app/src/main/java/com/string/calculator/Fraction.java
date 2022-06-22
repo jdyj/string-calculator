@@ -24,8 +24,7 @@ public class Fraction {
 
       if (operatorSign == OperatorSign.plus) {
         String gcdDenominator = gcd(leftDenominator, rightDenominator);
-        String multiplyResult = operationFactory.create(leftDenominator, rightDenominator)
-            .calculateOne(OperatorSign.multiply);
+        String multiplyResult = multiply(leftDenominator, rightDenominator);
         commonDenominator = divide(multiplyResult, gcdDenominator);
 
         if (isCoprime(gcdDenominator)) {
