@@ -7,6 +7,8 @@ import java.util.Scanner;
 
 public class App {
 
+  public static String fraction = "1";
+
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
     System.out.print("num : ");

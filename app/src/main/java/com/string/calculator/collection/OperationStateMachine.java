@@ -1,5 +1,7 @@
 package com.string.calculator.collection;
 
+import com.string.calculator.Fraction;
+import com.string.calculator.calculate.Calculate;
 import com.string.calculator.parse.ParsingHandler;
 import com.string.calculator.OperatorSign;
 import com.string.calculator.calculate.OperationFactory;
@@ -8,7 +10,9 @@ public class OperationStateMachine implements ParsingHandler {
 
   private final NumberCollection numberCollection = new NumberCollection();
   private final OperatorCollection operatorCollection = new OperatorCollection();
-  private final Calculate calculate = new Calculate(new OperationFactory());
+  private final OperationFactory operationFactory = new OperationFactory();
+  private final Fraction fraction = new Fraction(operationFactory);
+  private final Calculate calculate = new Calculate(operationFactory, fraction);
 
   public String getCalculatedValue() {
 
@@ -26,13 +30,15 @@ public class OperationStateMachine implements ParsingHandler {
 
   @Override
   public void numberParsed(String number) {
-
-    String tempNumber = number;
-    if (isNegative()) {
-      tempNumber = makeNegative(number);
+    if (isNegative(number)) {
+      if (existHighOperatorSign()) {
+        numberCollection.add(number);
+        addStack();
+        return;
+      }
+      operatorCollection.add(OperatorSign.plus);
     }
-
-    numberCollection.add(tempNumber);
+    numberCollection.add(number);
     if (existHighOperatorSign()) {
       addStack();
     }
@@ -58,8 +64,8 @@ public class OperationStateMachine implements ParsingHandler {
     return tempNumber;
   }
 
-  private boolean isNegative() {
-    return operatorCollection.getLastElement() == OperatorSign.subtract;
+  private boolean isNegative(String number) {
+    return number.contains("-");
   }
 
   private boolean isNotOpenBracket() {
@@ -68,10 +74,6 @@ public class OperationStateMachine implements ParsingHandler {
 
   private boolean existHighOperatorSign() {
     if (operatorCollection.isEmpty()) {
-      return false;
-    }
-
-    if (operatorCollection.size() > numberCollection.size()) {
       return false;
     }
 
@@ -85,8 +87,29 @@ public class OperationStateMachine implements ParsingHandler {
     String leftValue = numberCollection.getLastElementAndRemove();
     OperatorSign operatorSign = operatorCollection.getLastElement();
     operatorCollection.removeLast();
+    if (operatorSign == OperatorSign.divide) {
+      if (hasDivide(leftValue)) {
+        String[] leftValues = leftValue.split("/");
+        numberCollection.add(
+            leftValues[0] + "/" + calculate.one(leftValues[1], rightValue, OperatorSign.multiply));
+        return;
+      }
+
+      if (fraction.isNotFraction(leftValue, rightValue)) {
+        numberCollection.add(calculate.one(leftValue, rightValue, OperatorSign.divide));
+        return;
+      }
+
+      numberCollection.add(leftValue + "/" + rightValue);
+      return;
+    }
+
     String result = calculate.one(leftValue, rightValue, operatorSign);
     numberCollection.add(result);
+  }
+
+  private boolean hasDivide(String value) {
+    return value.contains("/");
   }
 
 
