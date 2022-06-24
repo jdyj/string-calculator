@@ -43,7 +43,7 @@ public class Fraction {
     return result;
   }
 
-  public String plus(Fraction a, Fraction b) {
+  private String plus(Fraction a, Fraction b) {
     String commonNumerator = operationFactory.create(multiply(a.getDenominator(), b.getNumerator()),
         multiply(a.getNumerator(), b.getDenominator())).calculateOne(OperatorSign.plus);
     String commonDenominator = multiply(a.getDenominator(), b.getDenominator());
@@ -51,7 +51,7 @@ public class Fraction {
     return reducedFraction(commonNumerator, commonDenominator);
   }
 
-  public String multiply(Fraction a, Fraction b) {
+  private String multiply(Fraction a, Fraction b) {
     String commonNumerator = multiply(a.getNumerator(), b.getNumerator());
     String commonDenominator = multiply(a.getDenominator(), b.getDenominator());
 
