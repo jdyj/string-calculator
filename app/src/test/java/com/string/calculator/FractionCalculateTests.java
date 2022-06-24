@@ -2,13 +2,12 @@ package com.string.calculator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.string.calculator.calculate.OperationFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class FractionTests {
+class FractionCalculateTests {
 
-  Fraction fraction = new Fraction();
+  FractionCalculation fraction = new FractionCalculation();
 
   @Test
   @DisplayName("곱셈 - 좌측 음수 분수, 우측 음수 정수")

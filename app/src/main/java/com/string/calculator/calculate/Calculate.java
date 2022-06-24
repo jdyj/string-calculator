@@ -1,7 +1,7 @@
 package com.string.calculator.calculate;
 
 import com.string.calculator.App;
-import com.string.calculator.Fraction;
+import com.string.calculator.FractionCalculation;
 import com.string.calculator.OperatorSign;
 
 public class Calculate {
@@ -14,8 +14,8 @@ public class Calculate {
 
   public String one(String leftValue, String rightValue, OperatorSign operatorSign) {
     if (App.fraction && hasDivide(leftValue, rightValue)) {
-      Fraction fraction = new Fraction();
-      return fraction.calculate(leftValue, rightValue, operatorSign);
+      FractionCalculation fractionCalculation = new FractionCalculation();
+      return fractionCalculation.calculate(leftValue, rightValue, operatorSign);
     }
 
     return operationFactory.create(leftValue, rightValue).calculateOne(operatorSign);
