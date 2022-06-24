@@ -8,8 +8,7 @@ import org.junit.jupiter.api.Test;
 
 class FractionTests {
 
-  OperationFactory operationFactory = new OperationFactory();
-  Fraction fraction = new Fraction(operationFactory);
+  Fraction fraction = new Fraction();
 
   @Test
   @DisplayName("곱셈 - 좌측 음수 분수, 우측 음수 정수")
@@ -71,7 +70,9 @@ class FractionTests {
   @Test
   @DisplayName("곱셈 - 좌측 양수 분수, 우측 음수 정수")
   void fractionTest9() {
-    String result = fraction.calculate("1675816609256/12341259849", "-546456834964386934869345684359683495846/23453409980394580439", OperatorSign.plus);
-    assertEquals("-75774896590534918931456404117459707566162630830/3252186819249208008416084199", result);
+    String result = fraction.calculate("1675816609256/12341259849",
+        "-546456834964386934869345684359683495846/23453409980394580439", OperatorSign.plus);
+    assertEquals("-75774896590534918931456404117459707566162630830/3252186819249208008416084199",
+        result);
   }
 }

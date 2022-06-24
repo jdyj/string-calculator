@@ -7,15 +7,14 @@ import com.string.calculator.OperatorSign;
 public class Calculate {
 
   private final OperationFactory operationFactory;
-  private final Fraction fraction;
 
-  public Calculate(OperationFactory operationFactory, Fraction fraction) {
+  public Calculate(OperationFactory operationFactory) {
     this.operationFactory = operationFactory;
-    this.fraction = fraction;
   }
 
   public String one(String leftValue, String rightValue, OperatorSign operatorSign) {
     if (App.fraction && hasDivide(leftValue, rightValue)) {
+      Fraction fraction = new Fraction();
       return fraction.calculate(leftValue, rightValue, operatorSign);
     }
 
