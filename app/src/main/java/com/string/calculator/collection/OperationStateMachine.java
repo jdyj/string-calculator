@@ -1,7 +1,6 @@
 package com.string.calculator.collection;
 
 import com.string.calculator.App;
-import com.string.calculator.Fraction;
 import com.string.calculator.calculate.Calculate;
 import com.string.calculator.parse.ParsingHandler;
 import com.string.calculator.OperatorSign;
@@ -95,12 +94,12 @@ public class OperationStateMachine implements ParsingHandler {
         return;
       }
 
-      if (isNotFraction(leftValue, rightValue)) {
-        numberCollection.add(calculate.one(leftValue, rightValue, OperatorSign.divide));
+      if (isFraction(leftValue, rightValue)) {
+        numberCollection.add(leftValue + "/" + rightValue);
         return;
       }
 
-      numberCollection.add(leftValue + "/" + rightValue);
+      numberCollection.add(calculate.one(leftValue, rightValue, OperatorSign.divide));
       return;
     }
 
@@ -112,14 +111,14 @@ public class OperationStateMachine implements ParsingHandler {
     return value.contains("/");
   }
 
-  private boolean isNotFraction(String leftValue, String rightValue) {
+  private boolean isFraction(String leftValue, String rightValue) {
     if (leftValue.contains("-")) {
       leftValue = leftValue.substring(1);
     }
     if (rightValue.contains("-")) {
       rightValue = rightValue.substring(1);
     }
-    return operationFactory.create(leftValue, rightValue).calculateOne(OperatorSign.modular)
+    return !operationFactory.create(leftValue, rightValue).calculateOne(OperatorSign.modular)
         .equals("0");
   }
 
