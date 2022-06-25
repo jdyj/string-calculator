@@ -29,18 +29,15 @@ public class OperationStateMachine implements ParsingHandler {
 
   @Override
   public void numberParsed(String number) {
+    if (existHighOperatorSign()) {
+      numberCollection.add(number);
+      addStack();
+      return;
+    }
     if (isNegative(number)) {
-      if (existHighOperatorSign()) {
-        numberCollection.add(number);
-        addStack();
-        return;
-      }
       operatorCollection.add(OperatorSign.plus);
     }
     numberCollection.add(number);
-    if (existHighOperatorSign()) {
-      addStack();
-    }
   }
 
   @Override
@@ -53,14 +50,6 @@ public class OperationStateMachine implements ParsingHandler {
     if (existHighOperatorSign()) {
       addStack();
     }
-  }
-
-  private String makeNegative(String number) {
-    String tempNumber;
-    tempNumber = '-' + number;
-    operatorCollection.removeLast();
-    operatorCollection.add(OperatorSign.plus);
-    return tempNumber;
   }
 
   private boolean isNegative(String number) {
