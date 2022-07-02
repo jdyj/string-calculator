@@ -29,7 +29,10 @@ public class FractionOperation implements ArithmeticOperation {
 
   @Override
   public String divide() {
-    return null;
+    String commonNumerator = multiply(left.getNumerator(), right.getDenominator());
+    String commonDenominator = multiply(left.getDenominator(), right.getNumerator());
+
+    return reducedFraction(commonNumerator, commonDenominator);
   }
 
   @Override

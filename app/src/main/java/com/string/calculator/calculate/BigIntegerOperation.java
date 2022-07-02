@@ -19,7 +19,19 @@ public class BigIntegerOperation implements ArithmeticOperation {
 
   @Override
   public String divide() {
-    return left.divide(right).toString();
+    BigInteger gcd = left.gcd(right);
+    if (gcd.equals(left.abs())) {
+      return "1/" + right.divide(gcd);
+    } else if (gcd.equals(right.abs())) {
+      return left.divide(right).toString();
+    }
+
+    BigInteger tempLeft = left.divide(gcd).abs();
+    BigInteger tempRight = right.divide(gcd).abs();
+    if (isNegative(left, right)) {
+      return "-" + tempLeft + "/" + tempRight;
+    }
+    return tempLeft + "/" + tempRight;
   }
 
   @Override
@@ -33,5 +45,9 @@ public class BigIntegerOperation implements ArithmeticOperation {
   public BigIntegerOperation(String leftValue, String rightValue) {
     left = new BigInteger(leftValue);
     right = new BigInteger(rightValue);
+  }
+
+  private boolean isNegative(BigInteger left, BigInteger right) {
+    return left.signum() != right.signum();
   }
 }

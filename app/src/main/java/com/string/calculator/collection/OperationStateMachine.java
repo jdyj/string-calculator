@@ -1,6 +1,5 @@
 package com.string.calculator.collection;
 
-import com.string.calculator.App;
 import com.string.calculator.calculate.Calculate;
 import com.string.calculator.parse.ParsingHandler;
 import com.string.calculator.OperatorSign;
@@ -75,40 +74,9 @@ public class OperationStateMachine implements ParsingHandler {
     String leftValue = numberCollection.getLastElementAndRemove();
     OperatorSign operatorSign = operatorCollection.getLastElement();
     operatorCollection.removeLast();
-    if (operatorSign == OperatorSign.divide && App.fraction) {
-      if (hasDivide(leftValue)) {
-        String[] leftValues = leftValue.split("/");
-        numberCollection.add(
-            leftValues[0] + "/" + calculate.one(leftValues[1], rightValue, OperatorSign.multiply));
-        return;
-      }
-
-      if (isFraction(leftValue, rightValue)) {
-        numberCollection.add(leftValue + "/" + rightValue);
-        return;
-      }
-
-      numberCollection.add(calculate.one(leftValue, rightValue, OperatorSign.divide));
-      return;
-    }
-
     String result = calculate.one(leftValue, rightValue, operatorSign);
     numberCollection.add(result);
   }
 
-  private boolean hasDivide(String value) {
-    return value.contains("/");
-  }
-
-  private boolean isFraction(String leftValue, String rightValue) {
-    if (leftValue.contains("-")) {
-      leftValue = leftValue.substring(1);
-    }
-    if (rightValue.contains("-")) {
-      rightValue = rightValue.substring(1);
-    }
-    return !operationFactory.create(leftValue, rightValue).calculateOne(OperatorSign.modular)
-        .equals("0");
-  }
 
 }

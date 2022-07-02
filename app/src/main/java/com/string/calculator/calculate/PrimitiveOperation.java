@@ -1,8 +1,5 @@
 package com.string.calculator.calculate;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
 
 public class PrimitiveOperation implements ArithmeticOperation {
 
@@ -21,10 +18,20 @@ public class PrimitiveOperation implements ArithmeticOperation {
 
   @Override
   public String divide() {
-    DecimalFormat decimalFormat = new DecimalFormat("0",
-        DecimalFormatSymbols.getInstance(Locale.ENGLISH));
-    decimalFormat.setMaximumFractionDigits(340);
-    return decimalFormat.format(left / right);
+    long gcd = gcd(left, right);
+
+    if (gcd == Math.abs(right)) {
+      return String.valueOf(left / right);
+    } else if (gcd == Math.abs(left)) {
+      return "1/" + (right / gcd);
+    }
+
+    long tempLeft = Math.abs(left / gcd);
+    long tempRight = Math.abs(right / gcd);
+    if (isNegative(left, right)) {
+      return "-" + tempLeft + "/" + tempRight;
+    }
+    return tempLeft + "/" + tempRight;
   }
 
   @Override
@@ -36,4 +43,32 @@ public class PrimitiveOperation implements ArithmeticOperation {
     left = Long.parseLong(leftValue);
     right = Long.parseLong(rightValue);
   }
+
+  private long gcd(long a, long b) {
+    long tempA = a;
+    long tempB = b;
+
+    if (tempA < 0) {
+      tempA = Math.abs(tempA);
+    }
+    if (tempB < 0) {
+      tempB = Math.abs(tempB);
+    }
+
+    long result = tempA % tempB;
+    if (result == 0L) {
+      return tempB;
+    }
+
+    return gcd(tempB, result);
+  }
+
+  private boolean isNegative(long left, long right) {
+
+    boolean leftSign = left < 0;
+    boolean rightSign = right < 0;
+
+    return leftSign != rightSign;
+  }
+
 }
