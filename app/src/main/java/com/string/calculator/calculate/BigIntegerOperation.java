@@ -1,6 +1,5 @@
 package com.string.calculator.calculate;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class BigIntegerOperation implements ArithmeticOperation {

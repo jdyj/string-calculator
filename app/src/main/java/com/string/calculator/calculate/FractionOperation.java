@@ -1,36 +1,45 @@
-package com.string.calculator;
+package com.string.calculator.calculate;
 
-import com.string.calculator.calculate.OperationFactory;
+import com.string.calculator.Fraction;
+import com.string.calculator.OperatorSign;
 
-public class FractionCalculation {
+public class FractionOperation implements ArithmeticOperation {
 
   private final OperationFactory operationFactory = new OperationFactory();
+  private final Fraction left;
+  private final Fraction right;
 
-  public String calculate(String leftValue, String rightValue, OperatorSign operatorSign) {
-    Fraction left = new Fraction(leftValue);
-    Fraction right = new Fraction(rightValue);
-    String result = null;
-    switch (operatorSign) {
-      case plus -> result = plus(left, right);
-      case multiply -> result = multiply(left, right);
-    }
-
-    return result;
-  }
-
-  private String plus(Fraction a, Fraction b) {
-    String commonNumerator = operationFactory.create(multiply(a.getDenominator(), b.getNumerator()),
-        multiply(a.getNumerator(), b.getDenominator())).calculateOne(OperatorSign.plus);
-    String commonDenominator = multiply(a.getDenominator(), b.getDenominator());
+  @Override
+  public String plus() {
+    String commonNumerator = operationFactory.create(
+        multiply(left.getDenominator(), right.getNumerator()),
+        multiply(left.getNumerator(), right.getDenominator())).calculateOne(OperatorSign.plus);
+    String commonDenominator = multiply(left.getDenominator(), right.getDenominator());
 
     return reducedFraction(commonNumerator, commonDenominator);
   }
 
-  private String multiply(Fraction a, Fraction b) {
-    String commonNumerator = multiply(a.getNumerator(), b.getNumerator());
-    String commonDenominator = multiply(a.getDenominator(), b.getDenominator());
+  @Override
+  public String multiply() {
+    String commonNumerator = multiply(left.getNumerator(), right.getNumerator());
+    String commonDenominator = multiply(left.getDenominator(), right.getDenominator());
 
     return reducedFraction(commonNumerator, commonDenominator);
+  }
+
+  @Override
+  public String divide() {
+    return null;
+  }
+
+  @Override
+  public String modular() {
+    return null;
+  }
+
+  public FractionOperation(Fraction left, Fraction right) {
+    this.left = left;
+    this.right = right;
   }
 
   private String divide(String leftValue, String rightValue) {
@@ -82,6 +91,4 @@ public class FractionCalculation {
     }
     return numerator + "/" + denominator;
   }
-
-
 }
