@@ -1,5 +1,6 @@
 package com.string.calculator.collection;
 
+import com.string.calculator.calculate.Calculate;
 import com.string.calculator.parse.ParsingHandler;
 import com.string.calculator.OperatorSign;
 import com.string.calculator.calculate.OperationFactory;
@@ -8,7 +9,8 @@ public class OperationStateMachine implements ParsingHandler {
 
   private final NumberCollection numberCollection = new NumberCollection();
   private final OperatorCollection operatorCollection = new OperatorCollection();
-  private final Calculate calculate = new Calculate(new OperationFactory());
+  private final OperationFactory operationFactory = new OperationFactory();
+  private final Calculate calculate = new Calculate(operationFactory);
 
   public String getCalculatedValue() {
 
@@ -26,16 +28,15 @@ public class OperationStateMachine implements ParsingHandler {
 
   @Override
   public void numberParsed(String number) {
-
-    String tempNumber = number;
-    if (isNegative()) {
-      tempNumber = makeNegative(number);
-    }
-
-    numberCollection.add(tempNumber);
     if (existHighOperatorSign()) {
+      numberCollection.add(number);
       addStack();
+      return;
     }
+    if (isNegative(number)) {
+      operatorCollection.add(OperatorSign.plus);
+    }
+    numberCollection.add(number);
   }
 
   @Override
@@ -50,16 +51,8 @@ public class OperationStateMachine implements ParsingHandler {
     }
   }
 
-  private String makeNegative(String number) {
-    String tempNumber;
-    tempNumber = '-' + number;
-    operatorCollection.removeLast();
-    operatorCollection.add(OperatorSign.plus);
-    return tempNumber;
-  }
-
-  private boolean isNegative() {
-    return operatorCollection.getLastElement() == OperatorSign.subtract;
+  private boolean isNegative(String number) {
+    return number.contains("-");
   }
 
   private boolean isNotOpenBracket() {
@@ -68,10 +61,6 @@ public class OperationStateMachine implements ParsingHandler {
 
   private boolean existHighOperatorSign() {
     if (operatorCollection.isEmpty()) {
-      return false;
-    }
-
-    if (operatorCollection.size() > numberCollection.size()) {
       return false;
     }
 

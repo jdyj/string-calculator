@@ -58,10 +58,16 @@ public class Parsing {
   }
 
   private boolean isNumberPiece(Character c) {
-    return c >= '0' && c <= '9';
+    boolean isNumeric = (c >= '0' && c <= '9');
+    boolean isMinusSign = c == '-';
+
+    return isNumeric || isMinusSign;
   }
 
   private boolean canNumberParsed(Character c) {
+    if (numberPiece.getNumber().equals("-")) {
+      return false;
+    }
     return c == ' ' && numberPiece.hasNumber();
   }
 
