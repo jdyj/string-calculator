@@ -1,4 +1,4 @@
-package com.string.calculator;
+package com.string.calculator.output;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,33 +11,19 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import org.json.simple.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-public class OutputFormat {
+public class XmlOutput implements Output {
 
   private final String result;
 
-  public OutputFormat(String result) {
+  public XmlOutput(String result) {
     this.result = result;
   }
 
-  public void json() {
-    JSONObject jsonObject = new JSONObject();
-    jsonObject.put("result", result);
-
-    try {
-      FileWriter fileWriter = new FileWriter("/Users/jojaeyeong/Desktop/result.json");
-      fileWriter.write(jsonObject.toJSONString());
-      fileWriter.flush();
-      fileWriter.close();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
-  public void xml() {
+  @Override
+  public void print() {
     DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
     try {
       DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -60,10 +46,6 @@ public class OutputFormat {
     } catch (IOException | ParserConfigurationException | TransformerException e) {
       e.printStackTrace();
     }
-  }
-
-  public void plainText() {
-    System.out.println("num : " + result);
   }
 
 }
