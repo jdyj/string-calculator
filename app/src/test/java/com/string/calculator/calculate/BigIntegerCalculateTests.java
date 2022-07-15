@@ -135,4 +135,11 @@ class BigIntegerCalculateTests {
     assertEquals("5", calculate.divide());
   }
 
+  @Test
+  @DisplayName("나눗셈 - 분자 분모가 같을 때")
+  void divideTest14() {
+    calculate = new BigIntegerOperation("10", "10");
+    assertEquals("1", calculate.divide());
+  }
+
 }

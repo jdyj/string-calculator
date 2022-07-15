@@ -121,4 +121,24 @@ class PrimitiveCalculateTests {
     assertEquals("5", operation.divide());
   }
 
+  @Test
+  @DisplayName("나눗셈 - 분자 분모가 같을 때")
+  void divideTest14() {
+    PrimitiveOperation operation = new PrimitiveOperation("2", "2");
+    assertEquals("1", operation.divide());
+  }
+
+  @Test
+  @DisplayName("나눗셈 - ")
+  void divideTest15() {
+    PrimitiveOperation operation = new PrimitiveOperation("--2", "2");
+    assertThrows(IllegalStateException.class, operation::divide);
+  }
+
+  @Test
+  @DisplayName("나눗셈 - ")
+  void divideTest16() {
+    assertThrows(IllegalStateException.class, () -> new PrimitiveOperation("--2", "2"));
+  }
+
 }

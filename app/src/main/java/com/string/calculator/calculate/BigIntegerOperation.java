@@ -20,10 +20,10 @@ public class BigIntegerOperation implements ArithmeticOperation {
   @Override
   public String divide() {
     BigInteger gcd = left.gcd(right);
-    if (gcd.equals(left.abs())) {
-      return "1/" + right.divide(gcd);
-    } else if (gcd.equals(right.abs())) {
+    if (gcd.equals(right.abs())) {
       return left.divide(right).toString();
+    } else if (gcd.equals(left.abs())) {
+      return "1/" + right.divide(gcd);
     }
 
     BigInteger tempLeft = left.divide(gcd).abs();
