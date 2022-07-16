@@ -1,15 +1,15 @@
 package com.string.calculator.output;
 
-public class PlainOutput implements Output {
+public class PlainFormat implements Format {
 
   private final String result;
 
-  public PlainOutput(String result) {
+  public PlainFormat(String result) {
     this.result = result;
   }
 
   @Override
-  public void print() {
+  public String make() {
     if (isFraction()) {
       StringBuilder sb = new StringBuilder();
       String[] split = result.split("/");
@@ -40,11 +40,10 @@ public class PlainOutput implements Output {
       sb.append("-".repeat(barCount));
       sb.append("\n");
       sb.append(split[1]);
-      System.out.println(sb);
-      return;
+      return sb.toString();
     }
 
-    System.out.println("num : " + result);
+    return result;
   }
 
   private boolean isFraction() {

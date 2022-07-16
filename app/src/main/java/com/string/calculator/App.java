@@ -4,14 +4,19 @@
 package com.string.calculator;
 
 import com.string.calculator.output.Category;
-import com.string.calculator.output.JsonOutput;
-import com.string.calculator.output.Output;
-import com.string.calculator.output.OutputFactory;
+import com.string.calculator.output.Format;
+import com.string.calculator.output.FormatFactory;
+import com.string.calculator.output.web.SpringBootApplication;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import org.yaml.snakeyaml.Yaml;
 
 public class App {
-
-  public static boolean fraction = true;
 
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
@@ -29,9 +34,9 @@ public class App {
 
     int formatInput = scanner.nextInt();
     Category category = getCategory(formatInput);
-    OutputFactory outputFactory = new OutputFactory();
-    Output output = outputFactory.create(result, category);
-    output.print();
+    FormatFactory formatFactory = new FormatFactory();
+    Format format = formatFactory.create(result, category);
+    String outputFormat = format.make();
 
   }
 

@@ -1,7 +1,7 @@
 package com.string.calculator.output;
 
-public interface Output {
+public interface Format {
 
-  void print();
+  String make();
 
 }

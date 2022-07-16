@@ -14,16 +14,16 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-public class XmlOutput implements Output {
+public class XmlFormat implements Format {
 
   private final String result;
 
-  public XmlOutput(String result) {
+  public XmlFormat(String result) {
     this.result = result;
   }
 
   @Override
-  public void print() {
+  public String make() {
     DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
     try {
       DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -46,6 +46,7 @@ public class XmlOutput implements Output {
     } catch (IOException | ParserConfigurationException | TransformerException e) {
       e.printStackTrace();
     }
+    return "";
   }
 
 }
