@@ -1,6 +1,7 @@
 package com.string.calculator.calculate;
 
 import com.string.calculator.Fraction;
+import com.string.calculator.Number;
 import com.string.calculator.OperatorSign;
 
 public class FractionOperation implements ArithmeticOperation {
@@ -10,33 +11,33 @@ public class FractionOperation implements ArithmeticOperation {
   private final Fraction right;
 
   @Override
-  public String plus() {
-    String commonNumerator = operationFactory.create(
+  public Number plus() {
+    Number commonNumerator = operationFactory.create(
         multiply(left.getDenominator(), right.getNumerator()),
         multiply(left.getNumerator(), right.getDenominator())).calculateOne(OperatorSign.plus);
-    String commonDenominator = multiply(left.getDenominator(), right.getDenominator());
+    Number commonDenominator = multiply(left.getDenominator(), right.getDenominator());
 
     return reducedFraction(commonNumerator, commonDenominator);
   }
 
   @Override
-  public String multiply() {
-    String commonNumerator = multiply(left.getNumerator(), right.getNumerator());
-    String commonDenominator = multiply(left.getDenominator(), right.getDenominator());
+  public Number multiply() {
+    Number commonNumerator = multiply(left.getNumerator(), right.getNumerator());
+    Number commonDenominator = multiply(left.getDenominator(), right.getDenominator());
 
     return reducedFraction(commonNumerator, commonDenominator);
   }
 
   @Override
-  public String divide() {
-    String commonNumerator = multiply(left.getNumerator(), right.getDenominator());
-    String commonDenominator = multiply(left.getDenominator(), right.getNumerator());
+  public Number divide() {
+    Number commonNumerator = multiply(left.getNumerator(), right.getDenominator());
+    Number commonDenominator = multiply(left.getDenominator(), right.getNumerator());
 
     return reducedFraction(commonNumerator, commonDenominator);
   }
 
   @Override
-  public String modular() {
+  public Number modular() {
     return null;
   }
 
@@ -45,53 +46,55 @@ public class FractionOperation implements ArithmeticOperation {
     this.right = right;
   }
 
-  private String divide(String leftValue, String rightValue) {
-    return operationFactory.create(leftValue, rightValue)
+  private Number divide(Number left, Number right) {
+    return operationFactory.create(left, right)
         .calculateOne(OperatorSign.divide);
   }
 
-  private String multiply(String leftValue, String rightValue) {
-    return operationFactory.create(leftValue, rightValue)
+  private Number multiply(Number left, Number right) {
+    return operationFactory.create(left, right)
         .calculateOne(OperatorSign.multiply);
   }
 
-  private String gcd(String a, String b) {
-    if (a.contains("-")) {
-      a = a.substring(1);
+  private Number gcd(Number a, Number b) {
+    Number tempA = a;
+    Number tempB = b;
+    if (a.isNegative()) {
+      tempA = new Number(a.getValue().substring(1));
     }
-    if (b.contains("-")) {
-      b = b.substring(1);
+    if (b.isNegative()) {
+      tempB = new Number(b.getValue().substring(1));
     }
-    String result = operationFactory.create(a, b).calculateOne(OperatorSign.modular);
-    if (result.equals("0")) {
+    Number result = operationFactory.create(tempA, tempB).calculateOne(OperatorSign.modular);
+    if (result.getValue().equals("0")) {
       return b;
     }
     return gcd(b, result);
   }
 
-  private String reducedFraction(String numerator, String denominator) {
-    String gcd = gcd(numerator, denominator);
-    if (gcd.equals("1")) {
+  private Number reducedFraction(Number numerator, Number denominator) {
+    Number gcd = gcd(numerator, denominator);
+    if (gcd.getValue().equals("1")) {
       return toString(numerator, denominator);
     }
-    numerator = divide(numerator, gcd);
-    denominator = divide(denominator, gcd);
+    Number gcdNumerator = divide(numerator, gcd);
+    Number gcdDenominator = divide(denominator, gcd);
 
-    if (numerator.contains("-") && denominator.contains("-")) {
-      denominator = denominator.substring(1);
-      numerator = numerator.substring(1);
-    } else if (denominator.contains("-")) {
-      denominator = denominator.substring(1);
-      numerator = "-" + numerator;
+    if (gcdNumerator.isNegative() && gcdDenominator.isNegative()) {
+      gcdDenominator = new Number(gcdDenominator.getValueWithoutMinusSign());
+      gcdNumerator = new Number(gcdNumerator.getValueWithoutMinusSign());
+    } else if (gcdDenominator.isNegative()) {
+      gcdDenominator = new Number(gcdDenominator.getValueWithoutMinusSign());
+      gcdNumerator = new Number("-" + gcdNumerator.getValue());
     }
 
-    return toString(numerator, denominator);
+    return toString(gcdNumerator, gcdDenominator);
   }
 
-  private String toString(String numerator, String denominator) {
-    if (denominator.equals("1")) {
-      return numerator;
+  private Number toString(Number numerator, Number denominator) {
+    if (denominator.getValue().equals("1")) {
+      return new Number(numerator.getValue());
     }
-    return numerator + "/" + denominator;
+    return new Number(numerator.getValue() + "/" + denominator.getValue());
   }
 }

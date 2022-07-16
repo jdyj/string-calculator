@@ -11,6 +11,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import com.string.calculator.App;
+import com.string.calculator.Number;
 import com.string.calculator.OperatorSign;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -51,8 +52,8 @@ class ParsingTests {
 
     parsing.parse("123 + 23492");
 
-    verify(parsingHandler, times(1)).numberParsed("123");
-    verify(parsingHandler, times(1)).numberParsed("23492");
+    verify(parsingHandler, times(1)).numberParsed(new Number("123"));
+    verify(parsingHandler, times(1)).numberParsed(new Number("23492"));
     verify(parsingHandler, times(1)).operatorParsed(OperatorSign.plus);
 
   }
@@ -75,10 +76,10 @@ class ParsingTests {
     parsing.parse("1 + 2");
     parsing.parse("3 + 4");
 
-    verify(parsingHandler, times(1)).numberParsed("1");
-    verify(parsingHandler, times(1)).numberParsed("2");
-    verify(parsingHandler, times(1)).numberParsed("3");
-    verify(parsingHandler, times(1)).numberParsed("4");
+    verify(parsingHandler, times(1)).numberParsed(new Number("1"));
+    verify(parsingHandler, times(1)).numberParsed(new Number("2"));
+    verify(parsingHandler, times(1)).numberParsed(new Number("3"));
+    verify(parsingHandler, times(1)).numberParsed(new Number("4"));
     verify(parsingHandler, times(2)).operatorParsed(any());
 
     verifyNoMoreInteractions(parsingHandler);

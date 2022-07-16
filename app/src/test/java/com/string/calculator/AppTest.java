@@ -137,14 +137,14 @@ class AppTest {
   }
 
   private String runApplication(String input, String[] args) {
-    input = input + "\n3";
+    input = input + "\n3\n1";
     InputStream in = new ByteArrayInputStream(input.getBytes());
     OutputStream out = new ByteArrayOutputStream();
     PrintStream printStream = new PrintStream(out);
     System.setOut(printStream);
     System.setIn(in);
     App.main(args);
-    return out.toString().substring(51);
+    return out.toString().substring(95);
   }
 
 

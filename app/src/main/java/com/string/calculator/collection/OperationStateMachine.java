@@ -1,5 +1,6 @@
 package com.string.calculator.collection;
 
+import com.string.calculator.Number;
 import com.string.calculator.calculate.Calculate;
 import com.string.calculator.parse.ParsingHandler;
 import com.string.calculator.OperatorSign;
@@ -12,7 +13,7 @@ public class OperationStateMachine implements ParsingHandler {
   private final OperationFactory operationFactory = new OperationFactory();
   private final Calculate calculate = new Calculate(operationFactory);
 
-  public String getCalculatedValue() {
+  public Number getCalculatedValue() {
 
     while (numberCollection.hasNext()) {
       addStack();
@@ -27,13 +28,13 @@ public class OperationStateMachine implements ParsingHandler {
   }
 
   @Override
-  public void numberParsed(String number) {
+  public void numberParsed(Number number) {
     if (existHighOperatorSign()) {
       numberCollection.add(number);
       addStack();
       return;
     }
-    if (isNegative(number)) {
+    if (number.isNegative()) {
       operatorCollection.add(OperatorSign.plus);
     }
     numberCollection.add(number);
@@ -51,10 +52,6 @@ public class OperationStateMachine implements ParsingHandler {
     }
   }
 
-  private boolean isNegative(String number) {
-    return number.contains("-");
-  }
-
   private boolean isNotOpenBracket() {
     return !(operatorCollection.getLastElement() == OperatorSign.openBracket);
   }
@@ -70,11 +67,11 @@ public class OperationStateMachine implements ParsingHandler {
 
 
   private void addStack() {
-    String rightValue = numberCollection.getLastElementAndRemove();
-    String leftValue = numberCollection.getLastElementAndRemove();
+    Number right = numberCollection.getLastElementAndRemove();
+    Number left = numberCollection.getLastElementAndRemove();
     OperatorSign operatorSign = operatorCollection.getLastElement();
     operatorCollection.removeLast();
-    String result = calculate.one(leftValue, rightValue, operatorSign);
+    Number result = calculate.one(left, right, operatorSign);
     numberCollection.add(result);
   }
 

@@ -1,6 +1,7 @@
 package com.string.calculator.calculate;
 
 import com.string.calculator.App;
+import com.string.calculator.Number;
 import com.string.calculator.OperatorSign;
 
 public class Calculate {
@@ -11,8 +12,8 @@ public class Calculate {
     this.operationFactory = operationFactory;
   }
 
-  public String one(String leftValue, String rightValue, OperatorSign operatorSign) {
-    return operationFactory.create(leftValue, rightValue).calculateOne(operatorSign);
+  public Number one(Number left, Number right, OperatorSign operatorSign) {
+    return operationFactory.create(left, right).calculateOne(operatorSign);
   }
 
 }

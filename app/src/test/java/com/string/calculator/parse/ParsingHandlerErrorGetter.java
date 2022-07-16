@@ -1,5 +1,6 @@
 package com.string.calculator.parse;
 
+import com.string.calculator.Number;
 import com.string.calculator.OperatorSign;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ public class ParsingHandlerErrorGetter implements ParsingHandler {
   }
 
   @Override
-  public void numberParsed(String number) {
+  public void numberParsed(Number number) {
     count++;
     if (this.count == 1) {
       throw new IllegalStateException();
