@@ -38,6 +38,25 @@ public class App {
     Format format = formatFactory.create(result, category);
     String outputFormat = format.make();
 
+    System.out.println("출력 위치를 선택하세요.");
+    System.out.println("1. 표준 출력, 2. 파일 출력, 3. 웹으로 출력");
+
+    int positionInput = scanner.nextInt();
+    if (positionInput == 3) {
+      String folder = System.getProperty("user.dir");
+      Map<String, Object> data = new HashMap<>();
+      data.put("result", outputFormat);
+
+      Yaml yaml = new Yaml();
+      try {
+        FileWriter writer = new FileWriter(folder + "/application.yml");
+        yaml.dump(data, writer);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      SpringBootApplication.main(args);
+    }
+
   }
 
   private static Category getCategory(int formatInput) {
