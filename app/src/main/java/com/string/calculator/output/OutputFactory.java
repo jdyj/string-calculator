@@ -1,13 +1,7 @@
 package com.string.calculator.output;
 
 import com.string.calculator.format.Category;
-import com.string.calculator.output.web.SpringBootApplication;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
-import org.yaml.snakeyaml.Yaml;
 
 public class OutputFactory {
 

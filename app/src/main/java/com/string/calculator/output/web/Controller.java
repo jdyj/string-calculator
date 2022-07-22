@@ -1,6 +1,5 @@
 package com.string.calculator.output.web;
 
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

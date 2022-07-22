@@ -3,18 +3,11 @@
  */
 package com.string.calculator;
 
-import com.string.calculator.format.Category;
 import com.string.calculator.format.Format;
 import com.string.calculator.format.FormatFactory;
 import com.string.calculator.output.Output;
 import com.string.calculator.output.OutputFactory;
-import com.string.calculator.output.web.SpringBootApplication;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
-import org.yaml.snakeyaml.Yaml;
 
 public class App {
 

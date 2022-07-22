@@ -1,6 +1,5 @@
 package com.string.calculator.output;
 
-import java.io.FileWriter;
 
 final class FileOutput implements Output {
 
