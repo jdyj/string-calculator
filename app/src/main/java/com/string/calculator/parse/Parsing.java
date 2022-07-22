@@ -65,7 +65,7 @@ public class Parsing {
   }
 
   private boolean canNumberParsed(Character c) {
-    if (numberPiece.getNumber().equals("-")) {
+    if (numberPiece.getNumber().getValue().equals("-")) {
       return false;
     }
     return c == ' ' && numberPiece.hasNumber();

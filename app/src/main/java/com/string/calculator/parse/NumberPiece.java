@@ -1,5 +1,7 @@
 package com.string.calculator.parse;
 
+import com.string.calculator.Number;
+
 final class NumberPiece {
 
   private final StringBuilder stringBuilder = new StringBuilder();
@@ -8,8 +10,8 @@ final class NumberPiece {
     stringBuilder.append(numberPiece);
   }
 
-  public String getNumber() {
-    return stringBuilder.toString();
+  public Number getNumber() {
+    return new Number(stringBuilder.toString());
   }
 
   public void makeEmpty() {

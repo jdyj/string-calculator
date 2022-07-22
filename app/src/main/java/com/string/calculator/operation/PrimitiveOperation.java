@@ -1,47 +1,48 @@
-package com.string.calculator.calculate;
+package com.string.calculator.operation;
 
+import com.string.calculator.Number;
 
-public class PrimitiveOperation implements ArithmeticOperation {
+final class PrimitiveOperation implements ArithmeticOperation {
 
   private final long left;
   private final long right;
 
   @Override
-  public String plus() {
-    return String.valueOf(left + right);
+  public Number plus() {
+    return toNumber(String.valueOf(left + right));
   }
 
   @Override
-  public String multiply() {
-    return String.valueOf(left * right);
+  public Number multiply() {
+    return toNumber(String.valueOf(left * right));
   }
 
   @Override
-  public String divide() {
+  public Number divide() {
     long gcd = gcd(left, right);
 
     if (gcd == Math.abs(right)) {
-      return String.valueOf(left / right);
+      return toNumber(String.valueOf(left / right));
     } else if (gcd == Math.abs(left)) {
-      return "1/" + (right / gcd);
+      return toNumber("1/" + (right / gcd));
     }
 
     long tempLeft = Math.abs(left / gcd);
     long tempRight = Math.abs(right / gcd);
     if (isNegative(left, right)) {
-      return "-" + tempLeft + "/" + tempRight;
+      return toNumber("-" + tempLeft + "/" + tempRight);
     }
-    return tempLeft + "/" + tempRight;
+    return toNumber(tempLeft + "/" + tempRight);
   }
 
   @Override
-  public String modular() {
-    return String.valueOf(left % right);
+  public Number modular() {
+    return toNumber(String.valueOf(left % right));
   }
 
-  public PrimitiveOperation(String leftValue, String rightValue) {
-    left = Long.parseLong(leftValue);
-    right = Long.parseLong(rightValue);
+  public PrimitiveOperation(Number left, Number right) {
+    this.left = Long.parseLong(left.getValue());
+    this.right = Long.parseLong(right.getValue());
   }
 
   private long gcd(long a, long b) {
@@ -69,6 +70,10 @@ public class PrimitiveOperation implements ArithmeticOperation {
     boolean rightSign = right < 0;
 
     return leftSign != rightSign;
+  }
+
+  private Number toNumber(String value) {
+    return new Number(value);
   }
 
 }

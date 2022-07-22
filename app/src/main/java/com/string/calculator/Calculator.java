@@ -5,7 +5,7 @@ import com.string.calculator.parse.Parsing;
 
 public class Calculator {
 
-  public String calculate(String input) {
+  public Number calculate(String input) {
     OperationStateMachine machine = new OperationStateMachine();
     Parsing parsing = new Parsing(machine);
     parsing.parse(input);

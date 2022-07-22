@@ -3,15 +3,13 @@
  */
 package com.string.calculator;
 
-import com.string.calculator.output.Category;
-import com.string.calculator.output.JsonOutput;
+import com.string.calculator.format.Format;
+import com.string.calculator.format.FormatFactory;
 import com.string.calculator.output.Output;
 import com.string.calculator.output.OutputFactory;
 import java.util.Scanner;
 
 public class App {
-
-  public static boolean fraction = true;
 
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
@@ -22,29 +20,16 @@ public class App {
     }
 
     Calculator calculator = new Calculator();
-    String result = calculator.calculate(input);
+    String result = calculator.calculate(input).getValue();
 
-    System.out.println("출력 포맷을 선택하세요.");
-    System.out.println("1. json, 2. xml, 3. plain-text");
+    FormatFactory formatFactory = new FormatFactory();
+    Format format = formatFactory.create(result);
+    String outputFormat = format.make();
 
-    int formatInput = scanner.nextInt();
-    Category category = getCategory(formatInput);
-    OutputFactory outputFactory = new OutputFactory();
-    Output output = outputFactory.create(result, category);
+    OutputFactory outputFactory = new OutputFactory(args);
+    Output output = outputFactory.create(outputFormat, formatFactory.getCategory());
     output.print();
 
-  }
-
-  private static Category getCategory(int formatInput) {
-    Category category = null;
-    if (formatInput == 1) {
-      category = Category.JSON;
-    } else if (formatInput == 2) {
-      category = Category.XML;
-    } else if (formatInput == 3) {
-      category = Category.PLAIN;
-    }
-    return category;
   }
 
 }
