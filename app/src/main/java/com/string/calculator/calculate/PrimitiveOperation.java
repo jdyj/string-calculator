@@ -2,7 +2,7 @@ package com.string.calculator.calculate;
 
 import com.string.calculator.Number;
 
-public class PrimitiveOperation implements ArithmeticOperation {
+final class PrimitiveOperation implements ArithmeticOperation {
 
   private final long left;
   private final long right;

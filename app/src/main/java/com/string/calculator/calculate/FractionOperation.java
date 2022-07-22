@@ -4,7 +4,7 @@ import com.string.calculator.Fraction;
 import com.string.calculator.Number;
 import com.string.calculator.OperatorSign;
 
-public class FractionOperation implements ArithmeticOperation {
+final class FractionOperation implements ArithmeticOperation {
 
   private final OperationFactory operationFactory = new OperationFactory();
   private final Fraction left;

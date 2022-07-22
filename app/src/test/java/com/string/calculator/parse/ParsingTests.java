@@ -52,8 +52,7 @@ class ParsingTests {
 
     parsing.parse("123 + 23492");
 
-    verify(parsingHandler, times(1)).numberParsed(new Number("123"));
-    verify(parsingHandler, times(1)).numberParsed(new Number("23492"));
+    verify(parsingHandler, times(2)).numberParsed(any());
     verify(parsingHandler, times(1)).operatorParsed(OperatorSign.plus);
 
   }
@@ -76,10 +75,7 @@ class ParsingTests {
     parsing.parse("1 + 2");
     parsing.parse("3 + 4");
 
-    verify(parsingHandler, times(1)).numberParsed(new Number("1"));
-    verify(parsingHandler, times(1)).numberParsed(new Number("2"));
-    verify(parsingHandler, times(1)).numberParsed(new Number("3"));
-    verify(parsingHandler, times(1)).numberParsed(new Number("4"));
+    verify(parsingHandler, times(4)).numberParsed(any());
     verify(parsingHandler, times(2)).operatorParsed(any());
 
     verifyNoMoreInteractions(parsingHandler);

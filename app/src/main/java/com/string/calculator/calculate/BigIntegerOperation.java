@@ -3,7 +3,7 @@ package com.string.calculator.calculate;
 import com.string.calculator.Number;
 import java.math.BigInteger;
 
-public class BigIntegerOperation implements ArithmeticOperation {
+final class BigIntegerOperation implements ArithmeticOperation {
 
   private final BigInteger left;
   private final BigInteger right;

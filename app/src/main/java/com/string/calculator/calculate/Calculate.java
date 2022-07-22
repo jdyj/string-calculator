@@ -1,6 +1,5 @@
 package com.string.calculator.calculate;
 
-import com.string.calculator.App;
 import com.string.calculator.Number;
 import com.string.calculator.OperatorSign;
 
