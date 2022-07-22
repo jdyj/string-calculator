@@ -17,17 +17,25 @@ public class OutputFactory {
     System.out.println("1. 표준 출력, 2. 파일 출력, 3. 웹으로 출력");
     Scanner scanner = new Scanner(System.in);
 
-    int positionInput = scanner.nextInt();
-    if (positionInput == 1) {
+    int input = scanner.nextInt();
+    if (isConsoleOutput(input)) {
       return new ConsoleOutput(outputFormat);
     }
 
-    if (positionInput == 2) {
+    if (isFileOutput(input)) {
       return new FileOutput(outputFormat);
     }
 
     return new WebOutput(outputFormat, category, args);
 
+  }
+
+  private boolean isFileOutput(int positionInput) {
+    return positionInput == 2;
+  }
+
+  private boolean isConsoleOutput(int positionInput) {
+    return positionInput == 1;
   }
 
 }
