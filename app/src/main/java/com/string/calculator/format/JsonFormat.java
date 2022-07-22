@@ -1,4 +1,4 @@
-package com.string.calculator.output;
+package com.string.calculator.format;
 
 import org.json.simple.JSONObject;
 

@@ -1,4 +1,4 @@
-package com.string.calculator.output;
+package com.string.calculator.format;
 
 public class PlainFormat implements Format {
 

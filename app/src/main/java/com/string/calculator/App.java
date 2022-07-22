@@ -3,12 +3,10 @@
  */
 package com.string.calculator;
 
-import com.string.calculator.output.Category;
-import com.string.calculator.output.Format;
-import com.string.calculator.output.FormatFactory;
+import com.string.calculator.format.Category;
+import com.string.calculator.format.Format;
+import com.string.calculator.format.FormatFactory;
 import com.string.calculator.output.web.SpringBootApplication;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
@@ -48,6 +46,7 @@ public class App {
       String folder = System.getProperty("user.dir");
       Map<String, Object> data = new HashMap<>();
       data.put("result", outputFormat);
+      data.put("format", category.name());
 
       Yaml yaml = new Yaml();
       try {

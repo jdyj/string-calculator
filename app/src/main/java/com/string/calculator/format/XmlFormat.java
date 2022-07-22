@@ -1,7 +1,9 @@
-package com.string.calculator.output;
+package com.string.calculator.format;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -38,10 +40,14 @@ public class XmlFormat implements Format {
       TransformerFactory transformerFactory = TransformerFactory.newInstance();
       Transformer transformer = transformerFactory.newTransformer();
       transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+      transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
       DOMSource source = new DOMSource(document);
       StreamResult streamResult = new StreamResult(fileWriter);
 
       transformer.transform(source, streamResult);
+      Writer out = new StringWriter();
+      transformer.transform(source, new StreamResult(out));
+      return out.toString();
 
     } catch (IOException | ParserConfigurationException | TransformerException e) {
       e.printStackTrace();
