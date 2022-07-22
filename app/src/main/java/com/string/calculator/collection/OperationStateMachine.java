@@ -1,10 +1,9 @@
 package com.string.calculator.collection;
 
 import com.string.calculator.Number;
-import com.string.calculator.calculate.Calculate;
 import com.string.calculator.parse.ParsingHandler;
 import com.string.calculator.OperatorSign;
-import com.string.calculator.calculate.OperationFactory;
+import com.string.calculator.operation.OperationFactory;
 
 public class OperationStateMachine implements ParsingHandler {
 

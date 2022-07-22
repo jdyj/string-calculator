@@ -1,4 +1,4 @@
-package com.string.calculator.calculate;
+package com.string.calculator.operation;
 
 import com.string.calculator.Number;
 import com.string.calculator.OperatorSign;

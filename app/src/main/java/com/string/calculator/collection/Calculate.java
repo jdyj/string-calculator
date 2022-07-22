@@ -1,9 +1,10 @@
-package com.string.calculator.calculate;
+package com.string.calculator.collection;
 
 import com.string.calculator.Number;
 import com.string.calculator.OperatorSign;
+import com.string.calculator.operation.OperationFactory;
 
-public class Calculate {
+final class Calculate {
 
   private final OperationFactory operationFactory;
 

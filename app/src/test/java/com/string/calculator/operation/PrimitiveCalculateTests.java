@@ -1,4 +1,4 @@
-package com.string.calculator.calculate;
+package com.string.calculator.operation;
 
 import static org.junit.jupiter.api.Assertions.*;
 
