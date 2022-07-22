@@ -27,6 +27,10 @@ public class FormatFactory {
     return new PlainFormat(result);
   }
 
+  public Category getCategory() {
+    return category;
+  }
+
   private Category getCategory(int formatInput) {
     Category category = null;
     if (formatInput == 1) {
