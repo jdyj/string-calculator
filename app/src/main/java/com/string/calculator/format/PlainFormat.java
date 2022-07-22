@@ -1,6 +1,6 @@
 package com.string.calculator.format;
 
-public class PlainFormat implements Format {
+final class PlainFormat implements Format {
 
   private final String result;
 

@@ -2,7 +2,7 @@ package com.string.calculator.format;
 
 import org.json.simple.JSONObject;
 
-public class JsonFormat implements Format {
+final class JsonFormat implements Format {
 
   private final String result;
 
