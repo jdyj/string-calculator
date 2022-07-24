@@ -1,19 +1,20 @@
-package com.string.calculator.calculate;
+package com.string.calculator.operation;
 
+import com.string.calculator.Number;
 import com.string.calculator.OperatorSign;
 
 public interface ArithmeticOperation {
 
-  String plus();
+  Number plus();
 
-  String multiply();
+  Number multiply();
 
-  String divide();
+  Number divide();
 
-  String modular();
+  Number modular();
 
-  default String calculateOne(OperatorSign operator) {
-    String result = null;
+  default Number calculateOne(OperatorSign operator) {
+    Number result = null;
     switch (operator) {
       case plus -> result = plus();
       case multiply -> result = multiply();

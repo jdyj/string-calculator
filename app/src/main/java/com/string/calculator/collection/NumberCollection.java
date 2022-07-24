@@ -1,20 +1,21 @@
 package com.string.calculator.collection;
 
+import com.string.calculator.Number;
 import java.util.Stack;
 
 final class NumberCollection {
 
-  private Stack<String> stack = new Stack<>();
+  private Stack<Number> stack = new Stack<>();
 
-  public String getLastElement() {
+  public Number getLastElement() {
     return stack.peek();
   }
 
-  public String getLastElementAndRemove() {
+  public Number getLastElementAndRemove() {
     return stack.pop();
   }
 
-  public void add(String number) {
+  public void add(Number number) {
     stack.add(number);
   }
 
@@ -28,16 +29,6 @@ final class NumberCollection {
 
   public int size() {
     return stack.size();
-  }
-
-  public void reverse() {
-    Stack<String> temp = new Stack<>();
-
-    while (!isEmpty()) {
-      String pop = stack.pop();
-      temp.add(pop);
-    }
-    stack = temp;
   }
 
 }

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.stream.Stream;
 
-public class CharacterStream {
+final class CharacterStream {
 
   private final List<Character> chars;
 
