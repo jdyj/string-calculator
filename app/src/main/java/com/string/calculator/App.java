@@ -5,6 +5,8 @@ package com.string.calculator;
 
 import com.string.calculator.format.Format;
 import com.string.calculator.format.FormatFactory;
+import com.string.calculator.input.Input;
+import com.string.calculator.input.InputFactory;
 import com.string.calculator.output.Output;
 import com.string.calculator.output.OutputFactory;
 import java.util.Scanner;
@@ -12,22 +14,19 @@ import java.util.Scanner;
 public class App {
 
   public static void main(String[] args) {
-    Scanner scanner = new Scanner(System.in);
-    System.out.print("num : ");
-    String input = "";
-    if (scanner.hasNextLine()) {
-      input = scanner.nextLine();
-    }
+    InputFactory inputFactory = new InputFactory();
+    Input input = inputFactory.create(args);
+    String value = input.enter();
 
     Calculator calculator = new Calculator();
-    String result = calculator.calculate(input).getValue();
+    String result = calculator.calculate(value).getValue();
 
     FormatFactory formatFactory = new FormatFactory();
     Format format = formatFactory.create(result);
     String outputFormat = format.make();
 
-    OutputFactory outputFactory = new OutputFactory(args);
-    Output output = outputFactory.create(outputFormat, formatFactory.getCategory());
+    OutputFactory outputFactory = new OutputFactory();
+    Output output = outputFactory.create(outputFormat, formatFactory.getCategory(), args);
     output.print();
 
   }

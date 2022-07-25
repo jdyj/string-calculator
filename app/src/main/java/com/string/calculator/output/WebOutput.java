@@ -1,12 +1,12 @@
 package com.string.calculator.output;
 
 import com.string.calculator.format.Category;
-import com.string.calculator.output.web.SpringBootApplication;
-import java.io.FileWriter;
-import java.io.IOException;
+import com.string.calculator.utils.Yaml;
+import com.string.calculator.web.SpringBootApplication;
+import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
-import org.yaml.snakeyaml.Yaml;
+import org.springframework.boot.SpringApplication;
 
 final class WebOutput implements Output {
 
@@ -22,18 +22,28 @@ final class WebOutput implements Output {
 
   @Override
   public void print() {
-    String folder = System.getProperty("user.dir");
     Map<String, Object> data = new HashMap<>();
     data.put("result", outputFormat);
     data.put("format", category.name());
 
     Yaml yaml = new Yaml();
-    try {
-      FileWriter writer = new FileWriter(folder + "/application.yml");
-      yaml.dump(data, writer);
-    } catch (IOException e) {
-      e.printStackTrace();
+    yaml.write(data);
+    if (availablePort("127.0.0.1", 8080)) {
+      SpringApplication.run(SpringBootApplication.class, args);
     }
-    SpringBootApplication.main(args);
+    System.out.println("GET http://localhost:8080/result");
   }
+
+  public boolean availablePort(String host, int port) {
+    boolean result = true;
+
+    try {
+      (new Socket(host, port)).close();
+      result = false;
+    } catch (Exception e) {
+
+    }
+    return result;
+  }
+
 }
