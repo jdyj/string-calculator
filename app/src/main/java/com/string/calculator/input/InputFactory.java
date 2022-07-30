@@ -1,19 +1,21 @@
 package com.string.calculator.input;
 
-import java.util.Scanner;
+import com.string.calculator.Setting;
 
 public class InputFactory {
 
+  private final Setting setting;
+
+  public InputFactory(Setting setting) {
+    this.setting = setting;
+  }
+
   /**
    * 요구사항 : 각 입력 방법이외의 입력 방법이 들어가면 안된다.
-   *
    */
-  public Input create(String[] args) {
-    Scanner scanner = new Scanner(System.in);
-    System.out.println("입력 방법을 선택하세요.");
-    System.out.println("1. 표준 입력, 2. 파일 입력, 3. 웹으로 입력");
+  public Input create() {
 
-    int input = scanner.nextInt();
+    int input = Integer.parseInt(setting.getInputValue());
     if (isConsoleInput(input)) {
       return new ConsoleInput();
     }
@@ -22,7 +24,7 @@ public class InputFactory {
       return new FileInput();
     }
 
-    return new WebInput(args);
+    return new WebInput(setting.getArgs());
   }
 
   private boolean isFileInput(int input) {

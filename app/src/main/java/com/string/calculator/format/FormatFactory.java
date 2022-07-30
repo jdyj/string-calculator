@@ -1,17 +1,13 @@
 package com.string.calculator.format;
 
-import java.util.Scanner;
+import com.string.calculator.Setting;
 
 public class FormatFactory {
 
   private final Category category;
 
-  public FormatFactory() {
-    System.out.println("출력 포맷을 선택하세요.");
-    System.out.println("1. json, 2. xml, 3. plain-text");
-    Scanner scanner = new Scanner(System.in);
-
-    int formatInput = scanner.nextInt();
+  public FormatFactory(Setting setting) {
+    int formatInput = Integer.parseInt(setting.getFormat());
     this.category = getCategory(formatInput);
   }
 

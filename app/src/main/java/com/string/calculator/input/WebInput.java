@@ -15,18 +15,13 @@ final class WebInput implements Input {
 
   /**
    * 서버가 안닫힘. 이건 증상
-   *
-   * 문제가 뭔지 ?
-   * 아무것도 모르는 사람이 들었을 때 알아듣도록 한문장으로
-   *
+   * <p>
+   * 문제가 뭔지 ? 아무것도 모르는 사람이 들었을 때 알아듣도록 한문장으로
+   * <p>
    * jvm 역할, 내부 동작
-   *
-   * 문제 : main은 실행 시켰을 때, thread in, jvm 관점에서 설명
-   * Process finished with exit code 0
-   * process and thread 차이
-   * main thread 와 process 관계
-   *
-   *
+   * <p>
+   * 문제 : main은 실행 시켰을 때, thread in, jvm 관점에서 설명 Process finished with exit code 0 process and
+   * thread 차이 main thread 와 process 관계
    */
 
 
@@ -48,10 +43,11 @@ final class WebInput implements Input {
     springBootThread.start();
 
     try {
-      springBootThread.join(); // 이게 됐는데 왜 서버가 죽지않는지 // 입력이 끝나면 죽는 코드도 짜오기
+      springBootThread.join();
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
+
     return InputValue.getInstance().getValue();
   }
 }

@@ -1,17 +1,19 @@
 package com.string.calculator.output;
 
+import com.string.calculator.Setting;
 import com.string.calculator.format.Category;
-import java.util.Scanner;
 
 public class OutputFactory {
 
-  public Output create(String outputFormat, Category category, String[] args) {
+  private final Setting setting;
 
-    System.out.println("출력 위치를 선택하세요.");
-    System.out.println("1. 표준 출력, 2. 파일 출력, 3. 웹으로 출력");
-    Scanner scanner = new Scanner(System.in);
+  public OutputFactory(Setting setting) {
+    this.setting = setting;
+  }
 
-    int input = scanner.nextInt();
+  public Output create(String outputFormat, Category category) {
+
+    int input = Integer.parseInt(setting.getOutput());
     if (isConsoleOutput(input)) {
       return new ConsoleOutput(outputFormat);
     }
@@ -20,7 +22,7 @@ public class OutputFactory {
       return new FileOutput(outputFormat);
     }
 
-    return new WebOutput(outputFormat, category, args);
+    return new WebOutput(outputFormat, category, setting.getArgs());
 
   }
 
