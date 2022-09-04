@@ -36,7 +36,7 @@ public class Controller {
     String result = calculator.calculate(value).getValue();
 
     FormatFactory formatFactory = new FormatFactory(setting);
-    String outputFormat = formatFactory.create(result).make();
+    String outputFormat = formatFactory.create(result, "").make();
 
     HttpHeaders responseHeaders = new HttpHeaders();
     addContentType(formatFactory, responseHeaders);
@@ -50,7 +50,7 @@ public class Controller {
     String result = calculator.calculate(inputRequest.getValue()).getValue();
 
     FormatFactory formatFactory = new FormatFactory(setting);
-    String outputFormat = formatFactory.create(result).make();
+    String outputFormat = formatFactory.create(result, "").make();
 
     OutputFactory outputFactory = new OutputFactory(setting);
     Output output = outputFactory.create(outputFormat, formatFactory.getCategory());

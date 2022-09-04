@@ -1,6 +1,8 @@
 package com.string.calculator.collection;
 
+import com.string.calculator.CalculationProcess;
 import com.string.calculator.Number;
+import com.string.calculator.Setting;
 import com.string.calculator.parse.ParsingHandler;
 import com.string.calculator.OperatorSign;
 import com.string.calculator.operation.OperationFactory;
@@ -11,6 +13,8 @@ public class OperationStateMachine implements ParsingHandler {
   private final OperatorCollection operatorCollection = new OperatorCollection();
   private final OperationFactory operationFactory = new OperationFactory();
   private final Calculate calculate = new Calculate(operationFactory);
+//  private final StringBuilder calculationProcess = new StringBuilder();
+  private final CalculationProcess calculationProcess = new CalculationProcess();
 
   public Number getCalculatedValue() {
 
@@ -19,6 +23,10 @@ public class OperationStateMachine implements ParsingHandler {
     }
 
     return numberCollection.getLastElement();
+  }
+
+  public CalculationProcess getCalculationProcess() {
+    return calculationProcess;
   }
 
   @Override
@@ -70,7 +78,7 @@ public class OperationStateMachine implements ParsingHandler {
     Number left = numberCollection.getLastElementAndRemove();
     OperatorSign operatorSign = operatorCollection.getLastElement();
     operatorCollection.removeLast();
-    Number result = calculate.one(left, right, operatorSign);
+    Number result = calculate.one(left, right, operatorSign, calculationProcess);
     numberCollection.add(result);
   }
 

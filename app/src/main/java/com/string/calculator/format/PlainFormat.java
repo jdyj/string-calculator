@@ -3,9 +3,11 @@ package com.string.calculator.format;
 final class PlainFormat implements Format {
 
   private final String result;
+  private final String calculationProcess;
 
-  public PlainFormat(String result) {
+  public PlainFormat(String result, String calculationProcess) {
     this.result = result;
+    this.calculationProcess = calculationProcess;
   }
 
   @Override
@@ -32,6 +34,7 @@ final class PlainFormat implements Format {
           split[1] = " " + split[1];
         }
       }
+      sb.append("\n");
       sb.append(split[0]);
       sb.append("\n");
       if (isMinus()) {

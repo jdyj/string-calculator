@@ -5,12 +5,17 @@ import com.string.calculator.parse.Parsing;
 
 public class Calculator {
 
+  private final OperationStateMachine machine = new OperationStateMachine();
+
   public Number calculate(String input) {
-    OperationStateMachine machine = new OperationStateMachine();
     Parsing parsing = new Parsing(machine);
     parsing.parse(input);
 
     return machine.getCalculatedValue();
+  }
+
+  public CalculationProcess getCalculationProcess() {
+    return machine.getCalculationProcess();
   }
 
 }

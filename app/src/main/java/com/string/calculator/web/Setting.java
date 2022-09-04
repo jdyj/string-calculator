@@ -1,11 +1,14 @@
-package com.string.calculator;
+package com.string.calculator.web;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Setting {
 
   private final String[] args;
 
-  public Setting(String[] args) {
-    this.args = args;
+  public Setting() {
+    this.args = new String[]{};
   }
 
   public String getInput() {
@@ -27,6 +30,5 @@ public class Setting {
   public String[] getArgs() {
     return args;
   }
-
 
 }

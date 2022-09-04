@@ -5,7 +5,7 @@ import java.util.Stack;
 
 final class NumberCollection {
 
-  private Stack<Number> stack = new Stack<>();
+  private final Stack<Number> stack = new Stack<>();
 
   public Number getLastElement() {
     return stack.peek();

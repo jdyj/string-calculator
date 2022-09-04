@@ -5,22 +5,30 @@ import com.string.calculator.Setting;
 public class FormatFactory {
 
   private final Category category;
+  private final Setting setting;
 
   public FormatFactory(Setting setting) {
     int formatInput = Integer.parseInt(setting.getFormat());
     this.category = getCategory(formatInput);
+    this.setting = setting;
   }
 
-  public Format create(String result) {
+  public Format create(String result, String calculationProcess) {
+    String process = calculationProcess;
+
+    if (!setting.onCalculationProcess()) {
+      process = null;
+    }
+
     if (category == Category.JSON) {
-      return new JsonFormat(result);
+      return new JsonFormat(result, process);
     }
 
     if (category == Category.XML) {
-      return new XmlFormat(result);
+      return new XmlFormat(result, process);
     }
 
-    return new PlainFormat(result);
+    return new PlainFormat(result, process);
   }
 
   public Category getCategory() {

@@ -19,9 +19,11 @@ import org.w3c.dom.Element;
 final class XmlFormat implements Format {
 
   private final String result;
+  private final String calculationProcess;
 
-  public XmlFormat(String result) {
+  public XmlFormat(String result, String calculationProcess) {
     this.result = result;
+    this.calculationProcess = calculationProcess;
   }
 
   @Override
@@ -33,7 +35,16 @@ final class XmlFormat implements Format {
       Document document = documentBuilder.newDocument();
       Element resultElement = document.createElement("result");
       document.appendChild(resultElement);
-      resultElement.setTextContent(result);
+
+      Element value = document.createElement("value");
+      value.appendChild(document.createTextNode(result));
+      resultElement.appendChild(value);
+
+      if (calculationProcess != null) {
+        Element processElement = document.createElement("process");
+        processElement.appendChild(document.createTextNode(calculationProcess));
+        resultElement.appendChild(processElement);
+      }
 
       FileWriter fileWriter = new FileWriter("/Users/jojaeyeong/Desktop/result.xml");
 
