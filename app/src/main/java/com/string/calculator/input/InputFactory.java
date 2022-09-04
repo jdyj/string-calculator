@@ -15,7 +15,7 @@ public class InputFactory {
    */
   public Input create() {
 
-    int input = Integer.parseInt(setting.getInputValue());
+    int input = Integer.parseInt(setting.getInput());
     if (isConsoleInput(input)) {
       return new ConsoleInput();
     }

@@ -8,7 +8,7 @@ public class Setting {
     this.args = args;
   }
 
-  public String getInputValue() {
+  public String getInput() {
     return args[0];
   }
 

@@ -3,29 +3,15 @@
  */
 package com.string.calculator;
 
-import com.string.calculator.format.FormatFactory;
-import com.string.calculator.input.InputFactory;
-import com.string.calculator.output.Output;
-import com.string.calculator.output.OutputFactory;
+import com.string.calculator.runner.ApplicationRunner;
 
 public class App {
 
   public static void main(String[] args) {
 
     Setting setting = new Setting(args);
-
-    InputFactory inputFactory = new InputFactory(setting);
-    String value = inputFactory.create().enter();
-
-    Calculator calculator = new Calculator();
-    String result = calculator.calculate(value).getValue();
-
-    FormatFactory formatFactory = new FormatFactory(setting);
-    String outputFormat = formatFactory.create(result).make();
-
-    OutputFactory outputFactory = new OutputFactory(setting);
-    Output output = outputFactory.create(outputFormat, formatFactory.getCategory());
-    output.print();
+    ApplicationRunner runner = new ApplicationRunner(setting);
+    runner.runApplication();
 
   }
 
