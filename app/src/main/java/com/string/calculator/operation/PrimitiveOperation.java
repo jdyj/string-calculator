@@ -6,6 +6,7 @@ final class PrimitiveOperation implements ArithmeticOperation {
 
   private final long left;
   private final long right;
+  private final int index;
 
   @Override
   public Number plus() {
@@ -43,6 +44,7 @@ final class PrimitiveOperation implements ArithmeticOperation {
   public PrimitiveOperation(Number left, Number right) {
     this.left = Long.parseLong(left.getValue());
     this.right = Long.parseLong(right.getValue());
+    this.index = left.getIndex();
   }
 
   private long gcd(long a, long b) {
@@ -73,7 +75,7 @@ final class PrimitiveOperation implements ArithmeticOperation {
   }
 
   private Number toNumber(String value) {
-    return new Number(value);
+    return new Number(value, index);
   }
 
 }

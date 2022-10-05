@@ -10,12 +10,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
-import com.string.calculator.App;
-import com.string.calculator.Number;
-import com.string.calculator.OperatorSign;
+import com.string.calculator.Operator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -53,7 +50,7 @@ class ParsingTests {
     parsing.parse("123 + 23492");
 
     verify(parsingHandler, times(2)).numberParsed(any());
-    verify(parsingHandler, times(1)).operatorParsed(OperatorSign.plus);
+    verify(parsingHandler, times(1)).operatorParsed(Operator.plus);
 
   }
 

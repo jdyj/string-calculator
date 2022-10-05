@@ -19,7 +19,7 @@ final class FileInput implements Input {
 
       BufferedReader bufferedReader = new BufferedReader(new FileReader(files[0]));
       return bufferedReader.readLine();
-    } catch (IOException e) {
+    } catch (IOException | ArrayIndexOutOfBoundsException e) {
       e.printStackTrace();
       throw new IllegalStateException("파일이 존재하지 않습니다.");
     }

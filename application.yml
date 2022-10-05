@@ -1,1 +1,4 @@
-{result: '{"result":"5667777"}'}
+result: |
+  <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+  <result>561121031332</result>
+format: XML

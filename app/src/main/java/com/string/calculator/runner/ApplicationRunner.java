@@ -1,7 +1,10 @@
 package com.string.calculator.runner;
 
 import com.string.calculator.Calculator;
+import com.string.calculator.Calculator2;
+import com.string.calculator.ExpressionToString;
 import com.string.calculator.Setting;
+import com.string.calculator.expression.Expression;
 import com.string.calculator.format.FormatFactory;
 import com.string.calculator.input.InputFactory;
 import com.string.calculator.output.Output;
@@ -25,12 +28,14 @@ public class ApplicationRunner {
     InputFactory inputFactory = new InputFactory(setting);
     String value = inputFactory.create().enter();
 
-    Calculator calculator = new Calculator();
-    String result = calculator.calculate(value).getValue();
-    String calculationProcess = calculator.getCalculationProcess().toString();
+    Calculator2 calculator = new Calculator2();
+    Expression expression = calculator.calculate(value);
+
+    ExpressionToString expressionToString = new ExpressionToString(expression);
+    String result = expressionToString.toString();
 
     FormatFactory formatFactory = new FormatFactory(setting);
-    String outputFormat = formatFactory.create(result, calculationProcess).make();
+    String outputFormat = formatFactory.create(result, "").make();
 
     OutputFactory outputFactory = new OutputFactory(setting);
     Output output = outputFactory.create(outputFormat, formatFactory.getCategory());

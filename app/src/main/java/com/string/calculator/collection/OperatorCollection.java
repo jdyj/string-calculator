@@ -1,5 +1,6 @@
 package com.string.calculator.collection;
 
+import com.string.calculator.Operator;
 import com.string.calculator.OperatorSign;
 import java.util.Stack;
 
@@ -12,6 +13,10 @@ final class OperatorCollection {
       return null;
     }
     return stack.peek();
+  }
+
+  public OperatorSign getLastElementAndRemove() {
+    return stack.pop();
   }
 
   public boolean isEmpty() {

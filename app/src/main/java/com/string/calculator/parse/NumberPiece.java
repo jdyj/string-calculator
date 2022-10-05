@@ -10,8 +10,8 @@ final class NumberPiece {
     stringBuilder.append(numberPiece);
   }
 
-  public Number getNumber() {
-    return new Number(stringBuilder.toString());
+  public String getNumber() {
+    return stringBuilder.toString();
   }
 
   public void makeEmpty() {

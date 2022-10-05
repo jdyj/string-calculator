@@ -1,12 +1,22 @@
 package com.string.calculator.parse;
 
-import com.string.calculator.OperatorSign;
+import com.string.calculator.Number;
+import com.string.calculator.Operator;
 import java.util.List;
 
+/**
+ * 1. 동작 중심으로 바뀐 인터페이스랑 파싱과 머신과 연결하기.
+ * 2. 인덱스 끼워넣기...
+ * 관심사에만 집중할수 있도록
+ *
+ *
+ */
 public class Parsing {
 
   private final ParsingHandler parsingHandler;
   private final NumberPiece numberPiece = new NumberPiece();
+  private int index = 0;
+
 
   public Parsing(ParsingHandler parsingHandler) {
     this.parsingHandler = parsingHandler;
@@ -22,13 +32,13 @@ public class Parsing {
   }
 
   private void execute(Character c, boolean last) {
-    if (OperatorSign.isSupportedOperator(c)) {
-      if (c == OperatorSign.closeBracket.getSign()) {
+    if (Operator.isSupportedOperator(c)) {
+      if (c == Operator.closeBracket.getSign()) {
         parsingHandler.closeBracketFound();
         return;
       }
 
-      parsingHandler.operatorParsed(OperatorSign.valueOf(c));
+      parsingHandler.operatorParsed(Operator.valueOf(c));
       return;
     }
 
@@ -49,7 +59,8 @@ public class Parsing {
 
   private void numberParsed(ParsingHandler parsingHandler, NumberPiece numberPiece) {
     try {
-      parsingHandler.numberParsed(numberPiece.getNumber());
+      parsingHandler.numberParsed(new Number(numberPiece.getNumber(), index));
+      index++;
     } catch (Exception e) {
 
     } finally {
@@ -65,7 +76,7 @@ public class Parsing {
   }
 
   private boolean canNumberParsed(Character c) {
-    if (numberPiece.getNumber().getValue().equals("-")) {
+    if (numberPiece.getNumber().equals("-")) {
       return false;
     }
     return c == ' ' && numberPiece.hasNumber();

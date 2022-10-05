@@ -1,16 +1,14 @@
 package com.string.calculator.parse;
 
 import com.string.calculator.Number;
-import com.string.calculator.OperatorSign;
-import java.util.ArrayList;
-import java.util.List;
+import com.string.calculator.Operator;
 
 public class ParsingHandlerErrorGetter implements ParsingHandler {
 
   private int count;
 
   @Override
-  public void operatorParsed(OperatorSign operatorSign) {
+  public void operatorParsed(Operator operatorSign) {
 
   }
 

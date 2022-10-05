@@ -43,6 +43,10 @@ final class PlainFormat implements Format {
       sb.append("-".repeat(barCount));
       sb.append("\n");
       sb.append(split[1]);
+
+      sb.append("\n");
+      sb.append(calculationProcess);
+      sb.append("\n");
       return sb.toString();
     }
 
