@@ -1,6 +1,8 @@
 package com.string.calculator.expression;
 
-public interface Expression {
+import com.string.calculator.Indexed;
+
+public interface Expression extends Indexed {
 
   Expression evaluate();
 

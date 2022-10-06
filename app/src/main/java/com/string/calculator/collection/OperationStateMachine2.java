@@ -1,9 +1,9 @@
 package com.string.calculator.collection;
 
+import com.string.calculator.Indexed;
 import com.string.calculator.OperatorSign;
 import com.string.calculator.expression.Expression;
 import com.string.calculator.Operator;
-import com.string.calculator.expression.LongExpression;
 import com.string.calculator.parse.ParsingHandler2;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,19 +28,17 @@ public class OperationStateMachine2 implements ParsingHandler2 {
       OperatorSign operatorSign = operatorCollection.getLastElementAndRemove();
       numberCollection.add(operatorSign);
     }
-    List<Object> first = new ArrayList<>(numberCollection.getQueue());
+    List<Indexed> first = new ArrayList<>(numberCollection.getQueue());
     calculation.중이야(first);
 
-
-
-
     while (!numberCollection.isEmpty()) {
-      Object lastElement = numberCollection.getLastElementAndRemove();
+      Indexed lastElement = numberCollection.getLastElementAndRemove();
 
       if (lastElement instanceof OperatorSign && !isBracket((OperatorSign) lastElement)) {
         addStack((OperatorSign) lastElement);
-        List<Object> history = new ArrayList<>(numberCollection.getQueue());
-        history.addAll(stack);
+        List<Indexed> history = new ArrayList<>(numberCollection.getQueue());
+        List<Indexed> history2 = new ArrayList<>(stack);
+        history.addAll(history2);
         history.addAll(bracketStack);
         calculation.중이야(history);
       } else if (lastElement instanceof OperatorSign && isBracket((OperatorSign) lastElement)) {

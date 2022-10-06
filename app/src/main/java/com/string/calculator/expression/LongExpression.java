@@ -2,13 +2,13 @@ package com.string.calculator.expression;
 
 import com.string.calculator.Indexed;
 
-public class LongExpression implements Expression, Indexed {
+public class LongExpression implements Expression {
 
   private final Long number;
 
   @Override
   public Integer value() {
-    return null;
+    return index;
   }
 
   private final Integer index;

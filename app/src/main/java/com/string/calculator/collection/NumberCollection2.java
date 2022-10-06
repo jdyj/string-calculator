@@ -1,5 +1,6 @@
 package com.string.calculator.collection;
 
+import com.string.calculator.Indexed;
 import com.string.calculator.Operator;
 import com.string.calculator.OperatorSign;
 import com.string.calculator.expression.Expression;
@@ -8,13 +9,13 @@ import java.util.Queue;
 
 final class NumberCollection2 {
 
-  private final Queue<Object> queue = new LinkedList<>();
+  private final Queue<Indexed> queue = new LinkedList<>();
 
-  public Object getLastElement() {
+  public Indexed getLastElement() {
     return queue.peek();
   }
 
-  public Object getLastElementAndRemove() {
+  public Indexed getLastElementAndRemove() {
     return queue.poll();
   }
 
@@ -26,7 +27,7 @@ final class NumberCollection2 {
     queue.add(operatorSign);
   }
 
-  public Queue<Object> getQueue() {
+  public Queue<Indexed> getQueue() {
     return queue;
   }
 

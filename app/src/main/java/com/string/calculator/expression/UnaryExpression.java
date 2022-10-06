@@ -1,5 +1,6 @@
 package com.string.calculator.expression;
 
+import com.string.calculator.Indexed;
 import com.string.calculator.operator.unary.BracketOperator;
 import com.string.calculator.operator.unary.SquareOperator;
 import com.string.calculator.operator.unary.UnaryOperator;
@@ -28,6 +29,16 @@ public class UnaryExpression implements Expression {
     }
 
     throw new IllegalStateException();
+  }
+
+  @Override
+  public Integer value() {
+    return expression.value();
+  }
+
+  @Override
+  public int compareTo(Indexed o) {
+    return 0;
   }
 }
 

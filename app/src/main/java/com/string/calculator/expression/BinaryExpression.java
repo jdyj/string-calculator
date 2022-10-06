@@ -1,5 +1,6 @@
 package com.string.calculator.expression;
 
+import com.string.calculator.Indexed;
 import com.string.calculator.operator.bi.BiOperator;
 import com.string.calculator.operator.bi.MultiplyOperator;
 import com.string.calculator.operator.bi.PlusOperator;
@@ -33,9 +34,14 @@ public class BinaryExpression implements Expression {
   @Override
   public Expression evaluate() {
 
-    if (left instanceof UnaryExpression) {
-      return biOperator.apply((LongExpression) left.evaluate(),
-          (LongExpression) ((BinaryExpression) right).getLeft());
+    if (left instanceof UnaryExpression && right instanceof BinaryExpression) {
+      return biOperator.apply((UnaryExpression) left, (BinaryExpression) right);
+    } else if (left instanceof BinaryExpression && right instanceof UnaryExpression) {
+      return biOperator.apply((BinaryExpression) left, (UnaryExpression) right);
+    } else if (left instanceof UnaryExpression && right instanceof UnaryExpression) {
+      return biOperator.apply((UnaryExpression) left, (UnaryExpression) right);
+    } else if (left instanceof BinaryExpression && right instanceof BinaryExpression) {
+      return biOperator.apply((BinaryExpression) left, (BinaryExpression) right);
     }
 
     if (left instanceof LongExpression && right instanceof LongExpression) {
@@ -70,5 +76,15 @@ public class BinaryExpression implements Expression {
         expression2);
 
     System.out.println(expression3.evaluate());
+  }
+
+  @Override
+  public Integer value() {
+    return left.value();
+  }
+
+  @Override
+  public int compareTo(Indexed o) {
+    return this.value().compareTo(o.value());
   }
 }
