@@ -8,7 +8,6 @@ public class BracketOperator implements UnaryOperator {
 
   @Override
   public Expression apply(Expression expression) {
-
     return expression.evaluate();
   }
 }
