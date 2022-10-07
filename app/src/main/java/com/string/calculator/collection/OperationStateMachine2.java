@@ -24,29 +24,43 @@ public class OperationStateMachine2 implements ParsingHandler2 {
 
   public Expression getCalculatedValue() {
 
+    // 후위 연산자 세팅
     while (!operatorCollection.isEmpty()) {
       OperatorSign operatorSign = operatorCollection.getLastElementAndRemove();
       numberCollection.add(operatorSign);
     }
+
+    // 계산 히스토리 보내기
     List<Indexed> first = new ArrayList<>(numberCollection.getQueue());
     calculation.중이야(first);
 
     while (!numberCollection.isEmpty()) {
       Indexed lastElement = numberCollection.getLastElementAndRemove();
 
+      // 히스토리 + 계산
       if (lastElement instanceof OperatorSign && !isBracket((OperatorSign) lastElement)) {
+
+        // 계산
         addStack((OperatorSign) lastElement);
+
+        // 계산 히스토리 보내기
         List<Indexed> history = new ArrayList<>(numberCollection.getQueue());
         List<Indexed> history2 = new ArrayList<>(stack);
         history.addAll(history2);
         history.addAll(bracketStack);
         calculation.중이야(history);
+
+        // 히스토리
       } else if (lastElement instanceof OperatorSign && isBracket((OperatorSign) lastElement)) {
+
         if (((OperatorSign) lastElement).getOperator() == Operator.openBracket) {
           bracketStack.pop();
+
         } else {
           bracketStack.add((OperatorSign) lastElement);
         }
+
+        // 스택 피연산자 추가
       } else if (lastElement instanceof Expression) {
         stack.add((Expression) lastElement);
       }
