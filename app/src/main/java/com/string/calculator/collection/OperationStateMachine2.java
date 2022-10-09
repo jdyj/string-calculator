@@ -14,7 +14,6 @@ public class OperationStateMachine2 implements ParsingHandler2 {
   private final NumberCollection2 numberCollection = new NumberCollection2();
   private final OperatorCollection operatorCollection = new OperatorCollection();
   private final Stack<Expression> stack = new Stack<>();
-  private final Stack<OperatorSign> bracketStack = new Stack<>();
   private final Calculate2 calculate = new Calculate2();
   private final Calculation calculation;
 
@@ -32,39 +31,26 @@ public class OperationStateMachine2 implements ParsingHandler2 {
 
     // 계산 히스토리 보내기
     List<Indexed> first = new ArrayList<>(numberCollection.getQueue());
-    calculation.중이야(first);
-
-    while (!numberCollection.isEmpty()) {
-      Indexed lastElement = numberCollection.getLastElementAndRemove();
-
-      // 히스토리 + 계산
-      if (lastElement instanceof OperatorSign && !isBracket((OperatorSign) lastElement)) {
-
-        // 계산
-        addStack((OperatorSign) lastElement);
-
-        // 계산 히스토리 보내기
-        List<Indexed> history = new ArrayList<>(numberCollection.getQueue());
-        List<Indexed> history2 = new ArrayList<>(stack);
-        history.addAll(history2);
-        history.addAll(bracketStack);
-        calculation.중이야(history);
-
-        // 히스토리
-      } else if (lastElement instanceof OperatorSign && isBracket((OperatorSign) lastElement)) {
-
-        if (((OperatorSign) lastElement).getOperator() == Operator.openBracket) {
-          bracketStack.pop();
-
+    calculation.피연산자계산중이야(first);
+    numberCollection.forEach((lastElement) -> {
+      if (lastElement instanceof OperatorSign) {
+        if (isBracket((OperatorSign) lastElement)) {
+          calculation.괄호계산중이야((OperatorSign) lastElement);
         } else {
-          bracketStack.add((OperatorSign) lastElement);
-        }
+          Expression right = stack.pop();
+          Expression left = stack.pop();
+          Expression result = calculate.one(left, right, (OperatorSign) lastElement);
+          stack.add(result);
 
-        // 스택 피연산자 추가
+          // 히스토리
+          List<Indexed> history = new ArrayList<>(numberCollection.getQueue());
+          history.addAll(stack);
+          calculation.피연산자계산중이야(history);
+        }
       } else if (lastElement instanceof Expression) {
         stack.add((Expression) lastElement);
       }
-    }
+    });
 
     return stack.pop();
   }
@@ -74,8 +60,6 @@ public class OperationStateMachine2 implements ParsingHandler2 {
     if (existHighOperatorSign(operatorSign)) {
       OperatorSign lastElement = operatorCollection.getLastElementAndRemove();
       numberCollection.add(lastElement);
-      operatorCollection.add(operatorSign);
-      return;
     }
     operatorCollection.add(operatorSign);
   }
@@ -92,9 +76,8 @@ public class OperationStateMachine2 implements ParsingHandler2 {
       OperatorSign lastElement = operatorCollection.getLastElementAndRemove();
       numberCollection.add(lastElement);
     }
-    OperatorSign openBracket = operatorCollection.getLastElement();
+    OperatorSign openBracket = operatorCollection.getLastElementAndRemove();
     numberCollection.add(openBracket);
-    operatorCollection.removeLast();
   }
 
   private boolean isOpenBracket() {
@@ -120,11 +103,18 @@ public class OperationStateMachine2 implements ParsingHandler2 {
     return isOpenBracket || isCloseBracket;
   }
 
-  private void addStack(OperatorSign operatorSign) {
+
+  // 계산 + 히스토리
+  private void addStackWithHistory(OperatorSign operatorSign) {
     Expression right = stack.pop();
     Expression left = stack.pop();
     Expression result = calculate.one(left, right, operatorSign);
     stack.add(result);
+
+    // 히스토리
+    List<Indexed> history = new ArrayList<>(numberCollection.getQueue());
+    history.addAll(stack);
+    calculation.피연산자계산중이야(history);
   }
 
 

@@ -6,6 +6,7 @@ import com.string.calculator.OperatorSign;
 import com.string.calculator.expression.Expression;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.function.Consumer;
 
 final class NumberCollection2 {
 
@@ -45,6 +46,13 @@ final class NumberCollection2 {
 
   public int size() {
     return queue.size();
+  }
+
+  public void forEach(Consumer<Indexed> elementCalculate) {
+    while (!isEmpty()) {
+      Indexed element = this.getLastElementAndRemove();
+      elementCalculate.accept(element);
+    }
   }
 
 }
