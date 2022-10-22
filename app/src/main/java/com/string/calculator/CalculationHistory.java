@@ -21,6 +21,7 @@ public class CalculationHistory implements Calculation {
   // 인덱스, 표현이 필요하다
   @Override
   public void 피연산자계산중이야(List<Indexed> history) {
+//    List<Indexed> indexeds = new ArrayList<>(history);
     history.addAll(bracketStack);
     Collections.sort(history);
     for (Indexed indexed : history) {

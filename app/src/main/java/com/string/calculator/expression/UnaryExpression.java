@@ -10,7 +10,8 @@ public class UnaryExpression implements Expression {
   private final Expression expression;
   private final UnaryOperator unaryOperator;
 
-  public UnaryExpression(Expression expression, UnaryOperator unaryOperator) {
+  public UnaryExpression(Expression expression,
+      UnaryOperator unaryOperator) {
     this.expression = expression;
     this.unaryOperator = unaryOperator;
   }

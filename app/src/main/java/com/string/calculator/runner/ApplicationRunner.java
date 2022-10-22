@@ -1,10 +1,15 @@
 package com.string.calculator.runner;
 
+import com.string.calculator.CalculationHistory;
 import com.string.calculator.Calculator;
 import com.string.calculator.Calculator2;
 import com.string.calculator.ExpressionToString;
 import com.string.calculator.Setting;
+import com.string.calculator.collection.Calculation;
+import com.string.calculator.expression.BinaryExpressionFactory;
 import com.string.calculator.expression.Expression;
+import com.string.calculator.expression.HistoryAddingExpression;
+import com.string.calculator.expression.HistoryAddingExpressionFactory;
 import com.string.calculator.format.FormatFactory;
 import com.string.calculator.input.InputFactory;
 import com.string.calculator.output.Output;
@@ -28,7 +33,9 @@ public class ApplicationRunner {
     InputFactory inputFactory = new InputFactory(setting);
     String value = inputFactory.create().enter();
 
-    Calculator2 calculator = new Calculator2();
+    Calculation calculation = new CalculationHistory();
+    Calculator2 calculator = new Calculator2(new HistoryAddingExpressionFactory(calculation),
+        new BinaryExpressionFactory());
     Expression expression = calculator.calculate(value);
 
     ExpressionToString expressionToString = new ExpressionToString(expression);

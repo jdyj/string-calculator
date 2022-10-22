@@ -2,8 +2,11 @@ package com.string.calculator.parse;
 
 import com.string.calculator.Operator;
 import com.string.calculator.OperatorSign;
+import com.string.calculator.collection.Calculation;
 import com.string.calculator.expression.Expression;
 import com.string.calculator.expression.ExpressionFactory;
+import com.string.calculator.expression.HistoryAddingExpression;
+import com.string.calculator.expression.LongExpression;
 import java.util.List;
 
 /**
@@ -13,12 +16,12 @@ public class Parsing2 {
 
   private final ParsingHandler2 parsingHandler;
   private final NumberPiece numberPiece = new NumberPiece();
-  private final ExpressionFactory expressionFactory = new ExpressionFactory();
+  private final ExpressionFactory expressionFactory;
   private int index = 0;
 
-
-  public Parsing2(ParsingHandler2 parsingHandler) {
+  public Parsing2(ParsingHandler2 parsingHandler, ExpressionFactory expressionFactory) {
     this.parsingHandler = parsingHandler;
+    this.expressionFactory = expressionFactory;
   }
 
   public void parse(String input) {
@@ -76,7 +79,8 @@ public class Parsing2 {
 
   private void numberParsed(NumberPiece numberPiece) {
     try {
-      Expression expression = expressionFactory.create(numberPiece.getNumber(), index);
+      Expression expression = expressionFactory.create(
+          new LongExpression(Long.parseLong(numberPiece.getNumber()), index));
       parsingHandler.numberParsed(expression);
       index++;
     } catch (Exception e) {
@@ -89,7 +93,7 @@ public class Parsing2 {
   private boolean isNumberPiece(Character c) {
     boolean isNumeric = (c >= '0' && c <= '9');
 
-    return isNumeric || isMinusSign(c);
+    return isNumeric;
   }
 
   private boolean isMinusSign(Character c) {
