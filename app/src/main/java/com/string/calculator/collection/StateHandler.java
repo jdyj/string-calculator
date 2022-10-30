@@ -3,11 +3,11 @@ package com.string.calculator.collection;
 import com.string.calculator.expression.Expression;
 import com.string.calculator.operator.bi.BiOperator;
 
-public interface Xxx {
+public interface StateHandler {
 
-  void calculate(Expression expression);
+  void hereExpression(Expression expression);
 
-  Expression createExpression(BiOperator biOperator);
+  Expression hereBiOperator(BiOperator biOperator);
 
   Expression getResult();
 

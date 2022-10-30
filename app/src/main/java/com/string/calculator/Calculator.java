@@ -1,14 +1,24 @@
 package com.string.calculator;
 
 import com.string.calculator.collection.OperationStateMachine;
+import com.string.calculator.collection.StateHandler;
+import com.string.calculator.expression.Expression;
+import com.string.calculator.expression.ExpressionFactory;
 import com.string.calculator.parse.Parsing;
 
 public class Calculator {
 
-  private final OperationStateMachine machine = new OperationStateMachine(new CalculationHistory());
+  private final ExpressionFactory expressionFactory;
+  private final StateHandler xxx;
 
-  public Number calculate(String input) {
-    Parsing parsing = new Parsing(machine);
+  public Calculator(ExpressionFactory expressionFactory, StateHandler xxx) {
+    this.expressionFactory = expressionFactory;
+    this.xxx = xxx;
+  }
+
+  public Expression calculate(String input) {
+    OperationStateMachine machine = new OperationStateMachine(xxx, expressionFactory);
+    Parsing parsing = new Parsing(machine, expressionFactory);
     parsing.parse(input);
 
     return machine.getCalculatedValue();

@@ -8,12 +8,14 @@ public class BinaryExpression implements Expression {
   private final Expression left;
   private final BiOperator biOperator;
   private final Expression right;
+  private Integer priority;
 
   public BinaryExpression(Expression left, BiOperator biOperator,
-      Expression right) {
+      Expression right, Integer priority) {
     this.left = left;
     this.biOperator = biOperator;
     this.right = right;
+    this.priority = priority;
   }
 
   public Expression getLeft() {
@@ -39,7 +41,7 @@ public class BinaryExpression implements Expression {
     }
 
     if (right instanceof HistoryAddingExpression) {
-      right = ((HistoryAddingExpression) right).getExpression().evaluate();
+      right = ((HistoryAddingExpression) right).evaluate();
     }
 
     if (left instanceof UnaryExpression && right instanceof BinaryExpression) {
@@ -67,7 +69,7 @@ public class BinaryExpression implements Expression {
 
   @Override
   public String toString() {
-    return left.toString() + biOperator.toString() + right.toString();
+    return left.toString() + " " + biOperator.toString() + " " + right.toString();
   }
 
   @Override

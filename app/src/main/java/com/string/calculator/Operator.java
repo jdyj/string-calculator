@@ -6,7 +6,7 @@ import java.util.Map;
 public enum Operator {
 
   plus('+', 0),
-  minus('-', 0),
+//  minus('-', 0),
   divide('/', 1),
   multiply('*', 1),
   openBracket('(', 2),

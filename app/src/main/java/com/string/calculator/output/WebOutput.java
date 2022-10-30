@@ -2,7 +2,6 @@ package com.string.calculator.output;
 
 import com.string.calculator.format.Category;
 import com.string.calculator.utils.Yaml;
-import com.string.calculator.web.SpringBootApplication;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +28,6 @@ final class WebOutput implements Output {
     Yaml yaml = new Yaml();
     yaml.write(data);
     if (availablePort("127.0.0.1", 8080)) {
-      SpringApplication.run(SpringBootApplication.class, args);
     }
     System.out.println("GET http://localhost:8080/result");
   }

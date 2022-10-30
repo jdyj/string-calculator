@@ -2,19 +2,16 @@ package com.string.calculator.runner;
 
 import com.string.calculator.CalculationHistory;
 import com.string.calculator.Calculator;
-import com.string.calculator.Calculator2;
 import com.string.calculator.ExpressionToString;
 import com.string.calculator.Setting;
 import com.string.calculator.collection.Calculation;
-import com.string.calculator.expression.BinaryExpressionFactory;
+import com.string.calculator.calculate.Calculate;
 import com.string.calculator.expression.Expression;
-import com.string.calculator.expression.HistoryAddingExpression;
 import com.string.calculator.expression.HistoryAddingExpressionFactory;
 import com.string.calculator.format.FormatFactory;
 import com.string.calculator.input.InputFactory;
 import com.string.calculator.output.Output;
 import com.string.calculator.output.OutputFactory;
-import com.string.calculator.web.SpringBootApplication;
 
 public class ApplicationRunner {
 
@@ -26,7 +23,6 @@ public class ApplicationRunner {
 
   public void runApplication() {
     if (isWebInput()) {
-      SpringBootApplication.main(setting.getArgs());
       return;
     }
 
@@ -34,8 +30,8 @@ public class ApplicationRunner {
     String value = inputFactory.create().enter();
 
     Calculation calculation = new CalculationHistory();
-    Calculator2 calculator = new Calculator2(new HistoryAddingExpressionFactory(calculation),
-        new BinaryExpressionFactory());
+    Calculator calculator = new Calculator(new HistoryAddingExpressionFactory(calculation),
+        new Calculate());
     Expression expression = calculator.calculate(value);
 
     ExpressionToString expressionToString = new ExpressionToString(expression);

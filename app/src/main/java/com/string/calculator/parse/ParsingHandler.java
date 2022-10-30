@@ -1,14 +1,15 @@
 package com.string.calculator.parse;
 
-import com.string.calculator.Number;
-import com.string.calculator.Operator;
+import com.string.calculator.OperatorSign;
+import com.string.calculator.expression.Expression;
 
 public interface ParsingHandler {
 
-  void operatorParsed(Operator operatorSign);
+  void operatorParsed(OperatorSign operatorSign);
 
-  void numberParsed(Number number);
+  void numberParsed(Expression number);
 
-  void closeBracketFound();
+  void closeBracketFound(OperatorSign operatorSign);
+
 
 }

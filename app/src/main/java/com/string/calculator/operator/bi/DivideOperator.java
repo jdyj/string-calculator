@@ -25,7 +25,7 @@ final class DivideOperator implements BiOperator {
 
   @Override
   public Expression apply(BinaryExpression left, BinaryExpression right) {
-    return null;
+    return applyExpression(left, right);
   }
 
   @Override
@@ -46,5 +46,28 @@ final class DivideOperator implements BiOperator {
   @Override
   public Expression apply(FractionExpression left, FractionExpression right) {
     return null;
+  }
+
+  @Override
+  public String toString() {
+    return "/";
+  }
+
+  private Expression applyExpression(Expression left, Expression right) {
+    Expression evaluateLeft = left.evaluate();
+    Expression evaluateRight = right.evaluate();
+    if (evaluateLeft instanceof LongExpression && evaluateRight instanceof LongExpression) {
+      return this.apply((LongExpression) evaluateLeft, (LongExpression) evaluateRight);
+    } else if (evaluateLeft instanceof FractionExpression
+        && evaluateRight instanceof LongExpression) {
+      return this.apply((FractionExpression) evaluateLeft, (LongExpression) evaluateRight);
+    } else if (evaluateLeft instanceof LongExpression
+        && evaluateRight instanceof FractionExpression) {
+      return this.apply((LongExpression) evaluateLeft, (FractionExpression) evaluateRight);
+    } else if (evaluateLeft instanceof FractionExpression
+        && evaluateRight instanceof FractionExpression) {
+      return this.apply((FractionExpression) evaluateLeft, (FractionExpression) evaluateRight);
+    }
+    throw new IllegalStateException();
   }
 }
