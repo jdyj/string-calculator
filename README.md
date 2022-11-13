@@ -57,11 +57,11 @@ public String run(String input){
 
     for(Character c:chars){
 
-    number.ifBlankCheckNumberInStringBuilder(c);
-    operator.ifExistHighOperatorCalculate();
+        number.ifBlankCheckNumberInStringBuilder(c);
+        operator.ifExistHighOperatorCalculate();
 
-    number.addNumberToStringBuilder(c);
-    operator.addOperatorSignToStack(c);
+        number.addNumberToStringBuilder(c);
+        operator.addOperatorSignToStack(c);
 
     }
 
@@ -69,7 +69,7 @@ public String run(String input){
     operator.ifExistHighOperatorCalculate();
 
     return operator.calculateLeftover();
-    }
+}
 
 ```
 
@@ -95,29 +95,29 @@ public String calculate(String input){
     .toList();
 
     for(Character c:chars){
-    execute(c);
+        execute(c);
     }
     checkLast();
     return getResult();
-    }
+}
 
 private void execute(Character c){
     if(existHighOperatorSign()){
-    addNumber();
+        addNumber();
     }
 
     if(OperatorSign.isSupportedOperator(c)){
-    operatorCollection.add(OperatorSign.valueOf(c));
+        operatorCollection.add(OperatorSign.valueOf(c));
     }
 
     if(canAddNumberToCollection(c)){
-    numberCollection.add(numberPiece.getNumber());
+        numberCollection.add(numberPiece.getNumber());
     }
 
     if(isNumberPiece(c)){
-    numberPiece.add(c);
+        numberPiece.add(c);
     }
-    }
+}
 ```
 
 상태가 변하는 부분을 한 클래스에서 확인할 수 있다는 점 빼곤 코드의 복잡성은 더 올라갔습니다. 심지어 상태가 변하는 것도 내부 private 메소드를 여러번 들어가야 확인할 수
@@ -131,24 +131,24 @@ private void execute(Character c){
 private void execute(Character c){
     // 높은 우선순위 연산자 확인
     if(existHighOperatorSign()){
-    addNumber();
+        addNumber();
     }
 
     // 파싱 - 연산자
     if(OperatorSign.isSupportedOperator(c)){
-    operatorCollection.add(OperatorSign.valueOf(c));
+        operatorCollection.add(OperatorSign.valueOf(c));
     }
 
     // 파싱 - 피연산자
     if(canAddNumberToCollection(c)){
-    numberCollection.add(numberPiece.getNumber());
+        numberCollection.add(numberPiece.getNumber());
     }
 
     // 파싱 - 피연산자
     if(isNumberPiece(c)){
-    numberPiece.add(c);
+        numberPiece.add(c);
     }
-    }
+}
 ```
 
 하나씩 써보니 크게 두 가지로 나누는 것을 볼 수 있었습니다.
@@ -164,34 +164,34 @@ private void execute(Character c){
 
 public String calculate(String input){
     List<Character> chars=input.chars()
-    .mapToObj(c->(char)c)
-    .toList();
+        .mapToObj(c->(char)c)
+        .toList();
 
-    for(Character c:chars){
+    for(Character c:chars) {
     // 높은 우선순위 연산자 확인
-    if(existHighOperatorSign()){
-    addNumber();
-    }
-    parse(c);
+        if(existHighOperatorSign()){
+            addNumber();
+        }
+        parse(c);
     }
     checkLast(); // for문의 마지막 인덱스를 확인하기 위해 존재하는 메소드
     return getResult();
-    }
+}
 
 private void parse(Character c){
     // 파싱 - 연산자
     if(OperatorSign.isSupportedOperator(c)){
-    operatorCollection.add(OperatorSign.valueOf(c));
+        operatorCollection.add(OperatorSign.valueOf(c));
     }
     // 파싱 - 피연산자
     if(canAddNumberToCollection(c)){
-    numberCollection.add(numberPiece.getNumber());
+        numberCollection.add(numberPiece.getNumber());
     }
     // 파싱 - 피연산자
     if(isNumberPiece(c)){
-    numberPiece.add(c);
+        numberPiece.add(c);
     }
-    }
+}
 ```
 
 다음으로 진행한 것은 **상태 변화가 일어나는 부분을 최상단으로 끌어올리는 것**이었습니다.
@@ -201,47 +201,47 @@ private void parse(Character c){
 ```java
 public String calculate(String input){
     List<Character> chars=input.chars()
-    .mapToObj(c->(char)c)
-    .toList();
+        .mapToObj(c->(char)c)
+        .toList();
 
     for(int i=0;i<chars.size();i++){
-    Character c=chars.get(i);
-    boolean last=i==chars.size()-1;
-    parse(c,last
-    ,(ch)->operatorCollection.add(OperatorSign.valueOf(ch))
-    ,()->numberCollection.add(numberPiece.getNumber()));
+        Character c=chars.get(i);
+        boolean last=i==chars.size()-1;
+        parse(c,last
+                ,(ch)->operatorCollection.add(OperatorSign.valueOf(ch))
+                ,()->numberCollection.add(numberPiece.getNumber()));
 
-    if(existHighOperatorSign()){
-    addNumber();
-    }
+        if(existHighOperatorSign()){
+            addNumber();
+        }
     }
     return getResult();
-    }
+}
 
 private void parse(Character c,boolean last,Consumer<Character> operationCollectionAdd,Runnable numberCollectionAdd){
     // 파싱 - 연산자
     if(OperatorSign.isSupportedOperator(c)){
-    operatorCollection.add(OperatorSign.valueOf(c));
-    operationCollectionAdd.accept(c);
+        operatorCollection.add(OperatorSign.valueOf(c));
+        operationCollectionAdd.accept(c);
     }
 
     // 파싱 - 피연산자
     if(canAddNumberToCollection(c)){
-    numberCollection.add(numberPiece.getNumber());
-    numberCollectionAdd.run();
+        numberCollection.add(numberPiece.getNumber());
+        numberCollectionAdd.run();
     }
 
     // 파싱 - 피연산자
     if(isNumberPiece(c)){
-    numberPiece.add(c);
+        numberPiece.add(c);
     }
 
     if(last){
-    if(numberPiece.hasNumber()){
-    numberCollectionAdd.run();
+        if(numberPiece.hasNumber()){
+            numberCollectionAdd.run();
+        }
     }
-    }
-    }
+}
 ```
 
 이제 최상단에서 parse메소드에서 operatorCollection과 numberCollection에 상태가 추가된다는 것을 확인할 수 있습니다.
