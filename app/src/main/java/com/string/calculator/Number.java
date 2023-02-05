@@ -5,13 +5,19 @@ import static java.lang.Math.multiplyExact;
 public class Number {
 
   private final String value;
+  private final Integer index;
 
-  public Number(String value) {
+  public Number(String value, Integer index) {
     this.value = value;
+    this.index = index;
   }
 
   public String getValue() {
     return value;
+  }
+
+  public Integer getIndex() {
+    return index;
   }
 
   public boolean hasDivide() {

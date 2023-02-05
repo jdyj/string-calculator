@@ -1,41 +1,35 @@
 package com.string.calculator;
 
-import java.util.HashMap;
-import java.util.Map;
+public class OperatorSign implements Indexed {
 
-public enum OperatorSign {
+  private final Operator operator;
+  private final Integer index;
 
-  plus('+'),
-  divide('/'),
-  multiply('*'),
-  openBracket('('),
-  closeBracket(')'),
-  modular('%');
-
-  private final char sign;
-
-  OperatorSign(char sign) {
-    this.sign = sign;
+  public OperatorSign(Operator operator, Integer index) {
+    this.operator = operator;
+    this.index = index;
   }
 
-  public char getSign() {
-    return sign;
+  public Operator getOperator() {
+    return operator;
   }
 
-  public static final Map<Character, OperatorSign> map = new HashMap<>();
-
-  static {
-    for (OperatorSign o : OperatorSign.values()) {
-      map.put(o.getSign(), o);
-    }
+  public Integer getIndex() {
+    return index;
   }
 
-  public static boolean isSupportedOperator(char c) {
-    return map.containsKey(c);
+  @Override
+  public Integer value() {
+    return index;
   }
 
-  public static OperatorSign valueOf(char c) {
-    return map.get(c);
+  @Override
+  public int compareTo(Indexed o) {
+    return this.value().compareTo(o.value());
   }
 
+  @Override
+  public String toString() {
+    return String.valueOf(operator.getSign());
+  }
 }

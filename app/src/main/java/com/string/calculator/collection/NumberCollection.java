@@ -1,34 +1,58 @@
 package com.string.calculator.collection;
 
-import com.string.calculator.Number;
-import java.util.Stack;
+import com.string.calculator.Indexed;
+import com.string.calculator.OperatorSign;
+import com.string.calculator.expression.Expression;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.function.Consumer;
 
-final class NumberCollection {
+public class NumberCollection {
 
-  private Stack<Number> stack = new Stack<>();
+  private final Queue<Indexed> queue = new LinkedList<>();
 
-  public Number getLastElement() {
-    return stack.peek();
+  public Indexed getLastElement() {
+    return queue.peek();
   }
 
-  public Number getLastElementAndRemove() {
-    return stack.pop();
+  public Indexed getLastElementAndRemove() {
+    return queue.poll();
   }
 
-  public void add(Number number) {
-    stack.add(number);
+  public void add(Expression number) {
+    queue.add(number);
+  }
+
+  public void add(OperatorSign operatorSign) {
+    queue.add(operatorSign);
+  }
+
+  public Queue<Indexed> getQueue() {
+    return queue;
   }
 
   public boolean isEmpty() {
-    return stack.isEmpty();
+    return queue.isEmpty();
   }
 
   public boolean hasNext() {
-    return stack.size() > 1;
+    return queue.size() > 1;
+  }
+
+  public Object removeLast() {
+    return queue.poll();
   }
 
   public int size() {
-    return stack.size();
+    return queue.size();
+  }
+
+  public void forEach(Consumer<Indexed> elementCalculate) {
+    while (!isEmpty()) {
+      Indexed element = this.getLastElementAndRemove();
+      elementCalculate.accept(element);
+    }
   }
 
 }
+

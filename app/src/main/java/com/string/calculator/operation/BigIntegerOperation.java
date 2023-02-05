@@ -53,6 +53,6 @@ final class BigIntegerOperation implements ArithmeticOperation {
   }
 
   private Number toNumber(String value) {
-    return new Number(value);
+    return new Number(value, 0);
   }
 }

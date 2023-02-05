@@ -1,7 +1,7 @@
 package com.string.calculator.operation;
 
 import com.string.calculator.Number;
-import com.string.calculator.OperatorSign;
+import com.string.calculator.Operator;
 
 public interface ArithmeticOperation {
 
@@ -13,7 +13,7 @@ public interface ArithmeticOperation {
 
   Number modular();
 
-  default Number calculateOne(OperatorSign operator) {
+  default Number calculateOne(Operator operator) {
     Number result = null;
     switch (operator) {
       case plus -> result = plus();

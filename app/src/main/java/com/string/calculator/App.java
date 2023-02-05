@@ -3,32 +3,15 @@
  */
 package com.string.calculator;
 
-import com.string.calculator.format.Format;
-import com.string.calculator.format.FormatFactory;
-import com.string.calculator.output.Output;
-import com.string.calculator.output.OutputFactory;
-import java.util.Scanner;
+import com.string.calculator.runner.ApplicationRunner;
 
 public class App {
 
   public static void main(String[] args) {
-    Scanner scanner = new Scanner(System.in);
-    System.out.print("num : ");
-    String input = "";
-    if (scanner.hasNextLine()) {
-      input = scanner.nextLine();
-    }
 
-    Calculator calculator = new Calculator();
-    String result = calculator.calculate(input).getValue();
-
-    FormatFactory formatFactory = new FormatFactory();
-    Format format = formatFactory.create(result);
-    String outputFormat = format.make();
-
-    OutputFactory outputFactory = new OutputFactory(args);
-    Output output = outputFactory.create(outputFormat, formatFactory.getCategory());
-    output.print();
+    Setting setting = new Setting(args);
+    ApplicationRunner runner = new ApplicationRunner(setting);
+    runner.runApplication();
 
   }
 
